@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Index</title>
+    </head>
+    <body>
+        {{ range .files }}
+            <h3><a href="/download/{{ . }}">{{ . }}</a></h3>
+        {{ end }}
+    </body>
+</html>
