@@ -1,12 +1,51 @@
 <html>
 <head>
     <title>Upload file</title>
+    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+    <link rel="stylesheet" href="index.css" media="screen" title="no title">
 </head>
 <body>
-<form enctype="multipart/form-data" action="/upload" method="post">
-      <input type="file" name="uploadfile" />
-      <input type="hidden" name="token" value="{{.}}"/>
-      <input type="submit" value="upload" />
-</form>
+    <div class="container">
+        <header>
+            <h1>Upload file(s)</h1>
+            <a href="/">Download File(s)</a>
+        </header>
+        <section>
+            <form enctype="multipart/form-data" action="/upload" method="post" onsubmit="return confirm('Es-tu sûr d\'envoyer ce fichier?');">
+                <input type="file" name="uploadfile" id="file" class="inputfile" />
+                <label for="file">Choisir Un ou plusieurs fichiers</label>
+                <br>
+                <select class="folder" name="folder" id="select" onclick="checkChange();">
+                    {{ range $k, $v := .files }}
+                        <option value="{{ $v.Folder }}">{{ $v.Folder }}</option>
+                    {{ end }}
+                </select>
+                <br>
+                <input type="submit" value="upload" id="submit" onclick="validate()"/>
+                <br>
+            </form>
+        </section>
+    </div>
+    <script>
+    let select = document.getElementById('select');
+    let submit = document.getElementById('submit');
+    let file = document.getElementById('file');
+
+
+    if (select === ""){
+        console.log(select)
+    }
+    submit.disabled = true;
+
+    function checkChange(){
+        console.log("file value : " + file.value);
+        if (select.value === "" || file.value === ""){
+            submit.disabled = true;
+        }else{
+            submit.disabled = false;
+        }
+    }
+
+    </script>
 </body>
 </html>

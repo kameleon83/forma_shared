@@ -1,5 +1,9 @@
-$margin: 10px;
+$margin: 0px;
 $color_text:  #000;
+
+*{
+    font-family: 'Coiny', cursive;
+}
 
 a{
     text-decoration: none;
@@ -11,29 +15,45 @@ body{
     padding: 0;
     box-sizing: border-box;
     width: 100%;
-    text-align: center;
+    // text-align: center;
 
     .container{
         width: 100%;
 
         header{
+            display: flex;
+            flex-wrap: wrap;
+            // justify-content: center;
+            line-height: 40px;
+            background-color: rgba(0, 0, 0, 1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            color: white;
 
+            h1{
 
-                a{
-                    position: absolute;
-                    background-color: rgba(0,0,0,0.3);
-                    top: 10px;
-                    right: 30px;
-                    width: 150px;
-                    line-height: 60px;
-                    display: block;
-                    font-size: 1.2em;
-                    box-shadow: 10px 7px 10px rgba(0,0,0,0.5);
-                    transition: 0.4s all;
-                    &:hover{
-                        transform: scale(0.98);;
-                        box-shadow: 5px 3px 5px rgba(0,0,0,0.5);
-                    }
+            }
+
+            a{
+                position: absolute;
+                // background-color: rgba(0,0,0,0.3);
+                top: 10px;
+                right: 30px;
+                min-width: 150px;
+                line-height: 60px;
+                display: block;
+                font-size: 1.2em;
+                box-shadow: 10px 7px 10px rgba(0,0,0,0.5);
+                transition: 0.4s all;
+                color: inherit;
+                &:hover{
+                    transform: scale(0.98);;
+                    box-shadow: 5px 3px 5px rgba(0,0,0,0.5);
+                }
             }
         }
 
@@ -41,17 +61,21 @@ body{
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 100px;
             .files{
                 position: relative;
                 width: 250px;
-                line-height: 150px;
+                // line-height: 150px;
                 height: 150px;
                 border: 1px solid black;
                 margin: 10px;
                 a{
+                    word-wrap: break-word;
                     position: absolute;
+                    text-align: center;
                     z-index: 500;
                     width: 250px;
+                    height: 150px;
                     display: block;
                 }
                 span{
@@ -59,12 +83,76 @@ body{
                     left: 0;
                     right: 0;
                     z-index: 400;
+                    text-align: center;
                     &.size{
+                        top: 80px;
                         bottom: -30px;
                     }
                     &.time{
+                        top: 110px;
                         bottom: -60px;
                     }
+                }
+            }
+
+            form{
+                text-align: center;
+                input[type="submit"]{
+                    border: none;
+                    padding: 15px;
+                    min-width: 300px;
+                    min-height: 80px;
+                    text-align: center;
+                    font-size: 1.5em;
+                    background-color: rgba(0, 0, 0, 0.2);
+                    margin-top: 30px;
+                    box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
+                    transition: 0.4s all;
+                    &:hover{
+                        box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
+                        transform: scale(0.98);
+                        cursor: pointer;
+                    }
+                }
+                .inputfile {
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                }
+                .inputfile + label {
+                    font-size: 1.25em;
+                    font-weight: 700;
+                    color: white;
+                    background-color: black;
+                    display: inline-block;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    margin: 50px;
+                    padding: 15px;
+                    line-height: 80px;
+                    box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
+                    transition: 0.4s all;
+                }
+
+                .inputfile:focus + label,
+                .inputfile + label:hover {
+                    box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
+                    transform: scale(0.98);
+                    background-color: rgba(125, 0, 0, 1);
+                }
+                .inputfile + label {
+                    cursor: pointer; /* "hand" cursor */
+                }
+                .folder{
+                    min-width: 300px;
+                    min-height: 50px;
+                    border: none;
+                    box-shadow: 5px 3px 5px rgba(125, 125, 125, 0.8);
+                    text-align-last: center;
+                    font-size: 1.5em;
+                    margin: 20px;
                 }
             }
         }
