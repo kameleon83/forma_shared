@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -25,6 +26,14 @@ type myFile struct {
 const DIRFILE = "./test/"
 
 func main() {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		panic(err)
+	}
+	for i, addr := range addrs {
+		fmt.Printf("%d %v\n", i, addr)
+	}
+
 	port := ":9000"
 	router := mux.NewRouter().StrictSlash(true)
 	fmt.Println("Server start : ", time.Now(), " to port 9000")
