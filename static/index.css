@@ -1,0 +1,66 @@
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+body {
+    margin: 10px;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
+
+body .container {
+    width: 100%;
+}
+
+body .container header button {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+}
+
+body .container header button a {
+    width: 150px;
+    line-height: 60px;
+    display: block;
+    font-size: 1.2em;
+}
+
+body .container section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body .container section .files {
+    position: relative;
+    width: 250px;
+    line-height: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+body .container section .files a {
+    position: absolute;
+    z-index: 500;
+    width: 250px;
+    display: block;
+}
+
+body .container section .files span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 400;
+}
+
+body .container section .files span.size {
+    bottom: -30px;
+}
+
+body .container section .files span.time {
+    bottom: -60px;
+}
