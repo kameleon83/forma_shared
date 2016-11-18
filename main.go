@@ -97,6 +97,15 @@ func checkFilesInFolder(folder string) bool {
 	}
 }
 
+func afficheNom(ip string) string {
+	for _, v := range users {
+		if v.IP == ip {
+			return v.Name
+		}
+	}
+	return "Inconnu"
+}
+
 func annuaire(w http.ResponseWriter, r *http.Request) {
 	tpl, _ := template.ParseFiles("annuaire.gohtml")
 	ip, autorize := checkIp(w, r)
@@ -131,7 +140,7 @@ func notAccess(w http.ResponseWriter, r *http.Request) {
 func index(w http.ResponseWriter, r *http.Request) {
 	// ip, port, err := net.SplitHostPort(r.RemoteAddr)
 	ip, autorize := checkIp(w, r)
-	fmt.Println(ip, autorize)
+	fmt.Println(ip, afficheNom(ip), autorize)
 	// if !autorize {
 	// 	http.Redirect(w, r, "/not_access", 301)
 	// }
@@ -202,7 +211,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func upload(w http.ResponseWriter, r *http.Request) {
 	ip, autorize := checkIp(w, r)
-	fmt.Println(ip, autorize)
+	fmt.Println(ip, afficheNom(ip), autorize)
 	// if !autorize {
 	// 	http.Redirect(w, r, "/not_access", 301)
 	// }
@@ -262,7 +271,7 @@ func upload(w http.ResponseWriter, r *http.Request) {
 
 func download(w http.ResponseWriter, r *http.Request) {
 	ip, autorize := checkIp(w, r)
-	fmt.Println(ip, autorize)
+	fmt.Println(ip, afficheNom(ip), autorize)
 	// if !autorize {
 	// 	// http.RedirectHandler("/not_access", 403)
 	// 	http.Redirect(w, r, "/not_access", 301)

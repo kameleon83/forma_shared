@@ -107,6 +107,28 @@ body{
                     }
 
                 }
+
+                .nbr_annuaire{
+                    position: absolute;
+                    padding: 0 10px;
+                    z-index: 1000;
+                    &:before{
+                        z-index: -1;
+                        position: absolute;
+                        display: block;
+                        top: 20.5px;
+                        left: 0px;
+                        padding: 5px;
+                        margin: 5px;
+                        background-color: #000;
+                        border-radius: 20px;
+                        line-height: 20px;
+                        height: 20px;
+                        width: 20px;
+                        content: '';
+
+                    }
+                }
             }
 
         }
@@ -122,16 +144,46 @@ body{
                 border-collapse: collapse;
                 width: 100%;
                 text-align: center;
-            }
-            table, th, td{
-                border: 1px solid black;
-            }
-            th, td{
-                height: 43px;
-            }
+                thead{
+                    tr{
+                        th{
+                            position: relative;
+                            a{
+                                display: block;
+                                position: absolute;
+                                top: 15px;
+                                &.before{
+                                    left: 20px;
+                                }
+                                &.after{
+                                    right: 20px
+                                }
 
-            th{
-                font-size: 1.6em;
+                                img{
+                                    width: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+                &, th, td{
+                    border: 1px solid black;
+                }
+                th, td{
+                    height: 43px;
+                }
+
+                th{
+                    font-size: 1.6em;
+                }
+                tbody{
+                    tr{
+
+                        &.m2i{
+                            background-color: $razz;
+                        }
+                    }
+                }
             }
             .all{
                 width: 100%;

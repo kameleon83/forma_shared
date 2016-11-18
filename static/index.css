@@ -77,6 +77,28 @@ body .container header ul li:hover {
     box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
+body .container header ul .nbr_annuaire {
+    position: absolute;
+    padding: 0 10px;
+    z-index: 1000;
+}
+
+body .container header ul .nbr_annuaire:before {
+    z-index: -1;
+    position: absolute;
+    display: block;
+    top: 20.5px;
+    left: 0px;
+    padding: 5px;
+    margin: 5px;
+    background-color: #000;
+    border-radius: 20px;
+    line-height: 20px;
+    height: 20px;
+    width: 20px;
+    content: '';
+}
+
 body .container section {
     width: 100%;
     display: flex;
@@ -92,16 +114,42 @@ body .container section table {
     text-align: center;
 }
 
-body .container section table, body .container section th, body .container section td {
+body .container section table thead tr th {
+    position: relative;
+}
+
+body .container section table thead tr th a {
+    display: block;
+    position: absolute;
+    top: 15px;
+}
+
+body .container section table thead tr th a.before {
+    left: 20px;
+}
+
+body .container section table thead tr th a.after {
+    right: 20px;
+}
+
+body .container section table thead tr th a img {
+    width: 20px;
+}
+
+body .container section table, body .container section table th, body .container section table td {
     border: 1px solid black;
 }
 
-body .container section th, body .container section td {
+body .container section table th, body .container section table td {
     height: 43px;
 }
 
-body .container section th {
+body .container section table th {
     font-size: 1.6em;
+}
+
+body .container section table tbody tr.m2i {
+    background-color: rgba(25, 181, 254, 0.5);
 }
 
 body .container section .all {

@@ -548,3 +548,349 @@ method: GET
 172.16.29.150 true
 172.16.29.150
 172.16.29.150
+::1 true
+::1
+::1
+172.16.30.25 true
+172.16.30.25
+172.16.30.25
+::1 true
+Filename : sakila-db.zip
+Client requests: sakila-db.zip
+735007
+::1 true
+method: GET
+::1 true
+::1
+::1
+::1 true
+::1
+::1
+::1 true
+::1
+::1
+::1 true
+::1
+::1
+::1 true
+::1
+::1
+::1 true
+::1 true
+172.16.27.113 true
+172.16.27.113
+172.16.27.113
+172.16.29.253 false
+172.16.29.253
+172.16.29.253
+172.16.27.113 true
+Filename : Sam_mysql-installer-community-5.7.16.0.msi
+Client requests: Sam_mysql-installer-community-5.7.16.0.msi
+403898368
+0 127.0.0.1/8
+1 172.16.22.162/16
+2 192.168.42.243/24
+3 ::1/128
+4 fe80::e413:ef91:7172:2c8/64
+5 fe80::30a6:1f75:ab1f:4ea8/64
+Server start :  2016-11-18 14:16:49.510175084 +0100 CET  to port 9000
+::1 Sam true
+::1
+::1
+::1 Sam true
+::1
+::1
+::1 true
+::1 Sam true
+::1
+::1
+::1 true
+172.16.30.25 Francois true
+172.16.30.25
+172.16.30.25
+172.16.30.25 Francois true
+172.16.30.25
+172.16.30.25
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 Sam true
+::1
+::1
+::1 Sam true
+::1
+::1
+::1 true
+::1 true
+::1 Sam true
+method: GET
+::1 Sam true
+::1
+::1
+::1 true
+::1 true
+172.16.30.25 Francois true
+172.16.30.25
+172.16.30.25
+172.16.30.25 true
+172.16.26.224 Patrice true
+172.16.26.224
+172.16.26.224
+172.16.26.224 Patrice true
+172.16.26.224
+172.16.26.224
+172.16.26.224 Patrice true
+172.16.26.224
+172.16.26.224
+172.16.26.224 Patrice true
+172.16.26.224
+172.16.26.224
+172.16.26.224 true
+172.16.26.224 Patrice true
+method: GET
+172.16.26.224 true
+172.16.30.3 Pierre true
+172.16.30.3
+172.16.30.3
+172.16.30.25 Francois true
+172.16.30.25
+172.16.30.25
+172.16.30.3 true
+172.16.30.3 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+172.16.30.3 Pierre true
+172.16.30.3
+172.16.30.3
+::1 true
+172.16.30.3 Pierre true
+method: GET
+::1 true
+172.16.30.3 Pierre true
+method: POST
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+172.16.30.3
+Upload de Pierre_testPHP.php ok!!
+172.16.30.3 Pierre true
+172.16.30.3
+172.16.30.3
+::1 true
+172.16.30.66 Mouloud true
+172.16.30.66
+172.16.30.66
+172.16.30.66 Mouloud true
+Filename : Pierre_testPHP.php
+Client requests: Pierre_testPHP.php
+5534
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+172.16.29.150 Lucas true
+172.16.29.150
+172.16.29.150
+172.16.29.150 Lucas true
+Filename : Pierre_testPHP.php
+Client requests: Pierre_testPHP.php
+5534
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 Sam true
+::1
+::1
+::1 Sam true
+Filename : Pierre_testPHP.php
+Client requests: Pierre_testPHP.php
+5534
+::1 Sam true
+::1
+::1
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
+::1 true
