@@ -1,50 +1,66 @@
 <html>
 <head>
     <title>Upload file</title>
-    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet"> -->
     <link rel="stylesheet" href="index.css" media="screen" title="no title">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Upload file(s)</h1>
-            <a href="/">Download File(s)</a>
+            <ul>
+                <li><a href="/">Download File(s)</a></li>
+                <li><a href="/annuaire">Annuaire</a></li>
+            </ul>
         </header>
         <section>
             <form enctype="multipart/form-data" action="/upload" method="post" onsubmit="return confirm('Es-tu sûr d\'envoyer ce fichier?');">
-                <input type="file" name="uploadfile" id="file" class="inputfile" />
-                <label for="file">Choisir Un ou plusieurs fichiers</label>
+                <input type="file" name="uploadfile" class="inputfile" id="file"/>
+                <label for="file">Choisir un fichier</label>
                 <br>
-                <select class="folder" name="folder" id="select" onclick="checkChange();">
-                    {{ range $k, $v := .files }}
-                        <option value="{{ $v.Folder }}">{{ $v.Folder }}</option>
+                <select class="folder" name="folder" id="select" >
+                    <option value="" selected>Choisir un dossier ...</option>
+                    {{ range $k, $v := .folder }}
+                    <option value="{{ $v.Folder }}">{{ $v.Folder }}</option>
                     {{ end }}
                 </select>
                 <br>
-                <input type="submit" value="upload" id="submit" onclick="validate()"/>
+                <span class="name_file"></span>
+                <br>
+                <input type="submit" value="upload" class="submit" disabled/>
                 <br>
             </form>
         </section>
     </div>
+    <script src="jquery.js" charset="utf-8"></script>
     <script>
-    let select = document.getElementById('select');
-    let submit = document.getElementById('submit');
-    let file = document.getElementById('file');
+    $(function() {
+        let submit = $('.submit');
+        let folder = $('.folder');
+        let file = $('.inputfile');
 
+        // submit.attr('disabled',true);
 
-    if (select === ""){
-        console.log(select)
-    }
-    submit.disabled = true;
+        $('.inputfile').on('change', function(){
+            // console.log(file.val());
+            if ( file.val() !== ""){
+                let res = file.val().split('\\');
+                $('.name_file').text(res[2]);
+                file = res[2];
+            }
+        });
 
-    function checkChange(){
-        console.log("file value : " + file.value);
-        if (select.value === "" || file.value === ""){
-            submit.disabled = true;
-        }else{
-            submit.disabled = false;
-        }
-    }
+        $('body').on('change', function(){
+            let folder = $('.folder');
+            let file = $('.inputfile');
+                if (folder.val() !== "" && file.val() !== "") {
+                    submit.attr('disabled', false);
+                }else{
+                    submit.attr('disabled', true);
+                }
+        })
+
+    });
 
     </script>
 </body>

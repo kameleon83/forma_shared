@@ -2,35 +2,127 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Index</title>
-    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
+    <title>Server en Go de Sam</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet"> -->
     <link rel="stylesheet" href="index.css" media="screen" title="no title">
+    <script src="jquery.js" charset="utf-8"></script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Download file(s)</h1>
-            <a href="/upload">Upload File(s)</a>
+            <ul>
+                <li><a href="/upload">Upload File(s)</a></li>
+                <li><a href="/annuaire">Annuaire</a></li>
+            </ul>
         </header>
         <section>
-
-            {{ range $k,$v :=  .files }}
-            <div class="files">
-                {{ if eq $v.Folder "" }}
-                <a href="/download/{{ $v.Name }}">{{ $v.Name | title }}</a>
-                {{ else }}
-                <a href="/download/{{ $v.Folder }}/{{ $v.Name }}">{{ $v.Name | title }}</a>
+            <div class="all">
+                    <div class="group_files">
+                {{ range $k,$v :=  .files }}
+                    {{ if ne $v.Folder ""}}
+                        {{ if eq $v.Name "" }}
+                        </div>
+                        <div class="group_files">
+                        <h1 class="cat">{{ $v.Folder }}</h1>
+                        {{ else }}
+                        <div class="files">
+                            <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }}/{{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
+                            <span class="size">
+                                {{ $v.Size | exp }}
+                            </span>
+                            <span class="time">
+                                {{ $v.Time | time_fr }}
+                            </span>
+                        </div>
+                        {{ end }}
+                    {{ end}}
                 {{ end }}
-                <span class="size">
-                    {{ $v.Size | exp }}
-                </span>
-                <span class="time">
-                    {{ $v.Time | time_fr }}
-                </span>
             </div>
-            {{ end }}
-
         </section>
     </div>
+
+    <div class="ajax">
+
+    </div>
+    <!-- <div class="wrap">
+
+    <h1>Modal - Pure CSS (no Javascript)</h1>
+
+    <p>Example of modal in CSS only, here I use the pseudo selector ":target" and no javascript for modal action.</p>
+
+    <p>This works in IE9+ and all modern browsers.</p>
+
+    <hr />
+
+    <a href="#modal-one" class="btn btn-big">Modal!</a>
+
+</div>
+-->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="images/download.png" alt="" class="download_img"/>
+            <h2></h2>
+            <span class="close">X</span>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$(function(){
+    var modal = document.getElementById('myModal');
+    // $('.modal').load('http://localhost:9000/download/js/appar-multiple.html')
+
+    // $('a').on("click", function(){
+    //     confirm('Es-tu sûr de télécharger ce fichier?')
+    // })
+    // $('.cat').hide().addClass('hidden');
+    // $('.cat + .files').prev().show().removeClass('hidden');
+    $("a[href^='/download']").on("click", function(e) {
+        if ($(this).data('ext') === "jpg" || $(this).data('ext') === "png" || $(this).data('ext') === "gif"){
+            e.preventDefault();
+            $('#myModal > .modal-content > .modal-header > h2').html($(this).data('name') + " " + $(this).data('size'));
+            $('#myModal > .modal-content > .modal-body ').html("<img src='./files/" +  $(this).data('name') + "' alt='" + $(this).data('name') + "' />");
+            $('#myModal').fadeIn()
+            let href = $(this).attr('href');
+            $('.download_img').on('click', function(){
+                window.location.href = href;
+            })
+        }else if ($(this).data('ext') === "html" || $(this).data('ext') === "txt") {
+            e.preventDefault();
+            $('#myModal > .modal-content > .modal-header > h2').html($(this).data('name') + " " + $(this).data('size'));
+            $('#myModal > .modal-content > .modal-body ').load($(this).attr('href'));
+            $('#myModal').fadeIn()
+            let href = $(this).attr('href');
+            $('.download_img').on('click', function(){
+                window.location.href = href;
+            })
+        }else{
+            return confirm('Es-tu sûr de télécharger ce fichier?');
+        }
+    });
+
+
+    $('.close').on('click', function(){
+        $('#myModal').fadeOut()
+    })
+
+    $(window).click(function(e){
+        if (e.target === modal){
+            $('#myModal').fadeOut()
+        }
+    })
+})
+</script>
 </body>
 </html>

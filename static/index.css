@@ -1,5 +1,10 @@
+@font-face {
+    font-family: "Ma Super Fonte";
+    src: url("Coiny-Regular.ttf");
+}
+
 * {
-    font-family: 'Coiny', cursive;
+    font-family: 'Ma Super Fonte', cursive;
 }
 
 a {
@@ -12,6 +17,9 @@ body {
     padding: 0;
     box-sizing: border-box;
     width: 100%;
+    /* Modal Content */
+    /* Add Animation */
+    /* The Close Button */
 }
 
 body .container {
@@ -22,6 +30,7 @@ body .container header {
     display: flex;
     flex-wrap: wrap;
     line-height: 40px;
+    height: 80px;
     background-color: black;
     position: fixed;
     width: 100%;
@@ -29,43 +38,109 @@ body .container header {
     left: 0;
     margin: 0;
     padding: 0;
+    color: #19b5fe;
+    z-index: 9999;
+    box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
+}
+
+body .container header ul {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+}
+
+body .container header ul li {
+    border-right: 2px solid black;
+    background-color: rgba(25, 181, 254, 0.5);
+    width: 200px;
+    line-height: 80px;
+    text-align: center;
+    height: 80px;
+    box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.4s all;
+}
+
+body .container header ul li a {
+    display: block;
+    font-size: 1.2em;
     color: white;
 }
 
-body .container header a {
-    position: absolute;
-    top: 10px;
-    right: 30px;
-    min-width: 150px;
-    line-height: 60px;
-    display: block;
-    font-size: 1.2em;
-    box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
-    transition: 0.4s all;
-    color: inherit;
-}
-
-body .container header a:hover {
+body .container header ul li:hover {
     transform: scale(0.98);
     box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 body .container section {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 100px;
 }
 
-body .container section .files {
+body .container section table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+body .container section table, body .container section th, body .container section td {
+    border: 1px solid black;
+}
+
+body .container section th, body .container section td {
+    height: 43px;
+}
+
+body .container section th {
+    font-size: 1.6em;
+}
+
+body .container section .all {
+    width: 100%;
+    text-align: center;
+}
+
+body .container section .all .group_files .cat {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    border-top: 3px solid black;
+    justify-content: center;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+body .container section .all .group_files .files {
     position: relative;
     width: 250px;
+    display: inline-block;
     height: 150px;
     border: 1px solid black;
     margin: 10px;
+    transition: 0.5s all;
 }
 
-body .container section .files a {
+body .container section .all .group_files .files:nth-child(even) {
+    background-color: rgba(25, 181, 254, 0.5);
+    box-shadow: 7px 5px 15px black;
+}
+
+body .container section .all .group_files .files:nth-child(even):hover {
+    box-shadow: 4px 2px 7px rgba(0, 0, 0, 0.8);
+    transform: scale(0.98);
+}
+
+body .container section .all .group_files .files a {
     word-wrap: break-word;
     position: absolute;
     text-align: center;
@@ -73,9 +148,10 @@ body .container section .files a {
     width: 250px;
     height: 150px;
     display: block;
+    color: inherit;
 }
 
-body .container section .files span {
+body .container section .all .group_files .files span {
     position: absolute;
     left: 0;
     right: 0;
@@ -83,14 +159,29 @@ body .container section .files span {
     text-align: center;
 }
 
-body .container section .files span.size {
+body .container section .all .group_files .files span.size {
     top: 80px;
     bottom: -30px;
 }
 
-body .container section .files span.time {
+body .container section .all .group_files .files span.time {
     top: 110px;
     bottom: -60px;
+}
+
+body .container section .all .group_files .files:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 7px 5px 15px #19b5fe;
+    color: #19b5fe;
+}
+
+body .container section .all .group_files .files:nth-child(odd):hover {
+    box-shadow: 4px 2px 7px rgba(25, 181, 254, 0.5);
+    transform: scale(0.98);
+}
+
+body .container section .all .group_files:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 body .container section form {
@@ -110,7 +201,7 @@ body .container section form input[type="submit"] {
     transition: 0.4s all;
 }
 
-body .container section form input[type="submit"]:hover {
+body .container section form input[type="submit"]:not([disabled]):hover {
     box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
     transform: scale(0.98);
     cursor: pointer;
@@ -126,14 +217,14 @@ body .container section form .inputfile {
 }
 
 body .container section form .inputfile + label {
-    font-size: 1.25em;
     font-weight: 700;
+    min-width: 300px;
+    min-height: 50px;
+    font-size: 1.5em;
     color: white;
-    background-color: black;
     display: inline-block;
     background-color: rgba(0, 0, 0, 0.7);
     margin: 50px;
-    padding: 15px;
     line-height: 80px;
     box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
     transition: 0.4s all;
@@ -143,7 +234,8 @@ body .container section form .inputfile:focus + label,
 body .container section form .inputfile + label:hover {
     box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
     transform: scale(0.98);
-    background-color: #7d0000;
+    background-color: #19b5fe;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 body .container section form .inputfile + label {
@@ -159,4 +251,135 @@ body .container section form .folder {
     text-align-last: center;
     font-size: 1.5em;
     margin: 20px;
+}
+
+body .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: black;
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+body .modal-content {
+    position: relative;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    min-width: 400px;
+    width: 50%;
+    max-width: 70%;
+    z-index: 1100;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+body .close {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: 0.7s all;
+}
+
+body .close:hover,
+body .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    transform: rotate(720deg) scale(1.2);
+}
+
+body .modal-header {
+    padding: 3px 16px;
+    background-color: #19b5fe;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body .modal-header h2 {
+    width: 60%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+body .modal-header .download_img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    transition: 0.7s all;
+    box-shadow: -5px -5px 7px black;
+    border-radius: 50px;
+}
+
+body .modal-header .download_img:hover {
+    box-shadow: 5px 5px 7px white;
+    transform: rotate(720deg) scale(0.97);
+}
+
+body .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    border-style: solid;
+    border-color: grey;
+    width: 100%;
+    max-height: 49%;
+    overflow: hidden;
+    /* hidden*/
+}
+
+body .modal-body img {
+    max-width: 80%;
+    height: auto;
 }
