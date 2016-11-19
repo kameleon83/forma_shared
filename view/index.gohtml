@@ -80,7 +80,7 @@ $(function(){
         if ($(this).data('ext') === "jpg" || $(this).data('ext') === "png" || $(this).data('ext') === "gif"){
             e.preventDefault();
             $('#myModal > .modal-content > .modal-header > h2').html($(this).data('name') + " " + $(this).data('size'));
-            $('#myModal > .modal-content > .modal-body ').html("<img src='./files/" +  $(this).data('link') + "' alt='" + $(this).data('name') + "' />");
+            $('#myModal > .modal-content > .modal-body ').html("<img src='./files/" +  $(this).data('link') + "' alt='" + $(this).data('link') + "' />");
             $('#myModal').fadeIn()
             let href = $(this).attr('href');
             $('.download_img').on('click', function(){
