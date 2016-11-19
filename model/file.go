@@ -2,7 +2,8 @@ package model
 
 import "time"
 
-type MyFile struct {
+// File struct
+type File struct {
 	Name   string
 	Folder string
 	Size   float64

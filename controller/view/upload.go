@@ -8,8 +8,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
-	"strings"
 )
 
 // Upload file user
@@ -22,33 +20,32 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("method:", r.Method)
 	if r.Method == "GET" {
-		files := []model.MyFile{}
-		filepath.Walk(controller.DIRFILE+"files/", func(path string, f os.FileInfo, err error) error {
-			if f.IsDir() && f.Name() != "files" {
-				folder := &model.MyFile{}
-
-				folder.Folder = strings.Split(path[len(controller.DIRFILE):], "/")[1]
-
-				files = append(files, *folder)
-			}
-			return nil
-		})
+		folderAndFile := controller.ReadJSON(".config.json", &model.FolderFile{})
 		tpl, _ := template.ParseFiles("view/upload.gohtml")
 
 		m := make(map[string]interface{})
-		m["folder"] = &files
+		m["folder"] = &folderAndFile.Folder
+		m["ip_name"] = controller.AfficheNom(ip)
+
 		tpl.ExecuteTemplate(w, "upload.gohtml", m)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
-
-		for _, v := range controller.Users {
-			fmt.Println(ip)
+		users := model.ReadUserJSON(false, "lastname")
+		nameIP, name := false, ""
+		for _, v := range users {
+			// fmt.Println(v.IP, ip)
 			if v.IP == ip {
-				handler.Filename = v.Name + "_" + handler.Filename
-			} else if v.IP == "" {
-				handler.Filename = "invite_" + handler.Filename
+				nameIP = true
+				name = v.Firstname
+				break
 			}
+		}
+
+		if nameIP {
+			handler.Filename = name + "_" + handler.Filename
+		} else {
+			handler.Filename = "invite_" + handler.Filename
 		}
 
 		// handler.Filename = handler.Filename
@@ -68,7 +65,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		_, err = io.Copy(f, file)
 		if err == nil {
 			fmt.Println("Upload de " + handler.Filename + " ok!!")
-			http.Redirect(w, r, "/", http.StatusFound)
+			http.Redirect(w, r, "/refresh", http.StatusFound)
 		}
 	}
 }

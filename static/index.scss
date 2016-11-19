@@ -73,8 +73,9 @@ body{
             color: $razz_one;
             z-index: 9999;
             box-shadow: 10px 7px 10px rgba(0,0,0,0.5);
-            h1{
-
+            h3{
+                padding: 0;
+                margin-left: 50px;;
             }
 
             ul{
@@ -116,15 +117,15 @@ body{
                         z-index: -1;
                         position: absolute;
                         display: block;
-                        top: 20.5px;
+                        top: 18px;
                         left: 0px;
                         padding: 5px;
                         margin: 5px;
                         background-color: #000;
-                        border-radius: 20px;
-                        line-height: 20px;
-                        height: 20px;
-                        width: 20px;
+                        border-radius: 25px;
+                        line-height: 25px;
+                        height: 25px;
+                        width: 25px;
                         content: '';
 
                     }
@@ -148,19 +149,14 @@ body{
                     tr{
                         th{
                             position: relative;
+                            min-width: 160px;
                             a{
-                                display: block;
-                                position: absolute;
-                                top: 15px;
-                                &.before{
-                                    left: 20px;
-                                }
-                                &.after{
-                                    right: 20px
-                                }
-
+                                display: grid;
                                 img{
                                     width: 20px;
+                                }
+                                &.not_reverse_annuaire{
+                                    left: 0;
                                 }
                             }
                         }
@@ -320,6 +316,14 @@ body{
                     text-align-last: center;
                     font-size: 1.5em;
                     margin: 20px;
+                }
+                .name_file{
+                    font-size: 1.5em;
+                    b{
+                        font-size: 1.7em;
+                        text-transform: capitalize;
+                        text-decoration: underline;
+                    }
                 }
             }
         }

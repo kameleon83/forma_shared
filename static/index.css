@@ -43,6 +43,11 @@ body .container header {
     box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
 }
 
+body .container header h3 {
+    padding: 0;
+    margin-left: 50px;
+}
+
 body .container header ul {
     position: absolute;
     margin: 0;
@@ -87,15 +92,15 @@ body .container header ul .nbr_annuaire:before {
     z-index: -1;
     position: absolute;
     display: block;
-    top: 20.5px;
+    top: 18px;
     left: 0px;
     padding: 5px;
     margin: 5px;
     background-color: #000;
-    border-radius: 20px;
-    line-height: 20px;
-    height: 20px;
-    width: 20px;
+    border-radius: 25px;
+    line-height: 25px;
+    height: 25px;
+    width: 25px;
     content: '';
 }
 
@@ -116,24 +121,19 @@ body .container section table {
 
 body .container section table thead tr th {
     position: relative;
+    min-width: 160px;
 }
 
 body .container section table thead tr th a {
-    display: block;
-    position: absolute;
-    top: 15px;
-}
-
-body .container section table thead tr th a.before {
-    left: 20px;
-}
-
-body .container section table thead tr th a.after {
-    right: 20px;
+    display: grid;
 }
 
 body .container section table thead tr th a img {
     width: 20px;
+}
+
+body .container section table thead tr th a.not_reverse_annuaire {
+    left: 0;
 }
 
 body .container section table, body .container section table th, body .container section table td {
@@ -299,6 +299,16 @@ body .container section form .folder {
     text-align-last: center;
     font-size: 1.5em;
     margin: 20px;
+}
+
+body .container section form .name_file {
+    font-size: 1.5em;
+}
+
+body .container section form .name_file b {
+    font-size: 1.7em;
+    text-transform: capitalize;
+    text-decoration: underline;
 }
 
 body .modal {

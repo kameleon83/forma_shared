@@ -11,54 +11,42 @@
     <div class="container">
         <header>
             <h1>Download file(s)</h1>
+            <h3>Hello {{ .ip_name }}</h3>
             <ul>
                 <li><a href="/upload">Upload File(s)</a></li>
-                <li><a href="/annuaire">Annuaire</a></li>
+                <li><a href="/annuaire/false/lastname">Annuaire</a></li>
             </ul>
         </header>
         <section>
             <div class="all">
-                    <div class="group_files">
-                {{ range $k,$v :=  .files }}
-                    {{ if ne $v.Folder ""}}
-                        {{ if eq $v.Name "" }}
-                        </div>
+                {{ $folder := .folder }}
+                {{ $files := .files}}
+                    {{ range $key, $val := $folder }}
+                        {{ if not $val.Empty }}
                         <div class="group_files">
-                        <h1 class="cat">{{ $v.Folder }}</h1>
-                        {{ else }}
-                        <div class="files">
-                            <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }}/{{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
-                            <span class="size">
-                                {{ $v.Size | exp }}
-                            </span>
-                            <span class="time">
-                                {{ $v.Time | time_fr }}
-                            </span>
-                        </div>
+                        <h1 class="cat">{{ $val.Name }}</h1>
+                        {{ range $k,$v := $files }}
+                            {{ if eq $v.Folder $val.Name }}
+                            <div class="files">
+                                <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
+                                <span class="size">
+                                    {{ $v.Size | exp }}
+                                </span>
+                                <span class="time">
+                                    {{ $v.Time | time_fr }}
+                                </span>
+                            </div>
+                            {{ end}}
                         {{ end }}
-                    {{ end}}
-                {{ end }}
-            </div>
-        </section>
-    </div>
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </section>
+        </div>
 
-    <div class="ajax">
+        <div class="ajax">
 
-    </div>
-    <!-- <div class="wrap">
-
-    <h1>Modal - Pure CSS (no Javascript)</h1>
-
-    <p>Example of modal in CSS only, here I use the pseudo selector ":target" and no javascript for modal action.</p>
-
-    <p>This works in IE9+ and all modern browsers.</p>
-
-    <hr />
-
-    <a href="#modal-one" class="btn btn-big">Modal!</a>
-
-</div>
--->
+        </div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -92,15 +80,15 @@ $(function(){
         if ($(this).data('ext') === "jpg" || $(this).data('ext') === "png" || $(this).data('ext') === "gif"){
             e.preventDefault();
             $('#myModal > .modal-content > .modal-header > h2').html($(this).data('name') + " " + $(this).data('size'));
-            $('#myModal > .modal-content > .modal-body ').html("<img src='./files/" +  $(this).data('name') + "' alt='" + $(this).data('name') + "' />");
+            $('#myModal > .modal-content > .modal-body ').html("<img src='./files/" +  $(this).data('link') + "' alt='" + $(this).data('name') + "' />");
             $('#myModal').fadeIn()
             let href = $(this).attr('href');
             $('.download_img').on('click', function(){
                 window.location.href = href;
             })
-        }else if ($(this).data('ext') === "html" || $(this).data('ext') === "txt") {
+        }else if ($(this).data('ext') === "html" || $(this).data('ext') === "txt" || $(this).data('ext') === "log") {
             e.preventDefault();
-            $('#myModal > .modal-content > .modal-header > h2').html($(this).data('name') + " " + $(this).data('size'));
+            $('#myModal > .modal-content > .modal-header > h2').html($(this).data('link') + " " + $(this).data('size'));
             $('#myModal > .modal-content > .modal-body ').load($(this).attr('href'));
             $('#myModal').fadeIn()
             let href = $(this).attr('href');

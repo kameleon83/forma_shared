@@ -3,9 +3,9 @@ package controllerView
 import (
 	"fmt"
 	"forma_shared/controller"
+	"forma_shared/model"
 	"html/template"
 	"math"
-	"net"
 	"net/http"
 	"strconv"
 	"strings"
@@ -14,16 +14,12 @@ import (
 
 // Index controller view inde.gohtml
 func Index(w http.ResponseWriter, r *http.Request) {
-	// ip, port, err := net.SplitHostPort(r.RemoteAddr)
+
 	ip, autorize := controller.CheckIP(w, r)
 	fmt.Println(ip, controller.AfficheNom(ip), autorize)
 	// if !autorize {
 	// 	http.Redirect(w, r, "/not_access", 301)
 	// }
-
-	files := controller.ListFiles(controller.DIRFILE + "files/")
-
-	controller.WriteJSON(".config.json", files)
 
 	const layout = "Mon 02 Jan 2006"
 
@@ -42,8 +38,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 			} else if i > math.Pow(10, 3) {
 				return strconv.FormatFloat(i/math.Pow(10, 3), 'f', 2, 64) + " ko"
 			} else {
-				ip, _, _ := net.SplitHostPort(r.RemoteAddr)
-				fmt.Println(ip)
 				return strconv.FormatFloat(i, 'f', -1, 64) + " octets"
 			}
 		},
@@ -51,7 +45,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseGlob("view/*.gohtml"))
 
+	foldersAndFiles := controller.ReadJSON(".config.json", &model.FolderFile{})
+
 	m := make(map[string]interface{})
-	m["files"] = &files
+	m["files"] = &foldersAndFiles.File
+	m["folder"] = &foldersAndFiles.Folder
+	m["ip_name"] = controller.AfficheNom(ip)
+
 	tpl.ExecuteTemplate(w, "index.gohtml", m)
 }

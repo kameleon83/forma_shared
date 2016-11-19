@@ -8,8 +8,8 @@ import (
 	"os"
 )
 
-// WriteJSON Write file json MyFile Model
-func WriteJSON(jsonFile string, file []model.MyFile) {
+// WriteJSON Write file json File Model
+func WriteJSON(jsonFile string, file *model.FolderFile) {
 	if _, err := os.Stat(jsonFile); os.IsNotExist(err) {
 		f, err := os.Create(jsonFile)
 		log.Println(err)
@@ -22,7 +22,7 @@ func WriteJSON(jsonFile string, file []model.MyFile) {
 }
 
 // ReadJSON read
-func ReadJSON(jsonFile string, file []model.MyFile) []model.MyFile {
+func ReadJSON(jsonFile string, file *model.FolderFile) *model.FolderFile {
 	raw, err := ioutil.ReadFile(jsonFile)
 	if err != nil {
 		log.Println(err)

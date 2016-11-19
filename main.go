@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 
 	"forma_shared/controller/view"
+	"forma_shared/model"
 )
 
 // DIRFILE constante link download and upload file
@@ -22,13 +23,18 @@ func main() {
 		fmt.Printf("%d %v\n", i, addr)
 	}
 
+	model.ReadUserJSON(false, "lastname")
+
 	port := ":9000"
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", controllerView.Index)
 	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)
 	router.HandleFunc("/upload", controllerView.Upload)
 	router.HandleFunc("/not_access", controllerView.NotAccess)
-	router.HandleFunc("/annuaire", controllerView.Annuaire)
+	router.HandleFunc("/annuaire/{reverse}/{col}", controllerView.Annuaire)
+	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
+	router.HandleFunc("/refresh", controllerView.RefreshList)
+	// router.HandleFunc("/autorized", controller.ClientAutorize)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("files"))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
@@ -36,4 +42,5 @@ func main() {
 	fmt.Println("Server start : ", time.Now(), " to port 9000")
 
 	http.ListenAndServe(port, router)
+
 }

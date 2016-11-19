@@ -8,9 +8,10 @@
     <div class="container">
         <header>
             <h1>Upload file(s)</h1>
+            <h3>Hello {{ .ip_name }}</h3>
             <ul>
                 <li><a href="/">Download File(s)</a></li>
-                <li><a href="/annuaire">Annuaire</a></li>
+                <li><a href="/annuaire/false/lastname">Annuaire</a></li>
             </ul>
         </header>
         <section>
@@ -21,7 +22,7 @@
                 <select class="folder" name="folder" id="select" >
                     <option value="" selected>Choisir un dossier ...</option>
                     {{ range $k, $v := .folder }}
-                    <option value="{{ $v.Folder }}">{{ $v.Folder }}</option>
+                    <option value="{{ $v.Name }}">{{ $v.Name }}</option>
                     {{ end }}
                 </select>
                 <br>
@@ -45,7 +46,7 @@
             // console.log(file.val());
             if ( file.val() !== ""){
                 let res = file.val().split('\\');
-                $('.name_file').text(res[2]);
+                $('.name_file').html("Vous avez choisi ce fichier : <b>" + res[2] + "</b>");
                 file = res[2];
             }
         });

@@ -27,12 +27,12 @@ func CheckFilesInFolder(folder string) bool {
 }
 
 // ListFiles index
-func ListFiles(folder string) []model.MyFile {
-	files := []model.MyFile{}
+func ListFiles(folder string) *model.FolderFile {
+	files := &model.FolderFile{}
 	filepath.Walk(folder, func(path string, f os.FileInfo, err error) error {
 		if !f.IsDir() {
 			// fmt.Println(path)
-			file := &model.MyFile{}
+			file := &model.File{}
 			file.Name = f.Name()
 			// fmt.Println(path[len(DIRFILE+"files/"):])
 			if f.Name() != strings.Split(path[len(DIRFILE):], "/")[1] {
@@ -45,18 +45,18 @@ func ListFiles(folder string) []model.MyFile {
 			file.Time = f.ModTime()
 			file.Ext = filepath.Ext(f.Name())[1:]
 
-			files = append(files, *file)
+			files.File = append(files.File, *file)
 
-			// fmt.Printf("%s with %d bytes\n", path, f.Size())
 		} else if f.IsDir() && f.Name() != "files" {
+			folder := &model.Folder{}
+			folder.Name = strings.Split(path[len(DIRFILE):], "/")[1]
+
 			if CheckFilesInFolder(path) {
-				// fmt.Println(f.Size())
-				folder := &model.MyFile{}
-
-				folder.Folder = strings.Split(path[len(DIRFILE):], "/")[1]
-
-				files = append(files, *folder)
+				folder.Empty = false
+			} else {
+				folder.Empty = true
 			}
+			files.Folder = append(files.Folder, *folder)
 		}
 		return nil
 	})
