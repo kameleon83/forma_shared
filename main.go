@@ -16,6 +16,9 @@ import (
 // DIRFILE constante link download and upload file
 
 func main() {
+
+	controller.ReadDir()
+
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
 		panic(err)
