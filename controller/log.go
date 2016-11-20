@@ -10,7 +10,7 @@ import (
 
 //WriteLog s
 func WriteLog(str ...string) {
-	fileName := ".Forma_Share.log"
+	fileName := ".forma_share.log"
 	if _, err := os.Stat(fileName); os.IsNotExist(err) {
 		err := ioutil.WriteFile(fileName, []byte{}, 0644)
 		log.Println(err)
