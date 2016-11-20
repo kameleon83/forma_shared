@@ -43,14 +43,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseGlob("view/*.gohtml"))
+	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	foldersAndFiles := controller.ReadJSON(".config.json", &model.FolderFile{})
 
 	m := make(map[string]interface{})
+	m["title"] = "See or Download"
 	m["files"] = &foldersAndFiles.File
 	m["folder"] = &foldersAndFiles.Folder
 	m["ip_name"] = controller.AfficheNom(ip)
 
-	tpl.ExecuteTemplate(w, "index.gohtml", m)
+	tpl.ExecuteTemplate(w, "layout", m)
 }

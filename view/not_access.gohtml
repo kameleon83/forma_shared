@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Server en Go de Sam</title>
-    <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
-    <link rel="stylesheet" href="index.css" media="screen" title="no title">
-    <script src="jquery.js" charset="utf-8"></script>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Pas autorisé à accéder à ce site</h1>
-        </header>
-        <section>
-            <div class="all">
-                    <h1>
-                        Désolé mais tu n'es pas autorisé à accéder à ce site.<br>
-                        Bien cordialement.<br>
-                        <br>
-                        J'oublié voici ton ip sur le réseau : {{ .ip }}
-                    </h1>
-            </div>
-        </section>
+{{ define "content" }}
+<section>
+    <div class="all">
+        <h1>
+            Désolé mais tu n'es pas autorisé à accéder à ce site.<br>
+            Bien cordialement.<br>
+            <br>
+            J'oublié voici ton ip sur le réseau : {{ .ip }}
+        </h1>
     </div>
+</section>
+</div>
+{{ end }}

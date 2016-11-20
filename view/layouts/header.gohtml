@@ -1,0 +1,43 @@
+{{ define "layout" }}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ .title }}</h1>
+            <h3>Hello {{ .ip_name }}</h3>
+            <ul>
+                <li><a data-url="" href="/">Download File(s)</a></li>
+                <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
+                <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
+            </ul>
+        </header>
+
+        {{ template "content" . }}
+
+
+        <script>
+        let url = $(location).attr('href');
+        let url_tab = url.split("/")
+        let li_tab = []
+
+        $('.container header ul li a').each(function(i, v){
+            li_tab.push($(this).data('url'));
+        })
+
+        if ($.inArray(url_tab[3], li_tab)){
+            $('.container header ul li a[data-url="' + url_tab[3] + '"]').parent().remove()
+        }else{
+            $('.container header ul li a').parent().first().remove()
+        }
+
+
+        </script>
+        {{ template "footer" . }}
+
+
+        {{ end }}

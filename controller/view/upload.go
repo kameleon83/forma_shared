@@ -21,13 +21,15 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method)
 	if r.Method == "GET" {
 		folderAndFile := controller.ReadJSON(".config.json", &model.FolderFile{})
-		tpl, _ := template.ParseFiles("view/upload.gohtml")
+		tpl, _ := template.ParseFiles("view/upload.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 
 		m := make(map[string]interface{})
+		m["title"] = "Upload"
 		m["folder"] = &folderAndFile.Folder
 		m["ip_name"] = controller.AfficheNom(ip)
 
-		tpl.ExecuteTemplate(w, "upload.gohtml", m)
+		err := tpl.ExecuteTemplate(w, "layout", m)
+		fmt.Println(err)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")

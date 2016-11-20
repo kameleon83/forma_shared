@@ -1,68 +1,24 @@
-<html>
-<head>
-    <title>Upload file</title>
-    <!-- <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet"> -->
-    <link rel="stylesheet" href="index.css" media="screen" title="no title">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Upload file(s)</h1>
-            <h3>Hello {{ .ip_name }}</h3>
-            <ul>
-                <li><a href="/">Download File(s)</a></li>
-                <li><a href="/annuaire/false/lastname">Annuaire</a></li>
-            </ul>
-        </header>
-        <section>
-            <form enctype="multipart/form-data" action="/upload" method="post" onsubmit="return confirm('Es-tu sûr d\'envoyer ce fichier?');">
-                <input type="file" name="uploadfile" class="inputfile" id="file"/>
-                <label for="file">Choisir un fichier</label>
-                <br>
-                <select class="folder" name="folder" id="select" >
-                    <option value="" selected>Choisir un dossier ...</option>
-                    {{ range $k, $v := .folder }}
-                    <option value="{{ $v.Name }}">{{ $v.Name }}</option>
-                    {{ end }}
-                </select>
-                <br>
-                <span class="name_file"></span>
-                <br>
-                <input type="submit" value="upload" class="submit" disabled/>
-                <br>
-            </form>
-        </section>
-    </div>
-    <script src="jquery.js" charset="utf-8"></script>
-    <script>
-    $(function() {
-        let submit = $('.submit');
-        let folder = $('.folder');
-        let file = $('.inputfile');
+{{ define "content" }}
+<section>
+    <form enctype="multipart/form-data" action="/upload" method="post" onsubmit="return confirm('Es-tu sûr d\'envoyer ce fichier?');">
+        <input type="file" name="uploadfile" class="inputfile" id="file"/>
+        <label for="file">Choisir un fichier</label>
+        <br>
+        <select class="folder" name="folder" id="select" >
+            <option value="" selected>Choisir un dossier ...</option>
+            {{ range $k, $v := .folder }}
+            <option value="{{ $v.Name }}">{{ $v.Name }}</option>
+            {{ end }}
+        </select>
+        <br>
+        <span class="name_file"></span>
+        <br>
+        <input type="submit" value="upload" class="submit" disabled/>
+        <br>
+    </form>
+</section>
+</div>
 
-        // submit.attr('disabled',true);
-
-        $('.inputfile').on('change', function(){
-            // console.log(file.val());
-            if ( file.val() !== ""){
-                let res = file.val().split('\\');
-                $('.name_file').html("Vous avez choisi ce fichier : <b>" + res[2] + "</b>");
-                file = res[2];
-            }
-        });
-
-        $('body').on('change', function(){
-            let folder = $('.folder');
-            let file = $('.inputfile');
-                if (folder.val() !== "" && file.val() !== "") {
-                    submit.attr('disabled', false);
-                }else{
-                    submit.attr('disabled', true);
-                }
-        })
-
-    });
-
-    </script>
-</body>
-</html>
+<script src="/js/jquery.js" charset="utf-8"></script>
+<script src="/js/upload.js" charset="utf-8"></script>
+{{ end }}

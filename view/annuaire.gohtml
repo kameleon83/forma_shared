@@ -1,22 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>{{ .title }}</title>
-	<!-- <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet"> -->
-	<link rel="stylesheet" href="/index.css" media="screen" title="no title">
-</head>
-<body>
-	<div class="container">
-		<header>
-			<h1>Annuaire</h1>
-			<h3>Hello {{ .ip_name }}</h3>
-			<ul>
-				<li><a href="/">Download File(s)</a></li>
-				<li><a href="/upload">Upload File(s)</a></li>
-				<li><a href="/annuaire/false/lastname">Annuaire</a></li>
-			</ul>
-		</header>
+{{ define "content" }}
 		<section>
 			<table>
 				<thead>
@@ -56,37 +38,8 @@
 				</tbody>
 			</table>
 		</section>
-	</div>
-	<script src="/jquery.js" charset="utf-8"></script>
-	<script>
-	$(function(){
-		let formateur = $('tbody tr.m2i').length
-		let total = $('tbody tr').length
-		let eleve = total - formateur
-		let tab_tr = new Array(total)
+		</div>
+	<script src="/js/jquery.js" charset="utf-8"></script>
+	<script src="/js/annuaire.js" charset="utf-8"></script>
 
-		$('tbody tr').each(function(i, v){
-			tab_tr.push(v)
-		})
-
-		$('a[href="/annuaire"]').append('<span class="nbr_annuaire">' + total + '</span>')
-		$('section').prepend('<span>Nombres de contacts.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total : ' + total + '&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Formateur : ' + formateur + '&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Elèves : ' + eleve + '</span>')
-
-		// $('section table thead tr th').each(function(){
-		// 	$(this).prepend('<a href="#" class="before ' + $(this).attr('class') + '"><img src="/images/down-arrow.png"></a>')
-		// 	$(this).append('<a href="#" class="after ' + $(this).attr('class') + '"><img src="/images/up-arrow.png"></a>')
-		// })
-
-		// console.log(tab_tr);
-
-		$('.before, .after').on('click', function(){
-			for (var v in tab_tr) {
-				if (tab_tr.hasOwnProperty(v)) {
-					console.log($(tab_tr[v]).children().first())
-				}
-			}
-		})
-	})
-	</script>
-</body>
-</html>
+{{ end }}

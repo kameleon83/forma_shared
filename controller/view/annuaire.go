@@ -13,7 +13,7 @@ import (
 
 // Annuaire List user
 func Annuaire(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("view/annuaire.gohtml")
+	tpl, _ := template.ParseFiles("view/annuaire.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 	ip, autorize := controller.CheckIP(w, r)
 	fmt.Println(ip, autorize)
 	// if !autorize {
@@ -32,5 +32,5 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	m["ip_name"] = controller.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())
-	tpl.ExecuteTemplate(w, "annuaire.gohtml", m)
+	tpl.ExecuteTemplate(w, "layout", m)
 }

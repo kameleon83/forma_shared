@@ -1,10 +1,30 @@
 @font-face {
-    font-family: "Ma Super Fonte";
-    src: url("Coiny-Regular.ttf");
+    font-family: "architect";
+    src: url("/fonts/ArchitectsDaughter.ttf");
+}
+
+@font-face {
+    font-family: "coiny";
+    src: url("/fonts/Coiny-Regular.ttf");
+}
+
+@font-face {
+    font-family: "comingSoon";
+    src: url("/fonts/ComingSoon.ttf");
+}
+
+@font-face {
+    font-family: "indieFlower";
+    src: url("/fonts/IndieFlower.ttf");
+}
+
+@font-face {
+    font-family: "varelaRound";
+    src: url("/fonts/VarelaRound-Regular.ttf");
 }
 
 * {
-    font-family: 'Ma Super Fonte', cursive;
+    font-family: 'varelaRound', cursive;
 }
 
 a {
@@ -82,28 +102,6 @@ body .container header ul li:hover {
     box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
-body .container header ul .nbr_annuaire {
-    position: absolute;
-    padding: 0 10px;
-    z-index: 1000;
-}
-
-body .container header ul .nbr_annuaire:before {
-    z-index: -1;
-    position: absolute;
-    display: block;
-    top: 18px;
-    left: 0px;
-    padding: 5px;
-    margin: 5px;
-    background-color: #000;
-    border-radius: 25px;
-    line-height: 25px;
-    height: 25px;
-    width: 25px;
-    content: '';
-}
-
 body .container section {
     width: 100%;
     display: flex;
@@ -111,6 +109,35 @@ body .container section {
     justify-content: center;
     margin-top: 100px;
     margin-bottom: 100px;
+}
+
+body .container section .number_annuaire {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+body .container section .number_annuaire b {
+    display: inline-block;
+    padding: 2px;
+    margin: 2px;
+    background-color: #000;
+    color: white;
+    border-radius: 30px;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+body .container section .number_annuaire b.formateur {
+    background-color: rgba(25, 181, 254, 0.5);
+    color: black;
+}
+
+body .container section .number_annuaire b.total {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: black;
 }
 
 body .container section table {
@@ -302,11 +329,11 @@ body .container section form .folder {
 }
 
 body .container section form .name_file {
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
 body .container section form .name_file b {
-    font-size: 1.7em;
+    font-size: 1.5em;
     text-transform: capitalize;
     text-decoration: underline;
 }
