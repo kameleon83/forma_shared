@@ -1,7 +1,6 @@
 package controllerView
 
 import (
-	"fmt"
 	"forma_shared/controller"
 	"io"
 	"net/http"
@@ -14,7 +13,7 @@ import (
 // Download View
 func Download(w http.ResponseWriter, r *http.Request) {
 	ip, autorize := controller.CheckIP(w, r)
-	fmt.Println(ip, controller.AfficheNom(ip), autorize)
+	controller.WriteLog("Download : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
 	// if !autorize {
 	// 	// http.RedirectHandler("/not_access", 403)
 	// 	http.Redirect(w, r, "/not_access", 301)
@@ -23,13 +22,13 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	folder := vars["folder"]
 	fileName := vars["file"]
 
-	fmt.Println("Filename :", fileName)
+	// fmt.Println("Filename :", fileName)
 	if fileName == "" {
 		//Get not set, send a 400 bad request
 		http.Error(w, "Get 'file' not specified in url.", 400)
 		return
 	}
-	fmt.Println("Client requests: " + fileName)
+	// fmt.Println("Client requests: " + fileName)
 
 	//Check if file exists and open
 	Openfile, err := os.Open(controller.DIRFILE + "files/" + folder + "/" + fileName)
@@ -54,7 +53,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	FileStat, _ := Openfile.Stat()                     //Get info from file
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
 
-	fmt.Println(FileSize)
+	// fmt.Println(FileSize)
 
 	//Send the headers
 	w.Header().Set("Content-Disposition", "attachment; filename="+fileName)
