@@ -27,6 +27,15 @@ $(function(){
             $('.download_img').on('click', function(){
                 window.location.href = href;
             });
+        }else if ($(this).data('ext') === "mp4" || $(this).data('ext') === "mkv" || $(this).data('ext') === "avi") {
+            e.preventDefault();
+            $('#myModal > .modal-content > .modal-header > h2').html($(this).data('link') + " " + $(this).data('size'));
+            $('#myModal > .modal-content > .modal-body ').html('<video width="640" height="480" autoplay controls> <source src="'+ $(this).attr('href') + '" type="video/mp4"> Your Browser does not support the video tag</video>');
+            $('#myModal').fadeIn();
+            let href = $(this).attr('href');
+            $('.download_img').on('click', function(){
+                window.location.href = href;
+            });
         }else{
             return confirm('Es-tu sûr de télécharger ce fichier?');
         }
@@ -35,11 +44,13 @@ $(function(){
 
     $('.close').on('click', function(){
         $('#myModal').fadeOut();
+        $('#myModal > .modal-content > .modal-body ').html("");
     });
 
     $(window).click(function(e){
         if (e.target === modal){
             $('#myModal').fadeOut();
+            $('#myModal > .modal-content > .modal-body ').html("");
         }
     });
 });
