@@ -31,7 +31,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("Client requests: " + fileName)
 
 	//Check if file exists and open
-	Openfile, err := os.Open(controller.DIRFILE + "files/" + folder + "/" + fileName)
+	Openfile, err := os.Open(controller.DIRFILE + folder + "/" + fileName)
 	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404

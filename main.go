@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 
+	"forma_shared/controller"
 	"forma_shared/controller/view"
 	"forma_shared/model"
 )
@@ -36,7 +37,7 @@ func main() {
 	router.HandleFunc("/refresh", controllerView.RefreshList)
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
 
-	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("files"))))
+	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 
 	fmt.Println("Server start : ", time.Now(), " to port 9000")

@@ -1,2 +1,4 @@
 files/*
 *.log
+*.out
+config_directory

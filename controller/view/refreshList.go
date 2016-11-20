@@ -7,7 +7,7 @@ import (
 
 // RefreshList refresh
 func RefreshList(w http.ResponseWriter, r *http.Request) {
-	FolderAndFiles := controller.ListFiles(controller.DIRFILE + "files/")
+	FolderAndFiles := controller.ListFiles(controller.DIRFILE)
 
 	controller.WriteJSON(".config.json", FolderAndFiles)
 
