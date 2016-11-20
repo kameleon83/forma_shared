@@ -19,7 +19,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	// 	http.Redirect(w, r, "/not_access", 301)
 	// }
 	if r.Method == "GET" {
-		folderAndFile := controller.ReadJSON(".config.json", &model.FolderFile{})
+		folderAndFile := controller.ReadJSON(&model.FolderFile{})
 		tpl, _ := template.ParseFiles("view/upload.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 
 		m := make(map[string]interface{})

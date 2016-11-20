@@ -44,7 +44,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	foldersAndFiles := controller.ReadJSON(".config.json", &model.FolderFile{})
+	foldersAndFiles := controller.ReadJSON(&model.FolderFile{})
 
 	m := make(map[string]interface{})
 	m["title"] = "See or Download"

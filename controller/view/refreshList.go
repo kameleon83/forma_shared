@@ -9,7 +9,7 @@ import (
 func RefreshList(w http.ResponseWriter, r *http.Request) {
 	FolderAndFiles := controller.ListFiles(controller.DIRFILE)
 
-	controller.WriteJSON(".config.json", FolderAndFiles)
+	controller.WriteJSON(FolderAndFiles)
 
 	http.Redirect(w, r, "/", http.StatusFound)
 }

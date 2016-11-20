@@ -1,4 +1,5 @@
 files/*
 *.log
 *.out
+*.json
 config_directory
