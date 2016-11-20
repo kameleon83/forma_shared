@@ -30,7 +30,7 @@ $(function(){
         }else if ($(this).data('ext') === "mp4" || $(this).data('ext') === "mkv" || $(this).data('ext') === "avi") {
             e.preventDefault();
             $('#myModal > .modal-content > .modal-header > h2').html($(this).data('link') + " " + $(this).data('size'));
-            $('#myModal > .modal-content > .modal-body ').html('<video width="640" height="480" autoplay controls> <source src="'+ $(this).attr('href') + '" type="video/mp4"> Your Browser does not support the video tag</video>');
+            $('#myModal > .modal-content > .modal-body ').html('<video width="640" height="480" autoplay controls preload="auto" buffered> <source src="'+ $(this).attr('href') + '" type="video/mp4"> Your Browser does not support the video tag</video>');
             $('#myModal').fadeIn();
             let href = $(this).attr('href');
             $('.download_img').on('click', function(){
