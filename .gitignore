@@ -3,3 +3,4 @@ files/*
 *.out
 *.json
 config_directory
+forma_shared

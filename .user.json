@@ -27,7 +27,7 @@
 		"MailPro": "",
 		"MailPers": "lou.yetu@laposte.net",
 		"Prof": false,
-		"IP": "172.16.30.25"
+		"IP": "172.16.26.224"
 	},
 	{
 		"Firstname": "Laurent",
@@ -57,7 +57,7 @@
 		"MailPro": "",
 		"MailPers": "",
 		"Prof": false,
-		"IP": "172.16.26.224"
+		"IP": "172.16.27.182"
 	},
 	{
 		"Firstname": "André",
@@ -67,7 +67,7 @@
 		"MailPro": "Andre.gorret@orange.fr",
 		"MailPers": "Dreitsch@gmail.com",
 		"Prof": false,
-		"IP": "172.16.27.182"
+		"IP": "172.16.30.25"
 	},
 	{
 		"Firstname": "Sébastien",
@@ -198,15 +198,5 @@
 		"MailPers": "",
 		"Prof": true,
 		"IP": ""
-	},
-	{
-		"Firstname": "Lony",
-		"Lastname": "Michaux",
-		"Function": "Filston",
-		"Phone": "",
-		"MailPro": "",
-		"MailPers": "",
-		"Prof": false,
-		"IP": "192.168.0.13"
 	}
 ]

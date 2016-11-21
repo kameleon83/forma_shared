@@ -1,34 +1,38 @@
 {{ define "content" }}
-        <section>
-            <div class="all">
-                {{ $folder := .folder }}
-                {{ $files := .files}}
-                    {{ range $key, $val := $folder }}
-                        {{ if not $val.Empty }}
-                        <div class="group_files">
-                        <h1 class="cat">{{ $val.Name }}</h1>
-                        {{ range $k,$v := $files }}
-                            {{ if eq $v.Folder $val.Name }}
-                            <div class="files">
-                                <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
-                                <span class="size">
-                                    {{ $v.Size | exp }}
-                                </span>
-                                <span class="time">
-                                    {{ $v.Time | time_fr }}
-                                </span>
-                            </div>
-                            {{ end}}
-                        {{ end }}
-                        {{ end }}
-                    {{ end }}
-                </div>
-            </section>
-        </div>
+<section>
+    <div class="all">
+        {{ $folder := .folder }}
+        {{ $files := .files}}
+        {{ range $key, $val := $folder }}
 
-        <div class="ajax">
+        {{ if not $val.Empty }}
+
+        <div class="group_files">
+            <h1 class="cat">{{ $val.Name }}</h1>
+
+            {{ range $k,$v := $files }}
+            {{ if eq $v.Folder $val.Name }}
+            <div class="files">
+                <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
+                <span class="size">
+                    {{ $v.Size | exp }}
+                </span>
+                <span class="time">
+                    {{ $v.Time | time_fr }}
+                </span>
+            </div>
+            {{ end}}
+            {{ end }}
 
         </div>
+        {{ end }}
+        {{ end }}
+    </section>
+</div>
+
+<div class="ajax">
+
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
