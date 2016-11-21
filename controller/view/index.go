@@ -16,9 +16,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	ip, autorize := controller.CheckIP(w, r)
 	controller.WriteLog("Index : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	// if !autorize {
-	// 	http.Redirect(w, r, "/not_access", 301)
-	// }
+	controller.ClientAutorize(w, r)
 
 	const layout = "Mon 02 Jan 2006"
 

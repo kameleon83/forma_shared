@@ -48,11 +48,10 @@ func CheckIP(w http.ResponseWriter, r *http.Request) (string, bool) {
 }
 
 // ClientAutorize get ip
-// func ClientAutorize() bool {
-// 	ip, autorize := CheckIP(w, r)
-// 	fmt.Println(ip, AfficheNom(ip), autorize)
-// 	if !autorize {
-// 		http.Redirect(w, r, "/not_access", 301)
-// 	}
-// 	return
-// }
+func ClientAutorize(w http.ResponseWriter, r *http.Request) {
+	_, autorize := CheckIP(w, r)
+	// fmt.Println(ip, AfficheNom(ip), autorize)
+	if !autorize {
+		http.Redirect(w, r, "/not_access", 301)
+	}
+}

@@ -27,6 +27,8 @@ func main() {
 		fmt.Printf("%d %v\n", i, addr)
 	}
 
+	http.Get("/refresh")
+
 	model.ReadUserJSON(false, "lastname")
 
 	port := ":9000"

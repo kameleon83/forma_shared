@@ -15,9 +15,8 @@ import (
 func Upload(w http.ResponseWriter, r *http.Request) {
 	ip, autorize := controller.CheckIP(w, r)
 	controller.WriteLog("Upload : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	// if !autorize {
-	// 	http.Redirect(w, r, "/not_access", 301)
-	// }
+	controller.ClientAutorize(w, r)
+
 	if r.Method == "GET" {
 		folderAndFile := controller.ReadJSON(&model.FolderFile{})
 		tpl, _ := template.ParseFiles("view/upload.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")

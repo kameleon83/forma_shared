@@ -14,10 +14,8 @@ import (
 func Download(w http.ResponseWriter, r *http.Request) {
 	ip, autorize := controller.CheckIP(w, r)
 	controller.WriteLog("Download : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	// if !autorize {
-	// 	// http.RedirectHandler("/not_access", 403)
-	// 	http.Redirect(w, r, "/not_access", 301)
-	// }
+	controller.ClientAutorize(w, r)
+
 	vars := mux.Vars(r)
 	folder := vars["folder"]
 	fileName := vars["file"]

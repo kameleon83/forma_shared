@@ -15,9 +15,7 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	tpl, _ := template.ParseFiles("view/annuaire.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 	ip, autorize := controller.CheckIP(w, r)
 	controller.WriteLog("Annuaire : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	// if !autorize {
-	// 	http.Redirect(w, r, "/not_access", 301)
-	// }
+	controller.ClientAutorize(w, r)
 
 	vars := mux.Vars(r)
 	reverse, _ := strconv.ParseBool(vars["reverse"])
