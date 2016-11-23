@@ -444,16 +444,17 @@ body{
     }
 
     .modal-body {
-        display:flex;
-        justify-content: center;
-        align-items: center;
+        // display:flex;
+        // justify-content: center;
+        // align-items: center;
         left: 0;
         right: 0;
         border-style: solid;
         border-color: grey;
         width:100%;
         max-height:49%;
-        overflow:hidden; /* hidden*/
+        white-space: pre-wrap;
+        // overflow:hidden; /* hidden*/
         img{
             max-width: 80%;
             height: auto;

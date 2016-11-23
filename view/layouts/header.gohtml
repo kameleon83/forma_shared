@@ -19,7 +19,7 @@
 
         {{ template "content" . }}
 
-
+        <script src="/js/jquery.js" charset="utf-8"></script>
         <script>
         let url = $(location).attr('href');
         let url_tab = url.split("/")
@@ -28,9 +28,11 @@
         $('.container header ul li a').each(function(i, v){
             li_tab.push($(this).data('url'));
         })
-
-        if ($.inArray(url_tab[3], li_tab)){
+        if (url_tab[3] === "not_access"){
+            $('.container header ul').remove()
+        }else if ($.inArray(url_tab[3], li_tab)){
             $('.container header ul li a[data-url="' + url_tab[3] + '"]').parent().remove()
+
         }else{
             $('.container header ul li a').parent().first().remove()
         }

@@ -451,17 +451,13 @@ body .modal-header .download_img:hover {
 }
 
 body .modal-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     left: 0;
     right: 0;
     border-style: solid;
     border-color: grey;
     width: 100%;
     max-height: 49%;
-    overflow: hidden;
-    /* hidden*/
+    white-space: pre-wrap;
 }
 
 body .modal-body img {

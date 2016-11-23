@@ -1,13 +1,7 @@
 // jshint esversion: 6
 $(function(){
     var modal = document.getElementById('myModal');
-    // $('.modal').load('http://localhost:9000/download/js/appar-multiple.html')
 
-    // $('a').on("click", function(){
-    //     confirm('Es-tu sûr de télécharger ce fichier?')
-    // })
-    // $('.cat').hide().addClass('hidden');
-    // $('.cat + .files').prev().show().removeClass('hidden');
     $("a[href^='/download']").on("click", function(e) {
         if ($(this).data('ext') === "jpg" || $(this).data('ext') === "png" || $(this).data('ext') === "gif"){
             e.preventDefault();
