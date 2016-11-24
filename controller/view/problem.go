@@ -4,7 +4,6 @@ import (
 	"forma_shared/controller"
 	"forma_shared/model"
 	"html/template"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -45,8 +44,6 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 
 	for i := range p {
 		if p[i].Firstname == name {
-			log.Println("ok trouvé!!! You're the best!!")
-			log.Println(p[i].Firstname)
 			p[i].Level = niveau
 		}
 	}
