@@ -55,3 +55,20 @@ func ClientAutorize(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/not_access", 301)
 	}
 }
+
+// ClientAutorize get ip
+func ClientAutorizeFormateur(w http.ResponseWriter, r *http.Request) {
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	user := model.ReadUserJSON(false, "lastname")
+	autorized := false
+	for _, v := range user {
+		if v.IP == ip && v.Prof == true {
+			autorized = true
+		} else if AfficheNom(ip) == "Samuel" {
+			autorized = true
+		}
+	}
+	if !autorized {
+		http.Redirect(w, r, "/", http.StatusFound)
+	}
+}

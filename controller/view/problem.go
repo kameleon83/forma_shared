@@ -16,7 +16,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 	tpl, _ := template.ParseFiles("view/problem.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 	ip, autorize := controller.CheckIP(w, r)
 	controller.WriteLog("Problem : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorize(w, r)
+	controller.ClientAutorizeFormateur(w, r)
 
 	follow := &model.Followed{}
 
