@@ -1,0 +1,10 @@
+{{ define "content" }}
+<section>
+
+    <ul class="follow">
+        {{ range $k, $v := .followed }}
+        <li>{{ $v.Firstname }} - {{ $v.Level }}</li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}

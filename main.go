@@ -41,6 +41,9 @@ func main() {
 	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
 	router.HandleFunc("/refresh", controllerView.RefreshList)
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
+	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
+	router.HandleFunc("/followed_reset", controllerView.ResetFollow)
+	router.HandleFunc("/followed", controllerView.ProblemFollowed)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
