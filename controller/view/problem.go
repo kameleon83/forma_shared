@@ -1,7 +1,6 @@
 package controllerView
 
 import (
-	"encoding/json"
 	"forma_shared/controller"
 	"forma_shared/model"
 	"html/template"
@@ -23,6 +22,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 
 	m := make(map[string]interface{})
 	m["title"] = "Followed"
+	m["ip_name"] = controller.AfficheNom(ip)
 	m["followed"] = follow.ReadProblemJSON().Follow
 
 	tpl.ExecuteTemplate(w, "layout", m)
@@ -41,15 +41,15 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	niveau, _ := strconv.Atoi(vars["niveau"])
 
 	f := &model.Followed{}
+	p := f.ReadProblemJSON().Follow
 
-	for _, v := range f.ReadProblemJSON().Follow {
-		if v.Firstname == name {
-			log.Println(niveau)
-			v.Level = niveau
+	for i := range p {
+		if p[i].Firstname == name {
+			log.Println("ok trouvé!!! You're the best!!")
+			log.Println(p[i].Firstname)
+			p[i].Level = niveau
 		}
 	}
-	s, _ := json.MarshalIndent(f, "", "\n")
-	log.Println(string(s))
 
-	log.Println(name, niveau)
+	f.WriteProblemJSON()
 }

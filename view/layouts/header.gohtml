@@ -7,9 +7,16 @@
 </head>
 <body>
     <div class="container">
+        <div class="follow">
+            <ul>
+                <li class="follow_li done"></li>
+                <li class="follow_li in_progress"></li>
+                <li class="follow_li help"></li>
+            </ul>
+        </div>
         <header>
             <h1>{{ .title }}</h1>
-            <h3>Hello {{ .ip_name }}</h3>
+            <h3 data-name="{{ .ip_name }}">Hello {{ .ip_name }}</h3>
             <ul>
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
@@ -37,6 +44,21 @@
             $('.container header ul li a').parent().first().remove()
         }
 
+        $('.follow_li').on('click', function(){
+            if ($(this).attr('class') === "follow_li done" ){
+                $.get('/follow/' + $('header > h3').data('name') + '/1', function(data){
+                    $('html').css('background-color', 'rgba(46,204,113, 0.2)')
+                })
+            }else if ($(this).attr('class') === "follow_li in_progress"){
+                $.get('/follow/' + $('header > h3').data('name') + '/2', function(data){
+                    $('html').css('background-color', 'rgba(255,193,7,0.2)')
+                })
+            }else if ($(this).attr('class') === "follow_li help") {
+                $.get('/follow/' + $('header > h3').data('name') + '/3', function(data){
+                    $('html').css('background-color', 'rgba(213,0,0,0.2)')
+                })
+            }
+        })
 
         </script>
         {{ template "footer" . }}

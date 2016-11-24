@@ -56,11 +56,19 @@ func (f *Followed) ReadProblemJSON() *Followed {
 	return f
 }
 
+func (f *Followed) WriteProblemJSON() {
+	jsonFile := ".user_followed.json"
+
+	b, _ := json.MarshalIndent(f, "", "\t")
+
+	ioutil.WriteFile(jsonFile, b, 0644)
+}
+
 var userjson = &Followed{
 	Follow: []OneFollowed{
 		OneFollowed{"Samuel", 0},
 		OneFollowed{"Léa", 0},
-		OneFollowed{"Linda", 0},
+		OneFollowed{"Landa", 0},
 		OneFollowed{"André", 0},
 		OneFollowed{"Brice", 0},
 		OneFollowed{"Sébastien", 0},

@@ -129,6 +129,103 @@ body{
             }
 
         }
+        .follow_user{
+            list-style: none;
+            text-align: center;
+            margin-top: 50px;
+            li{
+                margin: 10px;
+                width: 250px;
+                line-height: 40px;
+                margin: 5px;
+            }
+        }
+
+
+        .followed_reset{
+            width: 200px;
+            line-height: 40px;
+            height: 40px;
+            border: none;
+            background-color: rgba(255,0,0,0.8);
+            box-shadow: 10px 7px 10px rgba(255,0,0,0.8);
+            color: white;
+            font-size: 1.2em;
+            margin-left: 10px;
+            transition: 0.4s all;
+            &:hover{
+                cursor: pointer;
+                background-color: rgba(255,0,0,1);
+                box-shadow: 5px 4px 5px rgba(255,0,0,0.6);
+                transform: scale(0.97);
+            }
+            &:active, &focus, &visited{
+                border: none;
+            }
+        }
+
+        .nbr_user_follow{
+            position: absolute;
+            padding-bottom: 20px;
+            text-align: center;
+
+            .timeout{
+                display: inline-block;
+                background-color: rgba(213,0,0,1);
+                color: white;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                border-radius: 40px;
+                font-size: 1.4em;
+                content: '';
+            }
+        }
+
+        .follow{
+            position: absolute;
+            left: 0;
+            top: 40%;
+            ul{
+                & > li{
+                    display: block;
+                    width: 60px;
+                    height: 60px;
+                    margin: 10px;
+                    cursor: pointer;
+                    transition: 0.4s all;
+
+                    &.done{
+                        background-color: rgba(46,204,113, 1);
+                        box-shadow: 10px 7px 10px rgba(46,204,113, 0.4);
+                        &:hover{
+                            background-color: rgba(46,204,113, 0.85);
+                            box-shadow: 5px 3px 5px rgba(46,204,113, 0.4);
+                        }
+
+                    }
+                    &.in_progress{
+                        background-color: rgba(255,193,7,1);
+                        box-shadow: 10px 7px 10px rgba(255,193,7,0.4);
+                        &:hover{
+                            background-color: rgba(255,193,7,0.85);
+                            box-shadow: 5px 3px 5px rgba(255,193,7,0.4);
+                        }
+                    }
+                    &.help{
+                        background-color: rgba(213,0,0,1);
+                        box-shadow: 10px 7px 10px rgba(213,0,0,0.4);
+                        &:hover{
+                            background-color: rgba(213,0,0,0.85);
+                            box-shadow: 5px 3px 5px rgba(213,0,0,0.4);
+                        }
+
+                    }
+
+                }
+
+            }
+        }
 
         section{
             width: 100%;
