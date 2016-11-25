@@ -20,7 +20,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 	follow := &model.Followed{}
 
 	m := make(map[string]interface{})
-	m["title"] = "Followed"
+	m["title"] = "Checkpoint"
 	m["ip_name"] = controller.AfficheNom(ip)
 	m["followed"] = follow.ReadProblemJSON().Follow
 
@@ -30,7 +30,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 // ResetFollow r
 func ResetFollow(w http.ResponseWriter, r *http.Request) {
 	model.ResetFollowJSON()
-	http.Redirect(w, r, "/followed", http.StatusFound)
+	http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
 // ChangeLevelByName c
