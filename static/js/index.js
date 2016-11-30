@@ -47,4 +47,10 @@ $(function(){
             $('#myModal > .modal-content > .modal-body ').html("");
         }
     });
+
+    $('.files').each(function(){
+        if ( $(this).children(".time").data('diff') == 0 ){
+            $(this).addClass('oneDay');
+        }
+    })
 });

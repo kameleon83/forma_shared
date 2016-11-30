@@ -17,7 +17,7 @@
                 <span class="size">
                     {{ $v.Size | exp }}
                 </span>
-                <span class="time">
+                <span class="time" data-diff="{{$v.Time | time_diff }}">
                     {{ $v.Time | time_fr }}
                 </span>
             </div>

@@ -158,48 +158,76 @@ body .container .nbr_user_follow .timeout {
 }
 
 body .container .follow {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 40%;
+    background-color: white;
+    z-index: 2000;
+}
+
+body .container .follow ul {
+    position: absolute;
+    margin: 0;
+    padding: 0;
 }
 
 body .container .follow ul > li {
+    position: relative;
     display: block;
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
+    line-height: 64px;
     margin: 10px;
     cursor: pointer;
     transition: 0.4s all;
 }
 
-body .container .follow ul > li.done {
-    background-color: #2ecc71;
-    box-shadow: 10px 7px 10px rgba(46, 204, 113, 0.4);
+body .container .follow ul > li::before {
+    position: absolute;
+    display: none;
+    top: 0px;
+    left: 64px;
+    width: 200px;
+    line-height: 25px;
+    transition: 0.4s all;
+}
+
+body .container .follow ul > li:hover::before {
+    display: block;
+}
+
+body .container .follow ul > li.done:hover::before {
+    background-color: rgba(46, 204, 113, 0.8);
+    content: "It's Good";
+}
+
+body .container .follow ul > li.in_progress:hover::before {
+    background-color: rgba(255, 193, 7, 0.8);
+    content: "I'm Working";
+}
+
+body .container .follow ul > li.help:hover::before {
+    color: white;
+    background-color: rgba(213, 0, 0, 0.8);
+    content: "Help Me, Please!!!!";
+}
+
+body .container .follow ul > li img {
+    width: 64px;
+    height: auto;
+    vertical-align: middle;
 }
 
 body .container .follow ul > li.done:hover {
-    background-color: rgba(46, 204, 113, 0.85);
-    box-shadow: 5px 3px 5px rgba(46, 204, 113, 0.4);
-}
-
-body .container .follow ul > li.in_progress {
-    background-color: #ffc107;
-    box-shadow: 10px 7px 10px rgba(255, 193, 7, 0.4);
+    background-color: rgba(46, 204, 113, 0.6);
 }
 
 body .container .follow ul > li.in_progress:hover {
-    background-color: rgba(255, 193, 7, 0.85);
-    box-shadow: 5px 3px 5px rgba(255, 193, 7, 0.4);
-}
-
-body .container .follow ul > li.help {
-    background-color: #d50000;
-    box-shadow: 10px 7px 10px rgba(213, 0, 0, 0.4);
+    background-color: rgba(255, 193, 7, 0.6);
 }
 
 body .container .follow ul > li.help:hover {
-    background-color: rgba(213, 0, 0, 0.85);
-    box-shadow: 5px 3px 5px rgba(213, 0, 0, 0.4);
+    background-color: rgba(213, 0, 0, 0.6);
 }
 
 body .container section {
@@ -282,6 +310,7 @@ body .container section table tbody tr.m2i {
 body .container section .all {
     width: 100%;
     text-align: center;
+    margin-left: 90px;
 }
 
 body .container section .all .group_files .cat {
@@ -353,6 +382,14 @@ body .container section .all .group_files .files:nth-child(odd) {
 body .container section .all .group_files .files:nth-child(odd):hover {
     box-shadow: 4px 2px 7px rgba(25, 181, 254, 0.5);
     transform: scale(0.98);
+}
+
+body .container section .all .group_files .files.oneDay {
+    box-shadow: 7px 5px 15px #f7ca18;
+}
+
+body .container section .all .group_files .files.oneDay:hover {
+    box-shadow: 4px 2px 7px rgba(247, 202, 24, 0.7);
 }
 
 body .container section .all .group_files:nth-child(even) {

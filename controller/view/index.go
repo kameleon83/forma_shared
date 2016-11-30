@@ -25,6 +25,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		"time_fr": func(t *time.Time) string {
 			return t.Format(layout)
 		},
+		"time_diff": func(t *time.Time) int {
+			now := time.Now()
+			now.Format(layout)
+			diff := now.Sub(t.UTC())
+			return int(diff.Hours() / 24)
+		},
 		"exp": func(i float64) string {
 			if i > math.Pow(10, 12) {
 				return strconv.FormatFloat(i/math.Pow(10, 12), 'f', 2, 64) + " To"

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"sort"
 )
 
 // WriteJSON Write file json File Model
@@ -31,5 +32,36 @@ func ReadJSON(file *model.FolderFile) *model.FolderFile {
 
 	json.Unmarshal(raw, &file)
 
+	// sort.Sort(model.ByDate(file))
+
+	sort.Sort(sort.Reverse(model.ByDate(file.File)))
+
 	return file
 }
+
+// // ReadUserJSON read
+// func ReadUserJSON(reverse bool, col string) []User {
+// 	var file []User
+// 	raw, err := ioutil.ReadFile(".user.json")
+// 	if err != nil {
+// 		log.Println(err)
+// 	}
+// 	json.Unmarshal(raw, &file)
+//
+// 	if !reverse && col == "" {
+// 		sort.Sort(ByLastname(file))
+// 	}
+//
+// 	switch {
+// 	case !reverse && col == "lastname":
+// 		sort.Sort(ByLastname(file))
+// 	case reverse && col == "lastname":
+// 		sort.Sort(sort.Reverse(ByLastname(file)))
+// 	case !reverse && col == "firstname":
+// 		sort.Sort(ByFirstName(file))
+// 	case reverse && col == "firstname":
+// 		sort.Sort(sort.Reverse(ByFirstName(file)))
+// 	}
+//
+// 	return file
+// }

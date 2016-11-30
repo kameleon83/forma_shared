@@ -183,42 +183,72 @@ body{
         }
 
         .follow{
-            position: absolute;
+            position: fixed;
             left: 0;
             top: 40%;
+            background-color: white;
+            z-index: 2000;
             ul{
+                position: absolute;
+                margin: 0;
+                padding: 0;
                 & > li{
+                    position: relative;
                     display: block;
-                    width: 60px;
-                    height: 60px;
+                    width: 64px;
+                    height: 64px;
+                    line-height: 64px;
                     margin: 10px;
                     cursor: pointer;
                     transition: 0.4s all;
+                    &::before{
+                        // z-index: 2001;
+                        position: absolute;
+                        display: none;
+                        top:0px;
+                        left: 64px;
+                        width: 200px;
+                        line-height: 25px;
+                        transition: 0.4s all;
+                    }
+
+                    &:hover::before {
+                        display: block;
+                    }
+                    &.done:hover::before{
+                        background-color: rgba(46,204,113, 0.8);
+                        content: "It's Good";
+                    }
+                    &.in_progress:hover::before{
+                        background-color: rgba(255,193,7,0.8);
+                        content: "I'm Working";
+                    }
+                    &.help:hover::before{
+                        color: white;
+                        background-color: rgba(213,0,0,0.8);
+                        content: "Help Me, Please!!!!";
+                    }
+                    img{
+                        width: 64px;
+                        height: auto;
+                        vertical-align: middle;
+                    }
 
                     &.done{
-                        background-color: rgba(46,204,113, 1);
-                        box-shadow: 10px 7px 10px rgba(46,204,113, 0.4);
                         &:hover{
-                            background-color: rgba(46,204,113, 0.85);
-                            box-shadow: 5px 3px 5px rgba(46,204,113, 0.4);
+                            background-color: rgba(46,204,113, 0.6);
                         }
 
                     }
                     &.in_progress{
-                        background-color: rgba(255,193,7,1);
-                        box-shadow: 10px 7px 10px rgba(255,193,7,0.4);
                         &:hover{
-                            background-color: rgba(255,193,7,0.85);
-                            box-shadow: 5px 3px 5px rgba(255,193,7,0.4);
+                            background-color: rgba(255,193,7,0.6);
                         }
                     }
                     &.help{
-                        background-color: rgba(213,0,0,1);
-                        box-shadow: 10px 7px 10px rgba(213,0,0,0.4);
-                        
+
                         &:hover{
-                            background-color: rgba(213,0,0,0.85);
-                            box-shadow: 5px 3px 5px rgba(213,0,0,0.4);
+                            background-color: rgba(213,0,0,0.6);
                         }
 
                     }
@@ -304,6 +334,7 @@ body{
             .all{
                 width: 100%;
                 text-align: center;
+                margin-left: 90px;
                 .group_files{
                     .cat{
                         display: block;
@@ -367,6 +398,13 @@ body{
                             &:hover{
                                 box-shadow: 4px 2px 7px $razz;
                                 transform: scale(0.98);
+
+                            }
+                        }
+                        &.oneDay{
+                            box-shadow: 7px 5px 15px rgba(247, 202, 24,1);
+                            &:hover{
+                                box-shadow: 4px 2px 7px rgba(247, 202, 24,0.7);
 
                             }
                         }
