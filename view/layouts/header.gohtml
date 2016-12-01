@@ -4,6 +4,7 @@
 <head>
     <title>{{ .title }}</title>
     <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
     <div class="container">
@@ -22,11 +23,14 @@
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
                 <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
             </ul>
-        </header>
 
+        </header>
         {{ template "content" . }}
 
         <script src="/js/jquery.js" charset="utf-8"></script>
+        <!-- <script src="/sw.js" charset="utf-8"></script>
+        <script src="/sw_push.js" charset="utf-8"></script>
+        <script src="/sw_notification.js" charset="utf-8"></script> -->
         <script>
         let url = $(location).attr('href');
         let url_tab = url.split("/")
@@ -59,6 +63,7 @@
                 })
             }
         })
+
 
         </script>
         {{ template "footer" . }}

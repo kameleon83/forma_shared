@@ -2,5 +2,6 @@ files/*
 *.log
 *.out
 *.json
+*.pem
 config_directory
 forma_shared

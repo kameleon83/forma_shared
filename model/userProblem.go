@@ -20,7 +20,7 @@ type OneFollowed struct {
 
 // ResetFollowJSON Write file json File Model
 func ResetFollowJSON() {
-	jsonFile := ".user_followed.json"
+	jsonFile := "./static/.user_followed.json"
 	// user := &User{}
 	if _, err := os.Stat(jsonFile); os.IsNotExist(err) {
 		f, err := os.Create(jsonFile)
@@ -38,17 +38,19 @@ func ResetFollowJSON() {
 }
 
 // ChangeLevelByName c
-func (f *Followed) ChangeLevelByName(name string, level int) {
-	follow := f.ReadProblemJSON()
-	log.Println(name, level)
-	log.Println(follow)
-}
+// func (f *Followed) ChangeLevelByName(name string, level int) {
+// 	follow := f.ReadProblemJSON()
+// 	log.Println(name, level)
+// 	log.Println(follow)
+// }
 
 // ReadProblemJSON read
 func (f *Followed) ReadProblemJSON() *Followed {
-	raw, err := ioutil.ReadFile(".user_followed.json")
+	raw, err := ioutil.ReadFile("./static/.user_followed.json")
 	if err != nil {
 		log.Println(err)
+	} else if os.IsNotExist(err) {
+		ResetFollowJSON()
 	}
 
 	json.Unmarshal(raw, &f)
@@ -57,7 +59,7 @@ func (f *Followed) ReadProblemJSON() *Followed {
 }
 
 func (f *Followed) WriteProblemJSON() {
-	jsonFile := ".user_followed.json"
+	jsonFile := "./static/.user_followed.json"
 
 	b, _ := json.MarshalIndent(f, "", "\t")
 
