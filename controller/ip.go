@@ -56,7 +56,7 @@ func ClientAutorize(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// ClientAutorize get ip
+// ClientAutorizeFormateur get ip
 func ClientAutorizeFormateur(w http.ResponseWriter, r *http.Request) {
 	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 	user := model.ReadUserJSON(false, "lastname")

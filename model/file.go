@@ -11,7 +11,7 @@ type File struct {
 	Time   time.Time
 }
 
-// ByLastname s
+// ByDate s
 type ByDate []File
 
 func (d ByDate) Len() int { return len(d) }

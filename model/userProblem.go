@@ -56,6 +56,7 @@ func (f *Followed) ReadProblemJSON() *Followed {
 	return f
 }
 
+// WriteProblemJSON w
 func (f *Followed) WriteProblemJSON() {
 	jsonFile := ".user_followed.json"
 

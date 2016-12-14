@@ -1,0 +1,51 @@
+{{ define "content" }}
+<section>
+    <form class="register_form" action="register" method="post">
+
+        <div class="form_group">
+            <label for="lastname">Nom de Famille</label>
+            <input type="text" name="lastname" value="" id="lastname" required>
+        </div>
+
+        <div class="form_group">
+            <label for="fisrtname">Prénom</label>
+            <input type="text" name="fisrtname" value="" id="fisrtname" required>
+        </div>
+
+        <div class="form_group">
+            <label for="function">Fonction</label>
+            <input type="text" name="function" value="" id="function">
+        </div>
+
+        <div class="form_group">
+            <label for="mdp">Mot de passe</label>
+            <input type="text" name="mdp" value="" id="mmdp">
+        </div>
+
+        <div class="form_group">
+            <label for="mdp_verif">Vérification Mot de passe</label>
+            <input type="text" name="mdp_verif" value="" id="mdp_verif">
+        </div>
+
+        <div class="form_group">
+            <label for="phone">Téléphone</label>
+            <input type="text" name="phone" value="" id="phone">
+        </div>
+
+        <div class="form_group">
+            <label for="mail_perso">Adresse Mail</label>
+            <input type="text" name="mail_perso" value="" id="mail_perso" required>
+        </div>
+
+        <div class="form_group">
+
+            <label for="prof_true">Formateur ?</label>
+                <input type="radio" name="prof" value="true" id="prof_true" required>
+            <label for="prof_false">Formaté ?</label>
+                <input type="radio" name="prof" value="fasle" id="prof_false">
+        </div>
+        <input type="submit" name="" value="Enregistré">
+    </form>
+</section>
+
+{{ end }}

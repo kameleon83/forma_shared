@@ -5,18 +5,22 @@ import (
 	"io/ioutil"
 	"log"
 	"sort"
+
+	"github.com/jinzhu/gorm"
 )
 
 // User model
 type User struct {
+	gorm.Model
 	Firstname string
 	Lastname  string
 	Function  string
 	Phone     string
-	MailPro   string
-	MailPers  string
+	Password  string
+	Mail      string `gorm:"unique_index"`
 	Prof      bool
 	IP        string
+	Admin     int
 }
 
 // ByLastname s
@@ -62,6 +66,20 @@ func ReadUserJSON(reverse bool, col string) []User {
 	}
 
 	return file
+}
+
+func (u *User) CreateUser() {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	e := db.Create(u).Error
+	if e.Error() == "UNIQUE constraint failed: users.mail_pers" {
+		log.Println("Attention cet email est déjà présent dans la base, si vous avez oublié votre mot de passe alors demandez le")
+	}
+
 }
 
 // {

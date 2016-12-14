@@ -18,6 +18,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	controller.WriteLog("Index : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
 	controller.ClientAutorize(w, r)
 
+	controller.GetSessions(w, r)
+
 	const layout = "Mon 02 Jan 2006"
 
 	funcMap := template.FuncMap{
