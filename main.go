@@ -44,6 +44,7 @@ func main() {
 	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
 	router.HandleFunc("/followed_reset", controllerView.ResetFollow)
 	router.HandleFunc("/checkpoint", controllerView.ProblemFollowed)
+	// router.HandleFunc("/notify", controllerView.InjectJavaScript)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))

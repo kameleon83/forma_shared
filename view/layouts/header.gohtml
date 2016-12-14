@@ -28,6 +28,27 @@
 
         <script src="/js/jquery.js" charset="utf-8"></script>
         <script>
+        Notification.requestPermission();
+
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/js/sw.js').then(function() {
+                console.log('Service worker registered');
+            }).catch(function() {
+                console.log('Service worker registration failed');
+            });
+        }
+        else {
+            console.log('Service worker not supported');
+        }
+
+
+        function notify(title, notif){
+            var n = new Notification(title, {body: notif}); // this also shows the notification
+        }
+
+
+
         let url = $(location).attr('href');
         let url_tab = url.split("/")
         let li_tab = []
@@ -45,17 +66,21 @@
         }
 
         $('.follow_li').on('click', function(){
+            let name = $('header > h3').data('name');
             if ($(this).attr('class') === "follow_li done" ){
-                $.get('/follow/' + $('header > h3').data('name') + '/1', function(data){
-                    $('html').css('background-color', 'rgba(46,204,113, 0.2)')
+                $.get('/follow/' + name + '/1', function(data){
+                    $('html').css('background-color', 'rgba(46,204,113, 0.2)');
+                    notify(name, "Pour moi c'est fini!!!!");
                 })
             }else if ($(this).attr('class') === "follow_li in_progress"){
-                $.get('/follow/' + $('header > h3').data('name') + '/2', function(data){
-                    $('html').css('background-color', 'rgba(255,193,7,0.2)')
+                $.get('/follow/' + name + '/2', function(data){
+                    $('html').css('background-color', 'rgba(255,193,7,0.2)');
+                    notify(name, "Je suis en train de coder comme un gros porc!! hihihi :-P");
                 })
             }else if ($(this).attr('class') === "follow_li help") {
-                $.get('/follow/' + $('header > h3').data('name') + '/3', function(data){
-                    $('html').css('background-color', 'rgba(213,0,0,0.2)')
+                $.get('/follow/' + name + '/3', function(data){
+                    $('html').css('background-color', 'rgba(213,0,0,0.2)');
+                    notify(name, "Je suis en galère!! Peux-tu venir s'il te plaît?");
                 })
             }
         })

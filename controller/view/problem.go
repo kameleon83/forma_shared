@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/0xAX/notificator"
 	"github.com/gorilla/mux"
 )
 
@@ -34,8 +33,6 @@ func ResetFollow(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
-var notify *notificator.Notificator
-
 // ChangeLevelByName c
 func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -51,21 +48,17 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	var niveau_text string
-	switch niveau {
-	case 1:
-		niveau_text = "Tout est bon pour moi"
-	case 2:
-		niveau_text = "En train de coder comme un porc!!!"
-	case 3:
-		niveau_text = "Help Me, Please!!!!"
-	}
-	notify = notificator.New(notificator.Options{
-		DefaultIcon: "icon/default.png",
-		AppName:     "My test App",
-	})
-
-	notify.Push("title", niveau_text, "/home/user/icon.png", notificator.UR_CRITICAL)
-
 	f.WriteProblemJSON()
+	// http.Redirect(w, r, "/notify", http.StatusFound)
+}
+
+// InjectJavaScript a
+func InjectJavaScript(w http.ResponseWriter, r *http.Request) {
+	js := `<script type="text/javascript">
+			alert("View page source to see injected/embedded Javascript code!");
+			console.log("hello beau gosse!!!");
+			</script>`
+
+	w.Write([]byte(js))
+	// http.Redirect(w, r, "/", http.StatusFound)
 }

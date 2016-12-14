@@ -49,14 +49,14 @@ func CheckIP(w http.ResponseWriter, r *http.Request) (string, bool) {
 
 // ClientAutorize get ip
 func ClientAutorize(w http.ResponseWriter, r *http.Request) {
-	_, autorize := CheckIP(w, r)
-	// fmt.Println(ip, AfficheNom(ip), autorize)
-	if !autorize {
-		http.Redirect(w, r, "/not_access", 301)
-	}
+	// _, autorize := CheckIP(w, r)
+	// // fmt.Println(ip, AfficheNom(ip), autorize)
+	// if !autorize {
+	// 	http.Redirect(w, r, "/not_access", 301)
+	// }
 }
 
-// ClientAutorize get ip
+// ClientAutorizeFormateur get ip
 func ClientAutorizeFormateur(w http.ResponseWriter, r *http.Request) {
 	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
 	user := model.ReadUserJSON(false, "lastname")
