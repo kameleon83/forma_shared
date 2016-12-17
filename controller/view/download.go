@@ -12,9 +12,8 @@ import (
 
 // Download View
 func Download(w http.ResponseWriter, r *http.Request) {
-	ip, autorize := controller.CheckIP(w, r)
-	controller.WriteLog("Download : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorize(w, r)
+
+	controller.GetSessionLogin(w, r)
 
 	vars := mux.Vars(r)
 	folder := vars["folder"]

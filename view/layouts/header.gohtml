@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="container">
+
+        {{ if .active }}
         <div class="follow">
             <ul>
                 <li class="follow_li done"><img src="/images/smiley_content.png" alt="" /></li>
@@ -15,83 +17,56 @@
                 <li class="follow_li help"><img src="/images/smiley_help.png" alt="" /></li>
             </ul>
         </div>
+        {{ end }}
         <header>
             <h1>{{ .title }}</h1>
             <h3 data-name="{{ .ip_name }}">Hello {{ .ip_name }}</h3>
+            {{ if .active }}
             <ul>
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
                 <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
             </ul>
-
+            {{ end }}
         </header>
         {{ template "content" . }}
+    </div>
+    <script src="/js/jquery.js" charset="utf-8"></script>
+    <script>
+    let url = $(location).attr('href');
+    let url_tab = url.split("/")
+    let li_tab = []
 
-        <script src="/js/jquery.js" charset="utf-8"></script>
-        <!-- <script src="/sw.js" charset="utf-8"></script>
-        <script src="/sw_push.js" charset="utf-8"></script>
-        <script src="/sw_notification.js" charset="utf-8"></script> -->
-        <script>
-        Notification.requestPermission();
+    $('.container header ul li a').each(function(i, v){
+        li_tab.push($(this).data('url'));
+    })
+    if (url_tab[3] === "not_access"){
+        $('.container header ul').remove()
+    }else if ($.inArray(url_tab[3], li_tab)){
+        $('.container header ul li a[data-url="' + url_tab[3] + '"]').parent().remove()
 
+    }else{
+        $('.container header ul li a').parent().first().remove()
+    }
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/js/sw.js').then(function() {
-                console.log('Service worker registered');
-            }).catch(function() {
-                console.log('Service worker registration failed');
-            });
+    $('.follow_li').on('click', function(){
+        if ($(this).attr('class') === "follow_li done" ){
+            $.get('/follow/' + $('header > h3').data('name') + '/1', function(data){
+                $('html').css('background-color', 'rgba(46,204,113, 0.2)')
+            })
+        }else if ($(this).attr('class') === "follow_li in_progress"){
+            $.get('/follow/' + $('header > h3').data('name') + '/2', function(data){
+                $('html').css('background-color', 'rgba(255,193,7,0.2)')
+            })
+        }else if ($(this).attr('class') === "follow_li help") {
+            $.get('/follow/' + $('header > h3').data('name') + '/3', function(data){
+                $('html').css('background-color', 'rgba(213,0,0,0.2)')
+            })
         }
-        else {
-            console.log('Service worker not supported');
-        }
+    })
+
+    </script>
+    {{ template "footer" . }}
 
 
-        function notify(title, notif){
-            var n = new Notification(title, {body: notif}); // this also shows the notification
-        }
-
-
-
-        let url = $(location).attr('href');
-        let url_tab = url.split("/")
-        let li_tab = []
-
-        $('.container header ul li a').each(function(i, v){
-            li_tab.push($(this).data('url'));
-        })
-        if (url_tab[3] === "not_access"){
-            $('.container header ul').remove()
-        }else if ($.inArray(url_tab[3], li_tab)){
-            $('.container header ul li a[data-url="' + url_tab[3] + '"]').parent().remove()
-
-        }else{
-            $('.container header ul li a').parent().first().remove()
-        }
-
-        $('.follow_li').on('click', function(){
-            let name = $('header > h3').data('name');
-            if ($(this).attr('class') === "follow_li done" ){
-                $.get('/follow/' + name + '/1', function(data){
-                    $('html').css('background-color', 'rgba(46,204,113, 0.2)');
-                    notify(name, "Pour moi c'est fini!!!!");
-                })
-            }else if ($(this).attr('class') === "follow_li in_progress"){
-                $.get('/follow/' + name + '/2', function(data){
-                    $('html').css('background-color', 'rgba(255,193,7,0.2)');
-                    notify(name, "Je suis en train de coder comme un gros porc!! hihihi :-P");
-                })
-            }else if ($(this).attr('class') === "follow_li help") {
-                $.get('/follow/' + name + '/3', function(data){
-                    $('html').css('background-color', 'rgba(213,0,0,0.2)');
-                    notify(name, "Je suis en galère!! Peux-tu venir s'il te plaît?");
-                })
-            }
-        })
-
-
-        </script>
-        {{ template "footer" . }}
-
-
-        {{ end }}
+    {{ end }}

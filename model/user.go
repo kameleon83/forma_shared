@@ -4,19 +4,25 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"regexp"
 	"sort"
+
+	"github.com/jinzhu/gorm"
 )
 
 // User model
 type User struct {
+	gorm.Model
 	Firstname string
 	Lastname  string
 	Function  string
 	Phone     string
-	MailPro   string
-	MailPers  string
+	Password  string
+	Mail      string `gorm:"unique_index"`
 	Prof      bool
 	IP        string
+	Admin     int
+	Active    bool
 }
 
 // ByLastname s
@@ -62,6 +68,81 @@ func ReadUserJSON(reverse bool, col string) []User {
 	}
 
 	return file
+}
+
+// CreateUser c
+func (u *User) CreateUser() error {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	return db.Create(u).Error
+}
+
+// SearchUser s
+func (u *User) SearchUser() *gorm.DB {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	return db.Where("mail = ?", u.Mail).First(&u)
+}
+
+//ActiveUser u
+func (u *User) ActiveUser() error {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	return db.Save(u).Error
+
+	// return db.Save(u).Error
+}
+
+// ValidFirstname v
+func (u *User) ValidFirstname() bool {
+	if len(u.Firstname) <= 2 {
+		return false
+	}
+	return true
+}
+
+// ValidLastname v
+func (u *User) ValidLastname() bool {
+	if len(u.Lastname) <= 2 {
+		return false
+	}
+	return true
+}
+
+// ValidEmail v
+func (u *User) ValidEmail() bool {
+	if m, _ := regexp.MatchString(`(?im)^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$`, u.Mail); !m {
+		return false
+	}
+	return true
+}
+
+// ValidPass v
+func (u *User) ValidPass() bool {
+	if len(u.Password) <= 6 {
+		return false
+	}
+	return true
+}
+
+// ValidPhone v
+func (u *User) ValidPhone() bool {
+	if m, _ := regexp.MatchString(`^0[1-68]([-. ]?[0-9]{2}){4}$`, u.Phone); !m {
+		return false
+	}
+	return true
 }
 
 // {
