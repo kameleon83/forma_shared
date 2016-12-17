@@ -15,6 +15,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tpl := template.Must(template.New("Partage").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	if r.Method == "POST" {
+
+		if rescue := controller.GetSessionsValues(w, r, "rescue"); rescue != nil && rescue.(bool) {
+			http.Redirect(w, r, "/newPassword", http.StatusFound)
+		}
+
 		password := controller.EncryptionPassword(r.FormValue("password"))
 
 		u := model.User{}
@@ -28,6 +33,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			controller.SetSessionsValues(w, r, "ip", u.IP)
 			controller.SetSessionsValues(w, r, "admin", u.Admin)
 			controller.SetSessionsValues(w, r, "id", u.ID)
+			controller.SetSessionsValues(w, r, "prof", u.Prof)
 			if u.Active {
 				controller.SetSessionsValues(w, r, "active", u.Active)
 
@@ -48,6 +54,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	m["errors"] = flashes
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
+	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
+	m["prof"] = controller.GetSessionsValues(w, r, "prof")
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

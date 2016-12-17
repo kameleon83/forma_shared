@@ -16,36 +16,40 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 
 	controller.GetSessionLogin(w, r)
 
-	follow := &model.Followed{}
+	if !controller.GetSessionsValues(w, r, "prof").(bool) {
+		http.Redirect(w, r, "/", http.StatusFound)
+	}
+
+	user := &model.User{}
 
 	m := make(map[string]interface{})
 	m["title"] = "Checkpoint"
 	// m["ip_name"] = controller.AfficheNom(ip)
-	m["followed"] = follow.ReadProblemJSON().Follow
+	m["user"] = user.ReadProblemJSON()
+	m["email"] = controller.GetSessionsValues(w, r, "email")
+	m["active"] = controller.GetSessionsValues(w, r, "active")
+	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
+	m["prof"] = controller.GetSessionsValues(w, r, "prof")
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }
 
 // ResetFollow r
 func ResetFollow(w http.ResponseWriter, r *http.Request) {
-	model.ResetFollowJSON()
+	u := &model.User{}
+	u.ResetFollowJSON()
 	http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
 // ChangeLevelByName c
 func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	name := vars["user"]
+	// name := vars["user"]
 	niveau, _ := strconv.Atoi(vars["niveau"])
 
-	f := &model.Followed{}
-	p := f.ReadProblemJSON().Follow
-
-	for i := range p {
-		if p[i].Firstname == name {
-			p[i].Level = niveau
-		}
-	}
-
-	f.WriteProblemJSON()
+	u := model.User{}
+	u.Mail = controller.GetSessionsValues(w, r, "email").(string)
+	u.SearchUser()
+	u.Checkpoint = niveau
+	u.ActiveUser()
 }

@@ -36,3 +36,11 @@ func EncryptionEmail(email string) string {
 	sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 	return sha
 }
+
+// EncryptionEmailRescue e
+func EncryptionEmailRescue(email string) string {
+	hasher := sha256.New()
+	hasher.Write([]byte("rescue" + email))
+	sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
+	return sha
+}

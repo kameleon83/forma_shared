@@ -13,16 +13,17 @@ import (
 // User model
 type User struct {
 	gorm.Model
-	Firstname string
-	Lastname  string
-	Function  string
-	Phone     string
-	Password  string
-	Mail      string `gorm:"unique_index"`
-	Prof      bool
-	IP        string
-	Admin     int
-	Active    bool
+	Firstname  string
+	Lastname   string
+	Function   string
+	Phone      string
+	Password   string
+	Mail       string `gorm:"unique_index"`
+	Prof       bool
+	IP         string
+	Admin      int
+	Active     bool
+	Checkpoint int
 }
 
 // ByLastname s
@@ -93,16 +94,14 @@ func (u *User) SearchUser() *gorm.DB {
 }
 
 //ActiveUser u
-func (u *User) ActiveUser() error {
+func (u *User) ActiveUser() *gorm.DB {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
 	if err != nil {
 		log.Println(err)
 	}
 	defer db.Close()
 
-	return db.Save(u).Error
-
-	// return db.Save(u).Error
+	return db.Save(u)
 }
 
 // ValidFirstname v

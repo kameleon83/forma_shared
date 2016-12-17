@@ -12,16 +12,17 @@ var store = sessions.NewCookieStore([]byte("samestunbeaugosse"))
 func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) interface{} {
 	// Get a session.
 	session, err := store.Get(r, "formation_PHP")
+	flashes := session.Flashes()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return session.Flashes()
+		return flashes
 	}
-	flashes := session.Flashes()
 
-	if len(flashes) == 0 {
-		session.AddFlash(message)
-		session.Save(r, w)
+	if len(flashes) > 0 {
+		return flashes
 	}
+	session.AddFlash(message)
+	session.Save(r, w)
 	return flashes
 }
 

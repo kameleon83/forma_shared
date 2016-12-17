@@ -21,28 +21,19 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		m := make(map[string]interface{})
 		m["title"] = "Upload"
 		m["folder"] = &folderAndFile.Folder
+		m["email"] = controller.GetSessionsValues(w, r, "email")
+		m["active"] = controller.GetSessionsValues(w, r, "active")
+		m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
+		m["prof"] = controller.GetSessionsValues(w, r, "prof")
+
 		// m["ip_name"] = controller.AfficheNom(ip)
 
 		tpl.ExecuteTemplate(w, "layout", m)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
-		// users := model.ReadUserJSON(false, "lastname")
-		nameIP, name := false, ""
-		// for _, v := range users {
-		// 	// fmt.Println(v.IP, ip)
-		// 	if v.IP == ip {
-		// 		nameIP = true
-		// 		name = v.Firstname
-		// 		break
-		// 	}
-		// }
 
-		if nameIP {
-			handler.Filename = name + "_" + handler.Filename
-		} else {
-			handler.Filename = "invite_" + handler.Filename
-		}
+		handler.Filename = controller.GetSessionsValues(w, r, "firstname").(string) + "_" + handler.Filename
 
 		// handler.Filename = handler.Filename
 		folder := r.FormValue("folder")

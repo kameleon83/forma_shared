@@ -23,6 +23,10 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	m := make(map[string]interface{})
 	m["title"] = "Annuaire"
 	m["users"] = model.ReadUserJSON(reverse, col)
+	m["email"] = controller.GetSessionsValues(w, r, "email")
+	m["active"] = controller.GetSessionsValues(w, r, "active")
+	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
+	m["prof"] = controller.GetSessionsValues(w, r, "prof")
 	// m["ip_name"] = controller.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())

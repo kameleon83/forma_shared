@@ -26,6 +26,9 @@
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
                 <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
+                {{ if .prof }}
+                <li><a data-url="checkpoint" href="/checkpoint">Checkpoint</a></li>
+                {{ end }}
 
                 {{ if .active }}
                 {{ if .email}}

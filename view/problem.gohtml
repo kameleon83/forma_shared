@@ -2,8 +2,8 @@
 <section>
 
     <ul class="follow_user">
-        {{ range $k, $v := .followed }}
-        <li data-level="{{ $v.Level }}">{{ $v.Firstname }}</li>
+        {{ range $k, $v := .user }}
+        <li data-level="{{ $v.Checkpoint }}">{{ $v.Firstname }}</li>
         {{ end }}
     </ul>
 </section>

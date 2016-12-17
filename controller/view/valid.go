@@ -1,6 +1,7 @@
 package controllerView
 
 import (
+	"fmt"
 	"forma_shared/controller"
 	"forma_shared/model"
 	"html/template"
@@ -27,6 +28,9 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 				u.Active = true
 				u.ActiveUser()
 				http.Redirect(w, r, "/login", http.StatusFound)
+			} else {
+				flashes = controller.SetSessionsFlashes(w, r, "La clef rentrée n'est pas la bonne")
+				fmt.Println(flashes)
 			}
 		}
 	}
@@ -35,6 +39,10 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 	m["title"] = "Validation Compte"
 	m["email"] = email.(string)
 	m["errors"] = flashes
+	m["email"] = controller.GetSessionsValues(w, r, "email")
+	m["active"] = controller.GetSessionsValues(w, r, "active")
+	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
+	m["prof"] = controller.GetSessionsValues(w, r, "prof")
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

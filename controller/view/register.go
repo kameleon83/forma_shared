@@ -86,6 +86,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			u.IP, _ = controller.CheckIP(w, r)
 			u.Admin = 0
 			u.Active = false
+			u.Checkpoint = 0
 
 			// log.Println(u)
 

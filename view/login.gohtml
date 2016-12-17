@@ -2,9 +2,9 @@
 <section>
     <form enctype="multipart/form-data" action="/login" method="post" >
         <br>
-        <input type="email" name="email" class="inputText" placeholder="Email" value="{{ .email }}"/>
+        <input type="email" name="email" class="inputText" placeholder="Email" value="{{ .email }}" required/>
         <br>
-        <input type="password" name="password" class="inputText" placeholder="Mot de Passe"/>
+        <input type="password" name="password" class="inputText" placeholder="Mot de Passe" required/>
         <br>
         <input type="submit" value="Valider"/>
     </form>
