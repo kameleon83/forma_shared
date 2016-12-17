@@ -49,16 +49,4 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	}
 
 	f.WriteProblemJSON()
-	// http.Redirect(w, r, "/notify", http.StatusFound)
-}
-
-// InjectJavaScript a
-func InjectJavaScript(w http.ResponseWriter, r *http.Request) {
-	js := `<script type="text/javascript">
-			alert("View page source to see injected/embedded Javascript code!");
-			console.log("hello beau gosse!!!");
-			</script>`
-
-	w.Write([]byte(js))
-	// http.Redirect(w, r, "/", http.StatusFound)
 }
