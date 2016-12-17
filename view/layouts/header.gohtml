@@ -20,12 +20,18 @@
         {{ end }}
         <header>
             <h1>{{ .title }}</h1>
-            <h3 data-name="{{ .ip_name }}">Hello {{ .ip_name }}</h3>
+            <h3 data-name="{{ .firstname }}">Hello {{ .firstname }}</h3>
             {{ if .active }}
             <ul>
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
                 <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
+
+                {{ if .active }}
+                {{ if .email}}
+                <li><a data-url="logout" href="/logout">Logout</a></li>
+                {{ end }}
+                {{ end }}
             </ul>
             {{ end }}
         </header>

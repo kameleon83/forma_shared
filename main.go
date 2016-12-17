@@ -45,6 +45,7 @@ func main() {
 	router.HandleFunc("/register", controllerView.Register)
 	router.HandleFunc("/valid", controllerView.Valid)
 	router.HandleFunc("/login", controllerView.Login)
+	router.HandleFunc("/logout", controllerView.Logout)
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
 	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
 	router.HandleFunc("/followed_reset", controllerView.ResetFollow)
