@@ -1,0 +1,13 @@
+{{ define "content" }}
+<section>
+    <form enctype="multipart/form-data" action="/valid" method="post" >
+        <br>
+        {{ .email }}
+        <br>
+        <input type="text" name="validKey" class="inputText" placeholder="Colles ici le code reçu pa mail"/>
+        <br>
+        <input type="submit" value="Valider"/>
+    </form>
+</section>
+
+{{ end }}

@@ -13,12 +13,12 @@ import (
 
 // Index controller view inde.gohtml
 func Index(w http.ResponseWriter, r *http.Request) {
+	//
+	// ip, autorize := controller.CheckIP(w, r)
+	// controller.WriteLog("Index : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
+	// controller.ClientAutorize(w, r)
 
-	ip, autorize := controller.CheckIP(w, r)
-	controller.WriteLog("Index : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorize(w, r)
-
-	controller.GetSessions(w, r)
+	controller.GetSessionLogin(w, r)
 
 	const layout = "Mon 02 Jan 2006"
 
@@ -56,7 +56,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	m["title"] = "See or Download"
 	m["files"] = &foldersAndFiles.File
 	m["folder"] = &foldersAndFiles.Folder
-	m["ip_name"] = controller.AfficheNom(ip)
+	// m["ip_name"] = controller.AfficheNom(ip)
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

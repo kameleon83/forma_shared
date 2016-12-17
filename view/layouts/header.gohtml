@@ -7,6 +7,8 @@
 </head>
 <body>
     <div class="container">
+
+        {{ if .active }}
         <div class="follow">
             <ul>
                 <li class="follow_li done"><img src="/images/smiley_content.png" alt="" /></li>
@@ -14,14 +16,17 @@
                 <li class="follow_li help"><img src="/images/smiley_help.png" alt="" /></li>
             </ul>
         </div>
+        {{ end }}
         <header>
             <h1>{{ .title }}</h1>
             <h3 data-name="{{ .ip_name }}">Hello {{ .ip_name }}</h3>
+            {{ if .active }}
             <ul>
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
                 <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
             </ul>
+            {{ end }}
         </header>
 
         {{ template "content" . }}

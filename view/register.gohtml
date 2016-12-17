@@ -4,37 +4,37 @@
 
         <div class="form_group">
             <label for="lastname">Nom de Famille</label>
-            <input type="text" name="lastname" value="" id="lastname" required>
+            <input type="text" pattern=".{3,}" name="lastname" value="" id="lastname" required title="3 caractères minimum">
         </div>
 
         <div class="form_group">
-            <label for="fisrtname">Prénom</label>
-            <input type="text" name="fisrtname" value="" id="fisrtname" required>
+            <label for="firstname">Prénom</label>
+            <input type="text" pattern=".{3,}" name="firstname" value="" id="firstname" required title="3 caractères minimum">
         </div>
 
         <div class="form_group">
             <label for="function">Fonction</label>
-            <input type="text" name="function" value="" id="function">
+            <input type="text" pattern=".{3,}" name="function" value="" id="function" title="3 caractères minimum">
         </div>
 
         <div class="form_group">
             <label for="mdp">Mot de passe</label>
-            <input type="text" name="mdp" value="" id="mmdp">
+            <input type="password" pattern=".{6,50}" name="mdp" value="" id="mdp" required title="6 à 50 caractères">
         </div>
 
         <div class="form_group">
             <label for="mdp_verif">Vérification Mot de passe</label>
-            <input type="text" name="mdp_verif" value="" id="mdp_verif">
+            <input type="password" pattern=".{6,50}" name="mdp_verif" value="" id="mdp_verif" required title="6 à 50 caractères">
         </div>
 
         <div class="form_group">
             <label for="phone">Téléphone</label>
-            <input type="text" name="phone" value="" id="phone">
+            <input type="tel" pattern="^0[1-68]([-. ]?[0-9]{2}){4}$" name="phone" value="" id="phone" title="Vérifie ton numéro!">
         </div>
 
         <div class="form_group">
             <label for="mail_perso">Adresse Mail</label>
-            <input type="text" name="mail_perso" value="" id="mail_perso" required>
+            <input type="email" pattern="^([\w\.\_]{2,10})@(\w{1,}).([a-z]{2,4})$" name="email" value="" id="mail_perso" required>
         </div>
 
         <div class="form_group">

@@ -1,21 +1,18 @@
 package controllerView
 
 import (
-	"fmt"
 	"forma_shared/controller"
 	"forma_shared/model"
 	"html/template"
 	"io"
+	"log"
 	"net/http"
 	"os"
-	"strconv"
 )
 
 // Upload file user
 func Upload(w http.ResponseWriter, r *http.Request) {
-	ip, autorize := controller.CheckIP(w, r)
-	controller.WriteLog("Upload : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorize(w, r)
+	controller.GetSessionLogin(w, r)
 
 	if r.Method == "GET" {
 		folderAndFile := controller.ReadJSON(&model.FolderFile{})
@@ -24,22 +21,22 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		m := make(map[string]interface{})
 		m["title"] = "Upload"
 		m["folder"] = &folderAndFile.Folder
-		m["ip_name"] = controller.AfficheNom(ip)
+		// m["ip_name"] = controller.AfficheNom(ip)
 
 		tpl.ExecuteTemplate(w, "layout", m)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
-		users := model.ReadUserJSON(false, "lastname")
+		// users := model.ReadUserJSON(false, "lastname")
 		nameIP, name := false, ""
-		for _, v := range users {
-			// fmt.Println(v.IP, ip)
-			if v.IP == ip {
-				nameIP = true
-				name = v.Firstname
-				break
-			}
-		}
+		// for _, v := range users {
+		// 	// fmt.Println(v.IP, ip)
+		// 	if v.IP == ip {
+		// 		nameIP = true
+		// 		name = v.Firstname
+		// 		break
+		// 	}
+		// }
 
 		if nameIP {
 			handler.Filename = name + "_" + handler.Filename
@@ -50,14 +47,14 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		// handler.Filename = handler.Filename
 		folder := r.FormValue("folder")
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return
 		}
 		defer file.Close()
 		// fmt.Fprintf(w, "%v", handler.Header)
 		f, err := os.OpenFile(controller.DIRFILE+folder+"/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			return
 		}
 		defer f.Close()

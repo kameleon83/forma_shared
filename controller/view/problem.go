@@ -13,15 +13,14 @@ import (
 // ProblemFollowed s
 func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 	tpl, _ := template.ParseFiles("view/problem.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
-	ip, autorize := controller.CheckIP(w, r)
-	controller.WriteLog("Problem : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorizeFormateur(w, r)
+
+	controller.GetSessionLogin(w, r)
 
 	follow := &model.Followed{}
 
 	m := make(map[string]interface{})
 	m["title"] = "Checkpoint"
-	m["ip_name"] = controller.AfficheNom(ip)
+	// m["ip_name"] = controller.AfficheNom(ip)
 	m["followed"] = follow.ReadProblemJSON().Follow
 
 	tpl.ExecuteTemplate(w, "layout", m)

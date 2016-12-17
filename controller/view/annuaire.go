@@ -13,9 +13,8 @@ import (
 // Annuaire List user
 func Annuaire(w http.ResponseWriter, r *http.Request) {
 	tpl, _ := template.ParseFiles("view/annuaire.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
-	ip, autorize := controller.CheckIP(w, r)
-	controller.WriteLog("Annuaire : ", ip, controller.AfficheNom(ip), strconv.FormatBool(autorize))
-	controller.ClientAutorize(w, r)
+
+	controller.GetSessionLogin(w, r)
 
 	vars := mux.Vars(r)
 	reverse, _ := strconv.ParseBool(vars["reverse"])
@@ -24,7 +23,7 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	m := make(map[string]interface{})
 	m["title"] = "Annuaire"
 	m["users"] = model.ReadUserJSON(reverse, col)
-	m["ip_name"] = controller.AfficheNom(ip)
+	// m["ip_name"] = controller.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())
 	tpl.ExecuteTemplate(w, "layout", m)

@@ -43,6 +43,8 @@ func main() {
 	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
 	router.HandleFunc("/refresh", controllerView.RefreshList)
 	router.HandleFunc("/register", controllerView.Register)
+	router.HandleFunc("/valid", controllerView.Valid)
+	router.HandleFunc("/login", controllerView.Login)
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
 	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
 	router.HandleFunc("/followed_reset", controllerView.ResetFollow)
