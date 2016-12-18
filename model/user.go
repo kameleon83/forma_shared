@@ -82,6 +82,22 @@ func (u *User) CreateUser() error {
 	return db.Create(u).Error
 }
 
+// SearchAllUsers read
+func (u *User) SearchAllUsers(col, sort string) *[]User {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	user := []User{}
+	if sort == "asc" {
+		sort = ""
+	}
+	db.Order(col + " " + sort).Find(&user)
+	return &user
+}
+
 // SearchUser s
 func (u *User) SearchUser() *gorm.DB {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
@@ -93,8 +109,8 @@ func (u *User) SearchUser() *gorm.DB {
 	return db.Where("mail = ?", u.Mail).First(&u)
 }
 
-//ActiveUser u
-func (u *User) ActiveUser() *gorm.DB {
+//UpdateUser u
+func (u *User) UpdateUser() *gorm.DB {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
 	if err != nil {
 		log.Println(err)

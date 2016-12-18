@@ -304,7 +304,18 @@ body .container section table th {
 }
 
 body .container section table tbody tr.m2i {
+    width: 100%;
+    height: auto;
     background-color: rgba(25, 181, 254, 0.5);
+}
+
+body .container section table tbody tr td .annuaireMail {
+    width: 100%;
+    display: block;
+}
+
+body .container section table tbody tr td .annuaireMail:hover {
+    cursor: pointer;
 }
 
 body .container section .all {

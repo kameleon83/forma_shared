@@ -28,7 +28,7 @@ func NewPassword(w http.ResponseWriter, r *http.Request) {
 		} else {
 			if pass1 == pass2 {
 				u.Password = controller.EncryptionPassword(pass1)
-				u.ActiveUser()
+				u.UpdateUser()
 				controller.SetSessionsValues(w, r, "email", u.Mail)
 				controller.SetSessionsValues(w, r, "firstname", u.Firstname)
 				controller.SetSessionsValues(w, r, "lastname", u.Lastname)

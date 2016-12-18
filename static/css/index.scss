@@ -326,7 +326,18 @@ body{
                     tr{
 
                         &.m2i{
+                            width: 100%;
+                            height: auto;
                             background-color: $razz;
+                        }
+                        td{
+                            .annuaireMail{
+                                width: 100%;
+                                display: block;
+                                &:hover{
+                                    cursor: pointer;
+                                }
+                            }
                         }
                     }
                 }

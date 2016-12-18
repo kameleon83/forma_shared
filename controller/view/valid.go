@@ -26,7 +26,7 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 				u.SearchUser()
 
 				u.Active = true
-				u.ActiveUser()
+				u.UpdateUser()
 				http.Redirect(w, r, "/login", http.StatusFound)
 			} else {
 				flashes = controller.SetSessionsFlashes(w, r, "La clef rentrée n'est pas la bonne")

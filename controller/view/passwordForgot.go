@@ -24,7 +24,7 @@ func PasswordForgot(w http.ResponseWriter, r *http.Request) {
 		} else {
 			go controller.SendEmailRescue(u.Mail)
 			u.Password = controller.EncryptionEmailRescue(u.Mail)
-			u.ActiveUser()
+			u.UpdateUser()
 			flashes = controller.SetSessionsFlashes(w, r, "Check tes mails pour rentrer ton mot de passe provisoire :-P")
 			controller.SetSessionsValues(w, r, "email", u.Mail)
 			controller.SetSessionsValues(w, r, "rescue", true)

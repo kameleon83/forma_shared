@@ -12,7 +12,7 @@ import (
 
 // ProblemFollowed s
 func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("view/problem.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
+	tpl, _ := template.ParseFiles("view/checkpoint.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 
 	controller.GetSessionLogin(w, r)
 
@@ -24,8 +24,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 
 	m := make(map[string]interface{})
 	m["title"] = "Checkpoint"
-	// m["ip_name"] = controller.AfficheNom(ip)
-	m["user"] = user.ReadProblemJSON()
+	m["user"] = user.CheckPointUsers()
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
@@ -37,7 +36,7 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 // ResetFollow r
 func ResetFollow(w http.ResponseWriter, r *http.Request) {
 	u := &model.User{}
-	u.ResetFollowJSON()
+	u.CheckPointUsersReset()
 	http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
@@ -51,5 +50,5 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	u.Mail = controller.GetSessionsValues(w, r, "email").(string)
 	u.SearchUser()
 	u.Checkpoint = niveau
-	u.ActiveUser()
+	u.UpdateUser()
 }
