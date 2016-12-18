@@ -51,4 +51,13 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	u.SearchUser()
 	u.Checkpoint = niveau
 	u.UpdateUser()
+	switch niveau {
+	case 1:
+		controller.SetSessionsValues(w, r, "niveau", " done")
+	case 2:
+		controller.SetSessionsValues(w, r, "niveau", " in_progress")
+	case 3:
+		controller.SetSessionsValues(w, r, "niveau", " help")
+
+	}
 }

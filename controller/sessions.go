@@ -50,7 +50,7 @@ func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "formation_PHP")
 	session.Options = &sessions.Options{
 		Path:     "/",
-		MaxAge:   86400 * 7,
+		MaxAge:   3600 * 8,
 		HttpOnly: true,
 	}
 	session.Save(r, w)

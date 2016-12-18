@@ -10,9 +10,9 @@ func RefreshList(w http.ResponseWriter, r *http.Request) {
 
 	controller.GetSessionLogin(w, r)
 
-	FolderAndFiles := controller.ListFiles(controller.DIRFILE)
+	// log.Println("DIRFILE : " + controller.DIRFILE)
 
-	controller.WriteJSON(FolderAndFiles)
+	controller.ListFiles(controller.DIRFILE)
 
 	http.Redirect(w, r, "/", http.StatusFound)
 }

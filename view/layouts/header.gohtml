@@ -7,9 +7,10 @@
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-    <div class="container">
+    <div class="container{{ .niveau }}">
 
         {{ if .active }}
+
         <div class="follow">
             <ul>
                 <li class="follow_li done"><img src="/images/smiley_content.png" alt="" /></li>
@@ -17,6 +18,7 @@
                 <li class="follow_li help"><img src="/images/smiley_help.png" alt="" /></li>
             </ul>
         </div>
+
         {{ end }}
         <header>
             <h1>{{ .title }}</h1>
@@ -25,7 +27,7 @@
             <ul>
                 <li><a data-url="" href="/">Download File(s)</a></li>
                 <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
-                <li><a data-url="annuaire" href="/annuaire/false/lastname">Annuaire</a></li>
+                <li><a data-url="annuaire" href="/annuaire/lastname/asc">Annuaire</a></li>
                 {{ if .prof }}
                 <li><a data-url="checkpoint" href="/checkpoint">Checkpoint</a></li>
                 {{ end }}
@@ -42,6 +44,7 @@
     </div>
     <script src="/js/jquery.js" charset="utf-8"></script>
     <script>
+
     let url = $(location).attr('href');
     let url_tab = url.split("/")
     let li_tab = []
@@ -61,15 +64,15 @@
     $('.follow_li').on('click', function(){
         if ($(this).attr('class') === "follow_li done" ){
             $.get('/follow/' + $('header > h3').data('name') + '/1', function(data){
-                $('html').css('background-color', 'rgba(46,204,113, 0.2)')
+                $('.container').removeClass().addClass("container done")
             })
         }else if ($(this).attr('class') === "follow_li in_progress"){
             $.get('/follow/' + $('header > h3').data('name') + '/2', function(data){
-                $('html').css('background-color', 'rgba(255,193,7,0.2)')
+                $('.container').removeClass().addClass("container in_progress")
             })
         }else if ($(this).attr('class') === "follow_li help") {
             $.get('/follow/' + $('header > h3').data('name') + '/3', function(data){
-                $('html').css('background-color', 'rgba(213,0,0,0.2)')
+                $('.container').removeClass().addClass("container help")
             })
         }
     })

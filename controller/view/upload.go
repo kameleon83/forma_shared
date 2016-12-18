@@ -15,12 +15,12 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	controller.GetSessionLogin(w, r)
 
 	if r.Method == "GET" {
-		folderAndFile := controller.ReadJSON(&model.FolderFile{})
+		f := &model.File{}
 		tpl, _ := template.ParseFiles("view/upload.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
 
 		m := make(map[string]interface{})
 		m["title"] = "Upload"
-		m["folder"] = &folderAndFile.Folder
+		m["folder"] = f.SearchFolder()
 		m["email"] = controller.GetSessionsValues(w, r, "email")
 		m["active"] = controller.GetSessionsValues(w, r, "active")
 		m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

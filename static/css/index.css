@@ -46,6 +46,18 @@ body .container {
     width: 100%;
 }
 
+body .container.done {
+    background-color: rgba(46, 204, 113, 0.2);
+}
+
+body .container.in_progress {
+    background-color: rgba(255, 193, 7, 0.2);
+}
+
+body .container.help {
+    background-color: rgba(213, 0, 0, 0.2);
+}
+
 body .container header {
     display: flex;
     flex-wrap: wrap;
@@ -235,8 +247,8 @@ body .container section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
 body .container section .number_annuaire {

@@ -16,15 +16,18 @@ var DIRFILE = ""
 // ReadDir see config_directory
 func ReadDir() {
 	dirActual, _ := os.Getwd()
-	log.Println(dirActual)
+	// log.Println(dirActual)
 
-	if _, err := os.Stat("./config_directory"); os.IsNotExist(err) {
+	c := &model.Config{}
+
+	if err := c.SearchConfigDirectory().Error; err != nil {
+		c.CreateConfig()
 
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Println()
-		fmt.Println("Le fichier indiquant le répertoire à partager n'est pas présent !!!!!!!!!!!!")
+		fmt.Println("Le répertoire de partage n'est pas configuré !")
 		fmt.Println()
-		fmt.Println("Veux-tu en rentrer un ??? ex => /home/user/dlna/shared")
+		fmt.Println("Veux-tu en rentrer un un répertoire ? ex => /home/user/dlna/shared")
 		fmt.Println()
 		fmt.Println("Si oui, rentres le chemin du dossier à partager, puis valides avec la touche entrer.")
 		fmt.Println()
@@ -34,35 +37,16 @@ func ReadDir() {
 
 		text = strings.TrimSpace(text)
 
-		f, _ := os.Create("./config_directory")
-		// Create a new writer.
-		w := bufio.NewWriter(f)
+		c.Directory = filepath.Clean(text) + string(filepath.Separator)
 
-		// Write a string to the file.
-		if len(text) == 0 {
-			w.WriteString("directory: " + filepath.Clean(dirActual) + string(filepath.Separator))
-		} else {
-			w.WriteString("directory: " + filepath.Clean(text) + string(filepath.Separator))
-		}
+		err := c.UpdateConfig().Error
 
-		// Flush.
-		w.Flush()
+		log.Println(err)
 
-		ReadDir()
 	}
-	f, _ := os.Open("./config_directory")
-	scanner := bufio.NewScanner(f)
-	// Loop over all lines in the file and print them.
-	for scanner.Scan() {
-		line := scanner.Text()
-		tabLine := strings.Split(line, ": ")
-		switch {
-		case tabLine[0] == "directory":
-			DIRFILE = tabLine[1]
-		default:
-			DIRFILE = dirActual
-		}
-	}
+	c.SearchConfigDirectory()
+	DIRFILE = c.Directory
+
 }
 
 // CheckFilesInFolder pour append select to upload
@@ -92,41 +76,28 @@ func deleteEmpty(s []string) []string {
 }
 
 // ListFiles index
-func ListFiles(folder string) *model.FolderFile {
-	files := &model.FolderFile{}
-	dir := deleteEmpty(strings.Split(DIRFILE, "/"))
-
+func ListFiles(folder string) {
+	// files := &model.FolderFile{}
 	filepath.Walk(folder, func(path string, f os.FileInfo, err error) error {
 		if !f.IsDir() {
 			// fmt.Println(path)
 			file := &model.File{}
 			file.Name = f.Name()
 
-			if f.Name() != strings.Split(path[len(DIRFILE)-1:], "/")[1] {
-				file.Folder = strings.Split(path[len(DIRFILE)-1:], "/")[1]
+			if f.Name() != strings.Split(path[len(folder)-1:], "/")[1] {
+				file.Folder = strings.Split(path[len(folder)-1:], "/")[1]
 				// fmt.Println(file.Folder)
 			} else {
 				file.Folder = ""
 			}
 			file.Size = float64(f.Size())
-			file.Time = f.ModTime()
 			file.Ext = filepath.Ext(f.Name())[1:]
+			file.Path = path
 
-			files.File = append(files.File, *file)
-
-		} else if f.IsDir() && f.Name() != dir[len(dir)-1] {
-			folder := &model.Folder{}
-			folder.Name = strings.Split(path[len(DIRFILE)-1:], "/")[1]
-
-			if CheckFilesInFolder(path) {
-				folder.Empty = false
-			} else {
-				folder.Empty = true
-			}
-			files.Folder = append(files.Folder, *folder)
+			file.CreateFile()
 		}
 		return nil
 	})
 
-	return files
+	// return files
 }

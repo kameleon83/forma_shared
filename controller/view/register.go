@@ -83,7 +83,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			} else if r.FormValue("prof") == "false" {
 				u.Prof = false
 			}
-			u.IP, _ = controller.CheckIP(w, r)
+			u.IP = controller.CheckIP(w, r)
 			u.Admin = 0
 			u.Active = false
 			u.Checkpoint = 0

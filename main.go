@@ -10,16 +10,15 @@ import (
 
 	"forma_shared/controller"
 	"forma_shared/controller/view"
-	"forma_shared/model"
 )
 
 // DIRFILE constante link download and upload file
 
 func main() {
 
-	controller.ReadDir()
-
 	controller.CreateDatabase()
+
+	controller.ReadDir()
 
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
@@ -31,14 +30,11 @@ func main() {
 
 	http.Get("/refresh")
 
-	model.ReadUserJSON(false, "lastname")
-
 	port := ":9000"
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", controllerView.Index)
 	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)
 	router.HandleFunc("/upload", controllerView.Upload)
-	router.HandleFunc("/not_access", controllerView.NotAccess)
 	router.HandleFunc("/annuaire/{nameCol}/{sort:(?:asc|desc)}", controllerView.Annuaire)
 	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
 	router.HandleFunc("/refresh", controllerView.RefreshList)

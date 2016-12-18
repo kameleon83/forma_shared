@@ -5,27 +5,25 @@
         {{ $files := .files}}
         {{ range $key, $val := $folder }}
 
-        {{ if not $val.Empty }}
-
-        <div class="group_files" data-name="{{ $val.Name }}" id="{{ $val.Name }}">
-            <h1 class="cat">{{ $val.Name }}</h1>
+        <div class="group_files" data-name="{{ $val }}" id="{{ $val }}">
+            <h1 class="cat">{{ $val }}</h1>
 
             {{ range $k,$v := $files }}
-            {{ if eq $v.Folder $val.Name }}
+            {{ if eq $v.Folder $val }}
             <div class="files" data-name="{{ $v.Name }}">
                 <a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a>
                 <span class="size">
                     {{ $v.Size | exp }}
                 </span>
-                <span class="time" data-diff="{{$v.Time | time_diff }}">
-                    {{ $v.Time | time_fr }}
+                <span class="time" data-diff="{{$v.UpdatedAt | time_diff }}">
+                    {{ $v.UpdatedAt | time_fr }}
                 </span>
             </div>
-            {{ end}}
+
+            {{ end }}
             {{ end }}
 
         </div>
-        {{ end }}
         {{ end }}
     </section>
 

@@ -7,7 +7,7 @@
         <select class="folder" name="folder" id="select" >
             <option value="" selected>Choisir un dossier ...</option>
             {{ range $k, $v := .folder }}
-            <option value="{{ $v.Name }}">{{ $v.Name }}</option>
+            <option value="{{ $v }}">{{ $v }}</option>
             {{ end }}
         </select>
         <br>
