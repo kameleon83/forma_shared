@@ -13,9 +13,10 @@ import (
 
 // Index controller view inde.gohtml
 func Index(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	controller.GetSessionLogin(w, r)
 
-	const layout = "Mon 02 Jan 2006"
+	const layout = "Mon 02 Jan 2006 - 15:04:05"
 
 	funcMap := template.FuncMap{
 		"title": strings.Title,
@@ -43,18 +44,23 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+	tpl := template.Must(template.New("Index").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	foldersAndFiles := controller.ReadJSON(&model.FolderFile{})
+	f := &model.File{}
+
+	f.CountFiles()
+
+	CheckpointUserChange(w, r)
 
 	m := make(map[string]interface{})
 	m["title"] = "See or Download"
-	m["files"] = &foldersAndFiles.File
-	m["folder"] = &foldersAndFiles.Folder
+	m["files"] = f.SearchAllFiles()
+	m["folder"] = f.SearchFolder()
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
 	// m["ip_name"] = controller.AfficheNom(ip)
 
 	tpl.ExecuteTemplate(w, "layout", m)

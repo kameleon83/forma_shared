@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"sort"
 )
 
 // WriteJSON Write file json File Model
@@ -34,7 +33,7 @@ func ReadJSON(file *model.FolderFile) *model.FolderFile {
 
 	// sort.Sort(model.ByDate(file))
 
-	sort.Sort(sort.Reverse(model.ByDate(file.File)))
+	// sort.Sort(sort.Reverse(model.ByDate(file.File)))
 
 	return file
 }

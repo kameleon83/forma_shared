@@ -1,7 +1,11 @@
 package model
 
+import "github.com/jinzhu/gorm"
+
 // Folder model
 type Folder struct {
-	Name  string
-	Empty bool
+	gorm.Model
+	Name        string
+	Empty       bool
+	FolderRefer uint
 }

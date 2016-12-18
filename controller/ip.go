@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"forma_shared/model"
 	"net"
 	"net/http"
 )
@@ -23,53 +22,8 @@ import (
 // 	{Firstname: "Remi", IP: "172.16.26.224"},
 // }
 
-// AfficheNom Ip
-func AfficheNom(ip string) string {
-	user := model.ReadUserJSON(false, "lastname")
-	for _, v := range user {
-		if v.IP == ip {
-			return v.Firstname
-		}
-	}
-	return "Inconnu"
-}
-
 // CheckIP Check Ip Client Connect
-func CheckIP(w http.ResponseWriter, r *http.Request) (string, bool) {
+func CheckIP(w http.ResponseWriter, r *http.Request) string {
 	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
-	user := model.ReadUserJSON(false, "lastname")
-	for _, v := range user {
-		if v.IP == ip {
-			autorized := true
-			return ip, autorized
-		}
-	}
-	return ip, false
-}
-
-// ClientAutorize get ip
-func ClientAutorize(w http.ResponseWriter, r *http.Request) {
-	_, autorize := CheckIP(w, r)
-
-	// fmt.Println(ip, AfficheNom(ip), autorize)
-	if !autorize {
-		http.Redirect(w, r, "/not_access", 301)
-	}
-}
-
-// ClientAutorizeFormateur get ip
-func ClientAutorizeFormateur(w http.ResponseWriter, r *http.Request) {
-	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
-	user := model.ReadUserJSON(false, "lastname")
-	autorized := false
-	for _, v := range user {
-		if v.IP == ip && v.Prof == true {
-			autorized = true
-		} else if AfficheNom(ip) == "Samuel" {
-			autorized = true
-		}
-	}
-	if !autorized {
-		http.Redirect(w, r, "/", http.StatusFound)
-	}
+	return ip
 }
