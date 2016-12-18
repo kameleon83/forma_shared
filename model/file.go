@@ -17,6 +17,9 @@ type File struct {
 	Path   string
 }
 
+// COUNTFILES c
+var COUNTFILES int64
+
 // CreateFile c
 func (f *File) CreateFile() error {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
@@ -33,6 +36,20 @@ func (f *File) CreateFile() error {
 			db.Save(&f)
 		}
 	}
+
+	f.CountFiles()
+	return db.Error
+}
+
+// CountFiles c
+func (f *File) CountFiles() error {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	db.Model(&f).Count(&COUNTFILES)
 
 	return db.Error
 }

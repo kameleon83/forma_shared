@@ -7,10 +7,11 @@
     <link rel="manifest" href="/manifest.json">
 </head>
 <body>
+
     <div class="container{{ .niveau }}">
 
         {{ if .active }}
-
+        {{ if not .prof }}
         <div class="follow">
             <ul>
                 <li class="follow_li done"><img src="/images/smiley_content.png" alt="" /></li>
@@ -18,7 +19,7 @@
                 <li class="follow_li help"><img src="/images/smiley_help.png" alt="" /></li>
             </ul>
         </div>
-
+        {{ end }}
         {{ end }}
         <header>
             <h1>{{ .title }}</h1>
@@ -42,7 +43,11 @@
         </header>
         {{ template "content" . }}
     </div>
+
     <script src="/js/jquery.js" charset="utf-8"></script>
+    <!-- <script src="/js/server.js" charset="utf-8"></script>
+    <script src="/js/service-worker.js" charset="utf-8"></script>
+    <script src="/js/test.js" charset="utf-8"></script> -->
     <script>
 
     let url = $(location).attr('href');
@@ -76,6 +81,75 @@
             })
         }
     })
+
+    let oldCountFiles = 0;
+    let newCountFiles = 0;
+
+    $.ajax({
+        url: "/",
+        context: document.body
+    }).done(function(data) {
+        oldCountFiles = $(data).find(".files").length
+    });
+
+
+    var checkNewFile = setInterval(function(){
+        $.ajax({
+            url: "/countfiles",
+            context: document.body
+        }).done(function(data) {
+            newCountFiles = $(data).find(".countfiles").text()
+            if (newCountFiles > oldCountFiles){
+                notify("Nouveau Fichier :-)")
+            }
+        })
+    }, 5000)
+
+    checkNewFile
+
+    function notify(name){
+
+        clearInterval(checkNewFile)
+
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+        else if (Notification.permission === "granted") {
+            var options = {
+                body: "Un nouveau fichier est arrivé :-P",
+                icon: "/images/new_file.png",
+                dir : "ltr",
+                requireInteraction:true
+            };
+            var notification = new Notification(name,options);
+            notification.onclick = function() {
+                notification.close();
+                location.href = "/";
+            };
+        }
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (!('permission' in Notification)) {
+                    Notification.permission = permission;
+                }
+
+                if (permission === "granted") {
+                    var options = {
+                        body: "Un nouveau fichier est arrivé :-P",
+                        icon: "/images/new_file.png",
+                        dir : "ltr",
+                        requireInteraction:true
+                    };
+                    var notification = new Notification(name,options);
+                    notification.onclick = function() {
+                        notification.close();
+                        location.href = "/";
+                    };
+                }
+            });
+        }
+    }
+
 
     </script>
     {{ template "footer" . }}

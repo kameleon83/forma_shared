@@ -13,6 +13,7 @@ import (
 
 // Index controller view inde.gohtml
 func Index(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	controller.GetSessionLogin(w, r)
 
 	const layout = "Mon 02 Jan 2006 - 15:04:05"
@@ -43,9 +44,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	tpl := template.Must(template.New("Partage").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+	tpl := template.Must(template.New("Index").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	f := &model.File{}
+
+	f.CountFiles()
+
+	CheckpointUserChange(w, r)
 
 	m := make(map[string]interface{})
 	m["title"] = "See or Download"

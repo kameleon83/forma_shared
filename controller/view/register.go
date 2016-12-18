@@ -17,7 +17,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	// controller.GetSessionLogin(w, r)
 
-	tpl := template.Must(template.New("Partage").ParseFiles("view/register.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+	tpl := template.Must(template.New("Register").ParseFiles("view/register.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	// foldersAndFiles := controller.ReadJSON(&model.FolderFile{})
 

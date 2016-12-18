@@ -10,9 +10,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// ProblemFollowed s
-func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("view/checkpoint.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
+// Checkpoint s
+func Checkpoint(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	tpl := template.Must(template.New("Checkpoint").ParseFiles("view/checkpoint.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	controller.GetSessionLogin(w, r)
 
@@ -21,22 +22,26 @@ func ProblemFollowed(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := &model.User{}
-
+	CheckpointUserChange(w, r)
 	m := make(map[string]interface{})
 	m["title"] = "Checkpoint"
-	m["user"] = user.CheckPointUsers()
+	m["user"] = user.CheckpointUsers()
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }
 
-// ResetFollow r
-func ResetFollow(w http.ResponseWriter, r *http.Request) {
+// CheckpointReset r
+func CheckpointReset(w http.ResponseWriter, r *http.Request) {
 	u := &model.User{}
-	u.CheckPointUsersReset()
+	u.CheckpointUsersReset()
+	CheckpointChange(w, r, 0)
+	controller.SetSessionsValues(w, r, "niveau", "")
 	http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
@@ -45,19 +50,35 @@ func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	// name := vars["user"]
 	niveau, _ := strconv.Atoi(vars["niveau"])
+	CheckpointChange(w, r, niveau)
+}
 
+// CheckpointChange c
+func CheckpointChange(w http.ResponseWriter, r *http.Request, niveau int) {
 	u := model.User{}
-	u.Mail = controller.GetSessionsValues(w, r, "email").(string)
+	if controller.GetSessionsValues(w, r, "email") != nil {
+		u.Mail = controller.GetSessionsValues(w, r, "email").(string)
+	}
 	u.SearchUser()
 	u.Checkpoint = niveau
 	u.UpdateUser()
 	switch niveau {
+	case 0:
+		controller.SetSessionsValues(w, r, "niveau", "")
 	case 1:
 		controller.SetSessionsValues(w, r, "niveau", " done")
 	case 2:
 		controller.SetSessionsValues(w, r, "niveau", " in_progress")
 	case 3:
 		controller.SetSessionsValues(w, r, "niveau", " help")
-
 	}
+}
+
+func CheckpointUserChange(w http.ResponseWriter, r *http.Request) {
+	u := &model.User{}
+	if controller.GetSessionsValues(w, r, "email") != nil {
+		u.Mail = controller.GetSessionsValues(w, r, "email").(string)
+	}
+	u.SearchUser()
+	CheckpointChange(w, r, u.Checkpoint)
 }

@@ -11,7 +11,7 @@ import (
 
 // Valid v
 func Valid(w http.ResponseWriter, r *http.Request) {
-	tpl, _ := template.ParseFiles("view/valid.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml")
+	tpl := template.Must(template.New("Valide").ParseFiles("view/valid.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	var flashes interface{}
 
@@ -43,6 +43,8 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

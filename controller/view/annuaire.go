@@ -12,7 +12,7 @@ import (
 
 // Annuaire List user
 func Annuaire(w http.ResponseWriter, r *http.Request) {
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	controller.GetSessionLogin(w, r)
 
 	funcMap := template.FuncMap{
@@ -34,6 +34,8 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["numberFiles"] = model.COUNTFILES
 	// m["ip_name"] = controller.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())

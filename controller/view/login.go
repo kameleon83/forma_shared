@@ -9,10 +9,10 @@ import (
 
 // Login controller view inde.gohtml
 func Login(w http.ResponseWriter, r *http.Request) {
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var flashes interface{}
 
-	tpl := template.Must(template.New("Partage").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+	tpl := template.Must(template.New("Login").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	if r.Method == "POST" {
 
@@ -56,6 +56,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

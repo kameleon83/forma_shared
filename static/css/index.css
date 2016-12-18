@@ -32,11 +32,15 @@ a {
     color: #000;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     margin: 0px;
     padding: 0;
     box-sizing: border-box;
-    width: 100%;
     /* Modal Content */
     /* Add Animation */
     /* The Close Button */
@@ -44,6 +48,7 @@ body {
 
 body .container {
     width: 100%;
+    height: 100%;
 }
 
 body .container.done {
@@ -114,21 +119,45 @@ body .container header ul li:hover {
     box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
-body .container .follow_user {
+body .container .checkpoint_user {
     list-style: none;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 70px;
+    padding: 0;
 }
 
-body .container .follow_user li {
+body .container .checkpoint_user li {
     margin: 10px;
     width: 250px;
     line-height: 40px;
     margin: 5px;
 }
 
-body .container .followed_reset {
-    width: 200px;
+body .container .checkpoint_user li[class^="level"] {
+    color: white;
+    font-weight: bold;
+}
+
+body .container .checkpoint_user li[class^="level"].level0 {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+body .container .checkpoint_user li[class^="level"].level1 {
+    background-color: #2ecc71;
+}
+
+body .container .checkpoint_user li[class^="level"].level2 {
+    color: black;
+    background-color: #ffc107;
+}
+
+body .container .checkpoint_user li[class^="level"].level3 {
+    background-color: #d50000;
+}
+
+body .container .checkpoint_reset {
+    width: 400px;
+    position: absolute;
     line-height: 40px;
     height: 40px;
     border: none;
@@ -136,37 +165,19 @@ body .container .followed_reset {
     box-shadow: 10px 7px 10px rgba(255, 0, 0, 0.8);
     color: white;
     font-size: 1.2em;
-    margin-left: 10px;
+    padding: 0;
     transition: 0.4s all;
 }
 
-body .container .followed_reset:hover {
+body .container .checkpoint_reset:hover {
     cursor: pointer;
     background-color: red;
     box-shadow: 5px 4px 5px rgba(255, 0, 0, 0.6);
     transform: scale(0.97);
 }
 
-body .container .followed_reset:active, body .container .followed_resetfocus, body .container .followed_resetvisited {
+body .container .checkpoint_reset:active, body .container .checkpoint_resetfocus, body .container .checkpoint_resetvisited {
     border: none;
-}
-
-body .container .nbr_user_follow {
-    position: absolute;
-    padding-bottom: 20px;
-    text-align: center;
-}
-
-body .container .nbr_user_follow .timeout {
-    display: inline-block;
-    background-color: #d50000;
-    color: white;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 40px;
-    font-size: 1.4em;
-    content: '';
 }
 
 body .container .follow {

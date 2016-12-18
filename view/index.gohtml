@@ -37,7 +37,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <img src="images/download.png" alt="" class="download_img"/>
+            <img src="/images/download.png" alt="" class="download_img"/>
             <h2></h2>
             <span class="close">X</span>
         </div>
@@ -50,79 +50,6 @@
 
 <script src="/js/jquery.js" charset="utf-8"></script>
 <script src="/js/index.js" charset="utf-8"></script>
-<script>
-$(function(){
-    $('.all .group_files').each(function(){
-        let group_files = $(this).data("name");
-        let count = 0;
-        let file_name ="";
-        let supCount = false;
-        $($(this).children()).each(function(e){
-            count++;
-        })
-        if (localStorage.getItem(group_files) < count){
-            supCount = true;
-        }
-        if (localStorage.getItem(group_files) != count){
-            localStorage.setItem(group_files, count);
-            if (supCount){
-                notifyMe("Nouveau Fichier", group_files);
-            }
-        }
-    })
 
-    function notifyMe(name, body) {
-        let divPosition = $('#' + body).offset().top - 100;
-
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        else if (Notification.permission === "granted") {
-            var options = {
-                body: "Un nouveau fichier est arrivé dans " + body +" :-P",
-                icon: "/images/new_file.png",
-                dir : "ltr",
-                requireInteraction:true
-            };
-            var notification = new Notification(name,options);
-            notification.onclick = function() {
-                // $(window).scrollTop(divPosition);
-                notification.close();
-                window.open().close();
-                $("html, body").delay(200).animate({
-                    scrollTop: divPosition
-                }, 2000);
-                return window.focus();
-            };
-        }
-        else if (Notification.permission !== 'denied') {
-            Notification.requestPermission(function (permission) {
-                if (!('permission' in Notification)) {
-                    Notification.permission = permission;
-                }
-
-                if (permission === "granted") {
-                    var options = {
-                        body: "Un nouveau fichier est arrivé dans " + body +" :-P",
-                        icon: "/images/new_file.png",
-                        dir : "ltr",
-                        requireInteraction:true
-                    };
-                    var notification = new Notification(name,options);
-                    notification.onclick = function() {
-                        // $(window).scrollTop(divPosition);
-                        notification.close();
-                        window.open().close();
-                        $("html, body").delay(200).animate({
-                            scrollTop: divPosition
-                        }, 2000);
-                        return window.focus();
-                    };
-                }
-            });
-        }
-    }
-})
-</script>
 
 {{ end }}

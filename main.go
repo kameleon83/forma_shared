@@ -46,16 +46,17 @@ func main() {
 	router.HandleFunc("/newPassword", controllerView.NewPassword)
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
 	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
-	router.HandleFunc("/followed_reset", controllerView.ResetFollow)
-	router.HandleFunc("/checkpoint", controllerView.ProblemFollowed)
+	router.HandleFunc("/checkpoint", controllerView.Checkpoint)
+	router.HandleFunc("/checkpoint_reset", controllerView.CheckpointReset)
 	// router.HandleFunc("/notify", controllerView.InjectJavaScript)
+	router.HandleFunc("/countfiles", controllerView.NewFileCheck)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
+	fmt.Println("Server start : ", time.Now(), " to port "+port)
 
-	fmt.Println("Server start : ", time.Now(), " to port 9000")
-
-	// http.ListenAndServeTLS(port, "cert.pem", "key.pem", router)
+	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)
+	go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
 	http.ListenAndServe(port, router)
 
 }

@@ -12,7 +12,7 @@ func PasswordForgot(w http.ResponseWriter, r *http.Request) {
 
 	var flashes interface{}
 
-	tpl := template.Must(template.New("Partage").ParseFiles("view/passwordForgot.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+	tpl := template.Must(template.New("PasswordForgot").ParseFiles("view/passwordForgot.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	if r.Method == "POST" {
 		u := model.User{}
@@ -38,6 +38,8 @@ func PasswordForgot(w http.ResponseWriter, r *http.Request) {
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }

@@ -12,7 +12,6 @@ import (
 
 // Download View
 func Download(w http.ResponseWriter, r *http.Request) {
-
 	controller.GetSessionLogin(w, r)
 
 	vars := mux.Vars(r)
