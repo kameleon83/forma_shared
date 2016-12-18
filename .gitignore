@@ -5,3 +5,4 @@ files/*
 *.pem
 config_directory
 forma_shared
+gorm.db
