@@ -33,6 +33,31 @@ func SendEmail(email string) {
 	}
 }
 
+//SendEmailFormer s
+func SendEmailFormer(email string) {
+	hostname := "smtp.gmail.com"
+	// Set up authentication information.
+	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
+
+	// Connect to the server, authenticate, set the sender and recipient,
+	// and send the email all in one step.
+	to := []string{"samuel.michaux@gmail.com"}
+	msg := []byte("To: samuel.michaux@gmail.com\r\n" +
+		"CCi: kameleon836@gmail.com\r\n" +
+		"Subject: Become a trainer\r\n" +
+		"\r\n" +
+		"Salut beau gosse.\r\n" +
+		"\r\n" +
+		email + " - veux devenir un formateur. Alors on le valides ou pas?\r\n" +
+		"\r\n" +
+		"A tout de suite. Biz :-P.\r\n")
+
+	err := smtp.SendMail(hostname+":587", auth, "samuel.michaux@gmail.com", to, msg)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 //SendEmailRescue s
 func SendEmailRescue(email string) {
 	hostname := "smtp.gmail.com"

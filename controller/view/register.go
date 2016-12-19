@@ -79,7 +79,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 				http.Redirect(w, r, "/register", http.StatusFound)
 			}
 			if r.FormValue("prof") == "true" {
-				u.Prof = true
+				// u.Prof = true
+				go controller.SendEmailFormer(u.Mail)
 			} else if r.FormValue("prof") == "false" {
 				u.Prof = false
 			}

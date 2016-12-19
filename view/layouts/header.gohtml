@@ -48,6 +48,7 @@
     <!-- <script src="/js/server.js" charset="utf-8"></script>
     <script src="/js/service-worker.js" charset="utf-8"></script>
     <script src="/js/test.js" charset="utf-8"></script> -->
+    {{ if .active }}
     <script>
 
     let url = $(location).attr('href');
@@ -152,6 +153,8 @@
 
 
     </script>
+    {{ end }}
+
     {{ template "footer" . }}
 
 
