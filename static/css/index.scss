@@ -63,13 +63,13 @@ a{
     color: $color_text;
 }
 
-html, body {
-    width: 100%;
+html {
     height: 100%;
 }
 
 body{
     margin: $margin;
+    min-height: 100%;
     padding: 0;
     box-sizing: border-box;
     // text-align: center;
@@ -280,7 +280,7 @@ body{
 
         section{
             width: 100%;
-
+            height: auto;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -516,6 +516,38 @@ body{
                     }
                 }
             }
+            .register_form{
+                .form_group{
+                    position: relative;
+                    padding: 5px;
+                    margin: 0;
+
+                    input:not([type="radio"]){
+                        height: 40px;
+                        width: 400px;
+                    }
+                    input:required {
+                        border:1px solid rgba(255,0,0,0.5);
+                        box-shadow: 3px 2px 5px rgba(255,0,0,0.5);
+                    }
+                    ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                        font-size: 1.3em;
+                        text-align: center;
+                    }
+                    ::-moz-placeholder { /* Firefox 19+ */
+                        font-size: 1.3em;
+                        text-align: center;
+                    }
+                    :-ms-input-placeholder { /* IE 10+ */
+                        font-size: 1.3em;
+                        text-align: center;
+                    }
+                    :-moz-placeholder { /* Firefox 18- */
+                        font-size: 1.3em;
+                        text-align: center;
+                    }
+                }
+            }
         }
     }
 
@@ -627,6 +659,24 @@ body{
             max-width: 80%;
             height: auto;
             // position: absolute;
+        }
+    }
+
+    footer{
+        z-index: 9999;
+        position: fixed;
+        width: 100%;
+        line-height: 80px;
+        text-align: center;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.7);
+        a{
+            width: 100%;
+            height: auto;
+            color: white;
+            font-weight: bold;
+            font-size: 2em;
+            display: block;
         }
     }
 }
