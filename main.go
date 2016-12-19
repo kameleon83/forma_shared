@@ -56,7 +56,7 @@ func main() {
 	fmt.Println("Server start : ", time.Now(), " to port "+port)
 
 	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)
-	go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
+	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
 	http.ListenAndServe(port, router)
 
 }

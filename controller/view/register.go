@@ -27,7 +27,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	var flashes = session.Flashes()
+	var flashes interface{}
 
 	if r.Method == "POST" {
 		itsOk := true
@@ -38,25 +38,18 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		pass2 := strings.TrimSpace(r.FormValue("mdp_verif"))
 
 		if !u.ValidFirstname() {
-			if len(flashes) == 0 {
-				session.AddFlash("Pas assez de caractères pour le prénom")
-				session.Save(r, w)
-				itsOk = false
-				http.Redirect(w, r, "/register", http.StatusFound)
-			}
+			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le prénom")
+			itsOk = false
+			http.Redirect(w, r, "/register", http.StatusFound)
 		}
 		if !u.ValidLastname() {
-			if len(flashes) == 0 {
-				session.AddFlash("Pas assez de caractères pour le nom")
-				session.Save(r, w)
-				itsOk = false
-				http.Redirect(w, r, "/register", http.StatusFound)
-			}
+			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le nom")
+			itsOk = false
+			http.Redirect(w, r, "/register", http.StatusFound)
 		}
 
 		if len(pass1) < 6 || len(pass2) < 6 {
-			session.AddFlash("Pas assez de caractères pour le mot de passe")
-			session.Save(r, w)
+			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le mot de passe")
 			itsOk = false
 			http.Redirect(w, r, "/register", http.StatusFound)
 		}
@@ -65,16 +58,16 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			u.Password = controller.CheckEqualsPasswordString(pass1, pass2)
 			u.Function = strings.TrimSpace(r.FormValue("function"))
 			u.Phone = strings.TrimSpace(r.FormValue("phone"))
-			if !u.ValidPhone() {
-				session.AddFlash("Numéro de téléphone incorrect")
-				session.Save(r, w)
-				itsOk = false
-				http.Redirect(w, r, "/register", http.StatusFound)
-			}
+			// if !u.ValidPhone() {
+			// 	flashes = controller.SetSessionsFlashes(w, r, "Numéro de téléphone incorrect")
+			// 	itsOk = false
+			// 	http.Redirect(w, r, "/register", http.StatusFound)
+			// } else {
+			// 	u.Phone = "none"
+			// }
 			u.Mail = r.FormValue("email")
 			if !u.ValidEmail() {
-				session.AddFlash("Email incorrect")
-				session.Save(r, w)
+				flashes = controller.SetSessionsFlashes(w, r, "Email incorrect")
 				itsOk = false
 				http.Redirect(w, r, "/register", http.StatusFound)
 			}
@@ -93,16 +86,11 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 			if itsOk {
 				if err := u.CreateUser(); err != nil {
-					// if len(flashes) == 0 {
-					session.AddFlash("Cet utilsateur existe déjà.")
-					// }
-					session.Save(r, w)
+					flashes = controller.SetSessionsFlashes(w, r, "Cet utilsateur existe déjà.")
 					http.Redirect(w, r, "/register", http.StatusFound)
 
 				} else {
-					if len(flashes) == 0 {
-						session.AddFlash("L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
-					}
+					flashes = controller.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
 					session.Save(r, w)
 					go controller.SendEmail(u.Mail)
 					session.Values["email"] = u.Mail
@@ -112,10 +100,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 		} else {
-			if len(flashes) == 0 {
-				session.AddFlash("les mdp ne sont pas pareil")
-			}
-			session.Save(r, w)
+			flashes = controller.SetSessionsFlashes(w, r, "les mdp ne sont pas pareil")
 			http.Redirect(w, r, "/register", http.StatusFound)
 		}
 	}
