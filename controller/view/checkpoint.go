@@ -17,7 +17,7 @@ func Checkpoint(w http.ResponseWriter, r *http.Request) {
 
 	controller.GetSessionLogin(w, r)
 
-	if !controller.GetSessionsValues(w, r, "prof").(bool) {
+	if controller.GetSessionsValues(w, r, "prof") != nil && !controller.GetSessionsValues(w, r, "prof").(bool) {
 		http.Redirect(w, r, "/", http.StatusFound)
 	}
 

@@ -37,10 +37,10 @@ html {
 }
 
 body {
-    margin: 0px;
     min-height: 100%;
     padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.1);
     /* Modal Content */
     /* Add Animation */
     /* The Close Button */
@@ -48,45 +48,31 @@ body {
 
 body .container {
     width: 100%;
-    height: 100%;
-}
-
-body .container.done {
-    background-color: rgba(46, 204, 113, 0.2);
-}
-
-body .container.in_progress {
-    background-color: rgba(255, 193, 7, 0.2);
-}
-
-body .container.help {
-    background-color: rgba(213, 0, 0, 0.2);
+    min-height: 100vh;
 }
 
 body .container header {
-    display: flex;
-    flex-wrap: wrap;
-    line-height: 40px;
-    height: 80px;
+    position: relative;
+    width: 80px;
+    text-align: center;
+    height: 100%;
     background-color: black;
     position: fixed;
-    width: 100%;
     top: 0;
     left: 0;
     margin: 0;
-    padding: 0;
+    padding: 2px;
     color: #19b5fe;
-    z-index: 9999;
-    box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
+    z-index: 9980;
 }
 
 body .container header h3 {
     padding: 0;
-    margin-left: 50px;
+    width: 100%;
+    font-size: auto;
 }
 
 body .container header ul {
-    position: absolute;
     margin: 0;
     padding: 0;
     top: 0;
@@ -98,14 +84,10 @@ body .container header ul {
 }
 
 body .container header ul li {
-    border-right: 2px solid black;
-    background-color: rgba(25, 181, 254, 0.5);
-    width: 200px;
-    line-height: 80px;
+    width: auto;
     text-align: center;
-    height: 80px;
-    box-shadow: 10px 7px 10px rgba(0, 0, 0, 0.5);
     transition: 0.4s all;
+    margin-top: 40px;
 }
 
 body .container header ul li a {
@@ -114,9 +96,12 @@ body .container header ul li a {
     color: white;
 }
 
+body .container header ul li a img {
+    width: 64px;
+}
+
 body .container header ul li:hover {
     transform: scale(0.98);
-    box-shadow: 5px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 body .container .checkpoint_user {
@@ -183,24 +168,23 @@ body .container .checkpoint_reset:active, body .container .checkpoint_resetfocus
 body .container .follow {
     position: fixed;
     left: 0;
-    top: 40%;
-    background-color: white;
-    z-index: 2000;
+    bottom: 0;
+    z-index: 9990;
+    width: 80px;
+    margin-bottom: 10px;
 }
 
 body .container .follow ul {
-    position: absolute;
     margin: 0;
     padding: 0;
 }
 
 body .container .follow ul > li {
     position: relative;
-    display: block;
-    width: 64px;
-    height: 64px;
-    line-height: 64px;
-    margin: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin: 0 auto;
     cursor: pointer;
     transition: 0.4s all;
 }
@@ -208,11 +192,17 @@ body .container .follow ul > li {
 body .container .follow ul > li::before {
     position: absolute;
     display: none;
-    top: 0px;
-    left: 64px;
+    top: 5px;
+    left: 50px;
     width: 200px;
     line-height: 25px;
     transition: 0.4s all;
+}
+
+body .container .follow ul > li::after {
+    margin: 15px;
+    content: "";
+    display: block;
 }
 
 body .container .follow ul > li:hover::before {
@@ -235,18 +225,27 @@ body .container .follow ul > li.help:hover::before {
     content: "Help Me, Please!!!!";
 }
 
-body .container .follow ul > li img {
-    width: 64px;
-    height: auto;
-    vertical-align: middle;
+body .container .follow ul > li.done {
+    content: "";
+    background-color: rgba(46, 204, 113, 0.8);
 }
 
 body .container .follow ul > li.done:hover {
     background-color: rgba(46, 204, 113, 0.6);
 }
 
+body .container .follow ul > li.in_progress {
+    content: "";
+    background-color: rgba(255, 193, 7, 0.8);
+}
+
 body .container .follow ul > li.in_progress:hover {
     background-color: rgba(255, 193, 7, 0.6);
+}
+
+body .container .follow ul > li.help {
+    content: "";
+    background-color: rgba(213, 0, 0, 0.8);
 }
 
 body .container .follow ul > li.help:hover {
@@ -255,12 +254,10 @@ body .container .follow ul > li.help:hover {
 
 body .container section {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-top: 100px;
-    padding-bottom: 100px;
 }
 
 body .container section .number_annuaire {
@@ -344,8 +341,83 @@ body .container section table tbody tr td .annuaireMail:hover {
 
 body .container section .all {
     width: 100%;
+    min-height: 100%;
     text-align: center;
-    margin-left: 90px;
+    margin-left: 84px;
+    padding-bottom: 100px;
+}
+
+body .container section .all .bar_anchor {
+    position: fixed;
+    text-align: left;
+    margin: 0;
+    width: 35px;
+    height: 100%;
+    background-color: black;
+    border-left: 3px solid white;
+    transition: 0.3s all;
+}
+
+body .container section .all .bar_anchor ul {
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    text-transform: capitalize;
+}
+
+body .container section .all .bar_anchor ul li {
+    margin: 8px 0;
+    padding: +6px;
+    overflow: hidden;
+    transition: 0.5s all;
+}
+
+body .container section .all .bar_anchor ul li:first-letter {
+    color: white;
+    font-size: 2em;
+}
+
+body .container section .all .bar_anchor ul li a {
+    display: block;
+    transition: 0.2s all;
+}
+
+body .container section .all .bar_anchor ul li:hover {
+    background-color: white;
+}
+
+body .container section .all .bar_anchor ul li:hover a {
+    color: black;
+}
+
+body .container section .all .bar_anchor:hover {
+    width: 200px;
+    background-color: black;
+}
+
+body .container section .all .bar_anchor:hover ul li {
+    color: black;
+}
+
+body .container section .all .bar_anchor:hover ul li:first-letter {
+    font-size: 2em;
+}
+
+body .container section .all .bar_anchor:hover ul li a {
+    color: white;
+}
+
+body .container section .all .bar_anchor:hover ul li:hover::first-letter {
+    color: black;
+}
+
+body .container section .all .bar_anchor:hover ul li:hover a {
+    color: black;
+}
+
+body .container section .all .group_files {
+    padding: 10px 0;
 }
 
 body .container section .all .group_files .cat {
@@ -353,82 +425,65 @@ body .container section .all .group_files .cat {
     width: 100%;
     text-align: center;
     font-size: 2em;
-    border-top: 3px solid black;
     justify-content: center;
-    margin: 0;
+    margin: 10px 0;
     text-transform: capitalize;
 }
 
 body .container section .all .group_files .files {
-    position: relative;
-    width: 250px;
-    display: inline-block;
-    height: 150px;
-    border: 1px solid black;
-    margin: 10px;
+    overflow-x: auto;
+    width: 92%;
+    table-layout: fixed;
+    margin: 0 auto;
     transition: 0.5s all;
 }
 
-body .container section .all .group_files .files:nth-child(even) {
-    background-color: rgba(25, 181, 254, 0.5);
-    box-shadow: 7px 5px 15px black;
+body .container section .all .group_files .files tr {
+    height: 50px;
+    line-height: 50px;
+    transition: 0.2s all;
 }
 
-body .container section .all .group_files .files:nth-child(even):hover {
-    box-shadow: 4px 2px 7px rgba(0, 0, 0, 0.8);
-    transform: scale(0.98);
-}
-
-body .container section .all .group_files .files a {
-    word-wrap: break-word;
-    position: absolute;
-    text-align: center;
-    z-index: 500;
-    width: 250px;
-    height: 150px;
+body .container section .all .group_files .files tr td {
     display: block;
-    color: inherit;
-}
-
-body .container section .all .group_files .files span {
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 400;
+    vertical-align: middle;
+    word-wrap: break-word;
+    display: table-cell;
     text-align: center;
+    border-right: 1px solid #D9E4E6;
+    padding-left: 0;
+    padding-right: 0;
+    transition: 0.2s all;
 }
 
-body .container section .all .group_files .files span.size {
-    top: 80px;
-    bottom: -30px;
+body .container section .all .group_files .files tr td a {
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 
-body .container section .all .group_files .files span.time {
-    top: 110px;
-    bottom: -60px;
+body .container section .all .group_files .files tr td:first-child {
+    width: 65%;
 }
 
-body .container section .all .group_files .files:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 7px 5px 15px #19b5fe;
-    color: #19b5fe;
+body .container section .all .group_files .files tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
-body .container section .all .group_files .files:nth-child(odd):hover {
-    box-shadow: 4px 2px 7px rgba(25, 181, 254, 0.5);
-    transform: scale(0.98);
+body .container section .all .group_files .files tr:hover {
+    background-color: rgba(0, 255, 0, 0.1);
 }
 
-body .container section .all .group_files .files.oneDay {
-    box-shadow: 7px 5px 15px #f7ca18;
+body .container section .all .group_files .files tr:hover td {
+    font-size: 1.02em;
 }
 
-body .container section .all .group_files .files.oneDay:hover {
-    box-shadow: 4px 2px 7px rgba(247, 202, 24, 0.7);
+body .container section .all .group_files .files tr:hover td a {
+    text-decoration: underline;
 }
 
-body .container section .all .group_files:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.2);
+body .container section .all .group_files .files tr.oneDay {
+    background-color: rgba(227, 255, 0, 0.1);
 }
 
 body .container section form {
@@ -439,6 +494,10 @@ body .container section form {
 body .container section form input {
     text-align: center;
     font-size: 1.4em;
+}
+
+body .container section form input:focus, body .container section form input:active {
+    outline: none;
 }
 
 body .container section form input[type="submit"] {
@@ -705,7 +764,7 @@ body .modal-body img {
 }
 
 body footer {
-    z-index: 9999;
+    z-index: 9970;
     position: fixed;
     width: 100%;
     line-height: 80px;
@@ -721,4 +780,8 @@ body footer a {
     font-weight: bold;
     font-size: 2em;
     display: block;
+}
+
+body footer a:hover {
+    cursor: pointer;
 }

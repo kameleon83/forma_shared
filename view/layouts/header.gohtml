@@ -14,28 +14,28 @@
         {{ if not .prof }}
         <div class="follow">
             <ul>
-                <li class="follow_li done"><img src="/images/smiley_content.png" alt="" /></li>
-                <li class="follow_li in_progress"><img src="/images/smiley_work.png" alt="" /></li>
-                <li class="follow_li help"><img src="/images/smiley_help.png" alt="" /></li>
+                <li class="follow_li done"></li>
+                <li class="follow_li in_progress"></li>
+                <li class="follow_li help"></li>
             </ul>
         </div>
         {{ end }}
         {{ end }}
         <header>
-            <h1>{{ .title }}</h1>
-            <h3 data-name="{{ .firstname }}">Hello {{ .firstname }}</h3>
+
+            <h3 data-name="{{ .firstname }}">{{ .firstname }}</h3>
             {{ if .active }}
             <ul>
-                <li><a data-url="" href="/">Download File(s)</a></li>
-                <li><a data-url="upload" href="/upload">Upload File(s)</a></li>
-                <li><a data-url="annuaire" href="/annuaire/lastname/asc">Annuaire</a></li>
+                <li><a data-url="" href="/"><img src="/images/home.png" alt="Home"></a></li>
+                <li><a data-url="upload" href="/upload"><img src="/images/upload.png" alt="Upload"></a></li>
+                <li><a data-url="annuaire" href="/annuaire/lastname/asc"><img src="/images/directory.png" alt="Annuaire"></a></li>
                 {{ if .prof }}
-                <li><a data-url="checkpoint" href="/checkpoint">Checkpoint</a></li>
+                <li><a data-url="checkpoint" href="/checkpoint"><img src="/images/traffic-light.png" alt="Checkpoint"></a></li>
                 {{ end }}
 
                 {{ if .active }}
                 {{ if .email}}
-                <li><a data-url="logout" href="/logout">Logout</a></li>
+                <li><a data-url="logout" href="/logout"><img src="/images/logout.png" alt="Logout"></a></li>
                 {{ end }}
                 {{ end }}
             </ul>
@@ -90,7 +90,7 @@
         url: "/",
         context: document.body
     }).done(function(data) {
-        oldCountFiles = $(data).find(".files").length
+        oldCountFiles = parseInt($(data).find(".count").last().val()) + 1
     });
 
 
