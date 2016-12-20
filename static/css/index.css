@@ -51,6 +51,18 @@ body .container {
     min-height: 100vh;
 }
 
+body .container.done > .follow ul .done {
+    background-color: #2ecc71;
+}
+
+body .container.in_progress > .follow ul .in_progress {
+    background-color: #ffc107;
+}
+
+body .container.help > .follow ul .help {
+    background-color: #d50000;
+}
+
 body .container header {
     position: relative;
     width: 80px;
@@ -227,29 +239,29 @@ body .container .follow ul > li.help:hover::before {
 
 body .container .follow ul > li.done {
     content: "";
-    background-color: rgba(46, 204, 113, 0.8);
+    background-color: rgba(46, 204, 113, 0.5);
 }
 
 body .container .follow ul > li.done:hover {
-    background-color: rgba(46, 204, 113, 0.6);
+    background-color: rgba(46, 204, 113, 0.8);
 }
 
 body .container .follow ul > li.in_progress {
     content: "";
-    background-color: rgba(255, 193, 7, 0.8);
+    background-color: rgba(255, 193, 7, 0.5);
 }
 
 body .container .follow ul > li.in_progress:hover {
-    background-color: rgba(255, 193, 7, 0.6);
+    background-color: rgba(255, 193, 7, 0.8);
 }
 
 body .container .follow ul > li.help {
     content: "";
-    background-color: rgba(213, 0, 0, 0.8);
+    background-color: rgba(213, 0, 0, 0.5);
 }
 
 body .container .follow ul > li.help:hover {
-    background-color: rgba(213, 0, 0, 0.6);
+    background-color: rgba(213, 0, 0, 0.8);
 }
 
 body .container section {
@@ -373,7 +385,7 @@ body .container section .all .bar_anchor ul li {
     transition: 0.5s all;
 }
 
-body .container section .all .bar_anchor ul li:first-letter {
+body .container section .all .bar_anchor ul li::first-letter {
     color: white;
     font-size: 2em;
 }
@@ -400,7 +412,7 @@ body .container section .all .bar_anchor:hover ul li {
     color: black;
 }
 
-body .container section .all .bar_anchor:hover ul li:first-letter {
+body .container section .all .bar_anchor:hover ul li::first-letter {
     font-size: 2em;
 }
 

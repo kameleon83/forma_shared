@@ -21,8 +21,8 @@ $(function(){
         $(".checkpoint_user li").each(function(){
             let level = $(this).data("level");
             let name = $(this).text()
-            console.log(level, name);
-            if (level == "3"){
+            if (level == 3){
+                console.log(level, name);
                 notifyMe(name, level);
             }
         })
@@ -34,8 +34,8 @@ $(function(){
             if (old != newdata){
                 // console.log(newdata);
                 $('.checkpoint_user').html(newdata)
-                old = newdata
                 readHtmlChange();
+                old = newdata
             }
         })
     }, 4000)
