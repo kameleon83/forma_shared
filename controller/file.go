@@ -19,9 +19,10 @@ func ReadDir() {
 	// log.Println(dirActual)
 
 	c := &model.Config{}
+	c.SearchConfigDirectory()
 
-	if err := c.SearchConfigDirectory().Error; err != nil {
-		c.CreateConfig()
+	if c.Directory == "" {
+		// c.CreateConfig()
 
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Println()
@@ -39,12 +40,12 @@ func ReadDir() {
 
 		c.Directory = filepath.Clean(text) + string(filepath.Separator)
 
-		err := c.UpdateConfig().Error
+		err := c.CreateConfig()
 
 		log.Println(err)
 
 	}
-	c.SearchConfigDirectory()
+
 	DIRFILE = c.Directory
 
 }

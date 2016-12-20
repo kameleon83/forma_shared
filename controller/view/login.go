@@ -10,9 +10,10 @@ import (
 // Login controller view inde.gohtml
 func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	var flashes interface{}
 
 	tpl := template.Must(template.New("Login").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+
+	var flashes interface{}
 
 	if r.Method == "POST" {
 
@@ -26,29 +27,30 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		u.Mail = r.FormValue("email")
 		u.SearchUser()
 
-		if u.Password == password {
-			controller.SetSessionsValues(w, r, "email", u.Mail)
-			controller.SetSessionsValues(w, r, "firstname", u.Firstname)
-			controller.SetSessionsValues(w, r, "lastname", u.Lastname)
-			controller.SetSessionsValues(w, r, "ip", u.IP)
-			controller.SetSessionsValues(w, r, "admin", u.Admin)
-			controller.SetSessionsValues(w, r, "id", u.ID)
-			controller.SetSessionsValues(w, r, "prof", u.Prof)
-			if u.Active {
-				controller.SetSessionsValues(w, r, "active", u.Active)
+		if u.Mail != "" {
+			if u.Password == password {
+				controller.SetSessionsValues(w, r, "email", u.Mail)
+				controller.SetSessionsValues(w, r, "firstname", u.Firstname)
+				controller.SetSessionsValues(w, r, "lastname", u.Lastname)
+				controller.SetSessionsValues(w, r, "ip", u.IP)
+				controller.SetSessionsValues(w, r, "admin", u.Admin)
+				controller.SetSessionsValues(w, r, "id", u.ID)
+				controller.SetSessionsValues(w, r, "prof", u.Prof)
+				if u.Active {
+					controller.SetSessionsValues(w, r, "active", u.Active)
 
-				http.Redirect(w, r, "/", http.StatusFound)
-			} else {
-				flashes = controller.SetSessionsFlashes(w, r, "Votre compte n'est pas actif!! Vérifier vos courriels")
-				http.Redirect(w, r, "/valid", http.StatusFound)
+					http.Redirect(w, r, "/", http.StatusFound)
+				} else {
+					flashes = controller.SetSessionsFlashes(w, r, "Votre compte n'est pas actif!! Vérifier vos courriels")
+					http.Redirect(w, r, "/valid", http.StatusFound)
+				}
 
+				flashes = controller.SetSessionsFlashes(w, r, "Il y a une erreur d'authentification. Est-ce le bon mot de passe? Le bon utilisateur?")
 			}
-
-		} else {
-			flashes = controller.SetSessionsFlashes(w, r, "Il y a une erreur d'authentification. Est-ce le bon mot de passe? Le bon utilisateur?")
 		}
-
+		flashes = controller.SetSessionsFlashes(w, r, "Il y a une erreur d'authentification. Est-ce le bon mot de passe? Le bon utilisateur?")
 	}
+
 	m := make(map[string]interface{})
 	m["title"] = "Login"
 	m["errors"] = flashes

@@ -74,6 +74,7 @@ func CheckpointChange(w http.ResponseWriter, r *http.Request, niveau int) {
 	}
 }
 
+//CheckpointUserChange c
 func CheckpointUserChange(w http.ResponseWriter, r *http.Request) {
 	u := &model.User{}
 	if controller.GetSessionsValues(w, r, "email") != nil {

@@ -1,18 +1,24 @@
 {{ define "content" }}
 <section>
     <form enctype="multipart/form-data" action="/login" method="post" >
-        <br>
-        <input type="email" name="email" class="inputText" placeholder="Email" value="{{ .email }}" required/>
-        <br>
-        <input type="password" name="password" class="inputText" placeholder="Mot de Passe" required/>
-        <br>
-        <input type="submit" value="Valider"/>
+        <div class="form_group">
+            <input type="email" name="email" class="inputText" placeholder="Email" value="{{ .email }}" required/>
+        </div>
+        <div class="form_group">
+            <input type="password" name="password" class="inputText" placeholder="Mot de Passe" required/>
+        </div>
+        <div class="form_group">
+            <input type="submit" value="Valider"/>
+        </div>
     </form>
-    <div class="">
-        <a href="/passwordForgot"><button type="button" name="passForgot">Mot de passe perdu ou oublié</button></a>
-    </div>
-    <div class="">
-        <a href="/register"><button type="button" name="register">S'enregistrer</button></a>
+    <div class="btn_page_login">
+
+        <div class="btn_password_forgot">
+            <a href="/passwordForgot"><button type="button" name="passForgot">Mot de passe perdu ou oublié</button></a>
+        </div>
+        <div class="btn_register">
+            <a href="/register"><button type="button" name="register">S'enregistrer</button></a>
+        </div>
     </div>
 </section>
 

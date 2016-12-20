@@ -35,6 +35,10 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	if email == nil {
+		email = "Aucun email"
+	}
+
 	m := make(map[string]interface{})
 	m["title"] = "Validation Compte"
 	m["email"] = email.(string)
