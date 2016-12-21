@@ -20,6 +20,12 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	funcMap := template.FuncMap{
 		"title": strings.Title,
+		"firstLetter": func(str string) string {
+			return string(str[0])
+		},
+		"lastLetter": func(str string) string {
+			return string(str[1:])
+		},
 		"time_fr": func(t *time.Time) string {
 			return t.Format(layout)
 		},
