@@ -17,13 +17,20 @@ func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) 
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return flashes
 	}
+	session.AddFlash(message)
+	session.Save(r, w)
 
 	if len(flashes) > 0 {
 		return flashes
 	}
-	session.AddFlash(message)
-	session.Save(r, w)
 	return flashes
+}
+
+// StartSession s
+func StartSession(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "formation_PHP")
+
+	session.Save(r, w)
 }
 
 // GetSessionsValues g
@@ -50,7 +57,7 @@ func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "formation_PHP")
 	session.Options = &sessions.Options{
 		Path:     "/",
-		MaxAge:   3600 * 8,
+		MaxAge:   86400 * 7,
 		HttpOnly: true,
 	}
 	session.Save(r, w)

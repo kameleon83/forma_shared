@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -8,7 +9,7 @@ import (
 
 // Config c
 type Config struct {
-	Directory string
+	Directory string `gorm:"unique_index"`
 }
 
 // CreateConfig c
@@ -18,6 +19,10 @@ func (c *Config) CreateConfig() error {
 		log.Println(err)
 	}
 	defer db.Close()
+
+	if c.Directory == "" {
+		return db.AddError(errors.New("Le chemin d'accès est vide"))
+	}
 
 	return db.Create(c).Error
 }

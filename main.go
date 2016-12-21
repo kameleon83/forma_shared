@@ -12,8 +12,6 @@ import (
 	"forma_shared/controller/view"
 )
 
-// DIRFILE constante link download and upload file
-
 func main() {
 
 	controller.CreateDatabase()

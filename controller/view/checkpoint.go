@@ -17,7 +17,7 @@ func Checkpoint(w http.ResponseWriter, r *http.Request) {
 
 	controller.GetSessionLogin(w, r)
 
-	if !controller.GetSessionsValues(w, r, "prof").(bool) {
+	if controller.GetSessionsValues(w, r, "prof") != nil && !controller.GetSessionsValues(w, r, "prof").(bool) {
 		http.Redirect(w, r, "/", http.StatusFound)
 	}
 
@@ -74,6 +74,7 @@ func CheckpointChange(w http.ResponseWriter, r *http.Request, niveau int) {
 	}
 }
 
+//CheckpointUserChange c
 func CheckpointUserChange(w http.ResponseWriter, r *http.Request) {
 	u := &model.User{}
 	if controller.GetSessionsValues(w, r, "email") != nil {

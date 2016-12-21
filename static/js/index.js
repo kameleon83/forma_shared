@@ -48,9 +48,10 @@ $(function(){
         }
     });
 
-    $('.files').each(function(){
-        if ( $(this).children(".time").data('diff') == 0 ){
-            $(this).addClass('oneDay');
+    $('.files .time').each(function(){
+        console.log($(this).data('diff'));
+        if ( $(this).data('diff') == 0 ){
+            $(this).parent().addClass('oneDay');
         }
     })
 
