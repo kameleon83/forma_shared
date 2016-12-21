@@ -24,7 +24,7 @@
                     <td><a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a></td>
                     <td>{{ $v.Size | exp }}</td>
 
-                    <td class="time" data-diff="{{$v.UpdatedAt | time_diff }}">{{ $v.UpdatedAt | time_fr }}</td>
+                    <td class="time" data-diff="{{$v.CreatedAt | time_diff }}">{{ $v.CreatedAt | time_fr }}</td>
                     <input type="hidden" class="count" value="{{ $k }}">
                 </tr>
 

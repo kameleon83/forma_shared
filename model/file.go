@@ -62,7 +62,7 @@ func (f *File) SearchAllFiles() *[]File {
 	}
 	defer db.Close()
 	file := []File{}
-	db.Order("folder").Order("updated_at desc").Find(&file)
+	db.Order("folder").Order("created_at desc").Find(&file)
 	return &file
 }
 
