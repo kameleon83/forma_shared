@@ -382,32 +382,40 @@ body{
                     position: fixed;
                     text-align: left;
                     margin: 0;
-                    width: 35px;
-                    // left: 84px;
-                    // width: 80px;
+                    width: 50px;
                     height: 100%;
                     background-color: black;
                     border-left: 3px solid white;
-                    transition: 0.3s all;
+                    transition: 0.5s all;
+                    overflow-y: auto;
                     ul{
                         list-style: none;
-                        text-align: left;
+                        // text-align: left;
                         margin: 0;
                         padding: 0;
-                        text-transform: capitalize;
-                        // transition: 0.2s all;
+                        transition: 0.5s all;
                         li{
                             margin: 8px 0;
-                            padding: +6px;
-                            overflow: hidden;
+                            padding: 6px;
                             transition:0.5s all;
-                            &::first-letter{
-                                color: white;
-                                font-size: 2em;
-                            }
+                            overflow: hidden;
                             a{
-                                display: block;
                                 transition: 0.2s all;
+                                width: 40px;
+
+                                h3{
+                                    color: white;
+                                    font-size: 2em;
+                                    text-transform: uppercase;
+                                    width: 40px;
+                                    text-align: center;
+                                    display: block;
+                                    margin: 0;
+                                }
+                                span{
+                                    display: none;
+                                    transition: 0.3s all;
+                                }
                             }
                             &:hover{
                                 background-color: white;
@@ -423,22 +431,31 @@ body{
                         ul{
                             li{
                                 color: black;
-                                &::first-letter{
-                                    font-size: 2em;
-                                }
                                 a{
                                     color: white;
+                                    text-align: left;
+                                    h3{
+                                        display: inline;
+                                        padding-right: 3px;
+                                        margin-left: 3px;
+                                    }
+                                    span{
+                                        display: inline;
+                                    }
                                 }
                                 &:hover{
-                                    &::first-letter{
-                                        color: black;
-                                    }
                                     a{
                                         color: black;
+                                        h3{
+                                            color: black;
+                                        }
                                     }
                                 }
                             }
                         }
+                    }
+                    &::-webkit-scrollbar {
+                        display: none;
                     }
                 }
                 .group_files{

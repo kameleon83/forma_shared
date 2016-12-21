@@ -363,36 +363,46 @@ body .container section .all .bar_anchor {
     position: fixed;
     text-align: left;
     margin: 0;
-    width: 35px;
+    width: 50px;
     height: 100%;
     background-color: black;
     border-left: 3px solid white;
-    transition: 0.3s all;
+    transition: 0.5s all;
+    overflow-y: auto;
 }
 
 body .container section .all .bar_anchor ul {
     list-style: none;
-    text-align: left;
     margin: 0;
     padding: 0;
-    text-transform: capitalize;
+    transition: 0.5s all;
 }
 
 body .container section .all .bar_anchor ul li {
     margin: 8px 0;
-    padding: +6px;
-    overflow: hidden;
+    padding: 6px;
     transition: 0.5s all;
-}
-
-body .container section .all .bar_anchor ul li::first-letter {
-    color: white;
-    font-size: 2em;
+    overflow: hidden;
 }
 
 body .container section .all .bar_anchor ul li a {
-    display: block;
     transition: 0.2s all;
+    width: 40px;
+}
+
+body .container section .all .bar_anchor ul li a h3 {
+    color: white;
+    font-size: 2em;
+    text-transform: uppercase;
+    width: 40px;
+    text-align: center;
+    display: block;
+    margin: 0;
+}
+
+body .container section .all .bar_anchor ul li a span {
+    display: none;
+    transition: 0.3s all;
 }
 
 body .container section .all .bar_anchor ul li:hover {
@@ -412,20 +422,31 @@ body .container section .all .bar_anchor:hover ul li {
     color: black;
 }
 
-body .container section .all .bar_anchor:hover ul li::first-letter {
-    font-size: 2em;
-}
-
 body .container section .all .bar_anchor:hover ul li a {
     color: white;
+    text-align: left;
 }
 
-body .container section .all .bar_anchor:hover ul li:hover::first-letter {
-    color: black;
+body .container section .all .bar_anchor:hover ul li a h3 {
+    display: inline;
+    padding-right: 3px;
+    margin-left: 3px;
+}
+
+body .container section .all .bar_anchor:hover ul li a span {
+    display: inline;
 }
 
 body .container section .all .bar_anchor:hover ul li:hover a {
     color: black;
+}
+
+body .container section .all .bar_anchor:hover ul li:hover a h3 {
+    color: black;
+}
+
+body .container section .all .bar_anchor::-webkit-scrollbar {
+    display: none;
 }
 
 body .container section .all .group_files {

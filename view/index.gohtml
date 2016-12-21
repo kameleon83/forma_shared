@@ -7,7 +7,7 @@
         <div class="bar_anchor">
             <ul>
                 {{ range $key, $val := $folder }}
-                <li><a href="#{{ $val }}">{{ $val }}</a></li>
+                <li><a href="#{{ $val }}"><h3>{{ $val | firstLetter }}</h3><span>{{ $val | lastLetter }}</span></a></li>
                 {{ end }}
             </ul>
         </div>
