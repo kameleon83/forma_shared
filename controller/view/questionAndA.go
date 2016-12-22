@@ -4,7 +4,6 @@ import (
 	"forma_shared/controller"
 	"forma_shared_dev/model"
 	"html/template"
-	"log"
 	"net/http"
 	"strings"
 )
@@ -36,7 +35,6 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 		"up":    strings.ToUpper,
 		"searchEmailUser": func(i uint) string {
 			user.ID = i
-			log.Println(user)
 			user.SearchUserByID()
 			return user.Mail
 		},
