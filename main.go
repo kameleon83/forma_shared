@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"forma_shared/controller"
-	"forma_shared/controller/view"
+	"forma_shared_dev/controller"
+	"forma_shared_dev/controller/view"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 
 	http.Get("/refresh")
 
-	port := ":9000"
+	port := ":9001"
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", controllerView.Index)
 	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)
@@ -48,6 +48,9 @@ func main() {
 	router.HandleFunc("/checkpoint_reset", controllerView.CheckpointReset)
 	// router.HandleFunc("/notify", controllerView.InjectJavaScript)
 	router.HandleFunc("/countfiles", controllerView.NewFileCheck)
+
+	router.HandleFunc("/question&a", controllerView.QuestionAndA)
+	router.HandleFunc("/q&answer", controllerView.QAndAnswer)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))

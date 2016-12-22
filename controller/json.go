@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	"forma_shared/model"
+	"forma_shared_dev/model"
 	"io/ioutil"
 	"log"
 	"os"

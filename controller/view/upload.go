@@ -1,8 +1,8 @@
 package controllerView
 
 import (
-	"forma_shared/controller"
-	"forma_shared/model"
+	"forma_shared_dev/controller"
+	"forma_shared_dev/model"
 	"html/template"
 	"io"
 	"log"
@@ -15,12 +15,12 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	controller.GetSessionLogin(w, r)
 
 	if r.Method == "GET" {
-		f := &model.File{}
+		folder := &model.Folder{}
 		tpl := template.Must(template.New("Upload").ParseFiles("view/upload.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 		m := make(map[string]interface{})
 		m["title"] = "Upload"
-		m["folder"] = f.SearchFolder()
+		m["folder"] = folder.Search()
 		m["email"] = controller.GetSessionsValues(w, r, "email")
 		m["active"] = controller.GetSessionsValues(w, r, "active")
 		m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

@@ -2,8 +2,8 @@ package controllerView
 
 import (
 	"fmt"
-	"forma_shared/controller"
-	"forma_shared/model"
+	"forma_shared_dev/controller"
+	"forma_shared_dev/model"
 	"html/template"
 	"net/http"
 	"strings"

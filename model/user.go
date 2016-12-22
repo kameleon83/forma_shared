@@ -21,6 +21,8 @@ type User struct {
 	Admin      int
 	Active     bool
 	Checkpoint int
+	Questions  []Question `gorm:"ForeignKey:UserRefer"`
+	Answers    []Answer   `gorm:"ForeignKey:UserRefer"`
 }
 
 // CreateUser c
@@ -59,6 +61,17 @@ func (u *User) SearchUser() *gorm.DB {
 	defer db.Close()
 
 	return db.Where("mail = ?", u.Mail).First(&u)
+}
+
+// SearchUserByID s
+func (u *User) SearchUserByID() *User {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+	db.First(&u)
+	return u
 }
 
 //UpdateUser u

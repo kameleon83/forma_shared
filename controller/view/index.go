@@ -1,8 +1,8 @@
 package controllerView
 
 import (
-	"forma_shared/controller"
-	"forma_shared/model"
+	"forma_shared_dev/controller"
+	"forma_shared_dev/model"
 	"html/template"
 	"math"
 	"net/http"
@@ -20,6 +20,8 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	funcMap := template.FuncMap{
 		"title": strings.Title,
+		"upper": func(str string) string { return strings.ToUpper(str) },
+		"lower": func(str string) string { return strings.ToLower(str) },
 		"firstLetter": func(str string) string {
 			return string(str[0])
 		},
@@ -33,7 +35,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 			now := time.Now()
 			now.Format(layout)
 			diff := now.Sub(t.UTC())
-			return int(diff.Hours() / 24)
+			return int(diff.Minutes() / 2)
 		},
 		"exp": func(i float64) string {
 			if i > math.Pow(10, 12) {
@@ -52,16 +54,15 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Index").Funcs(funcMap).ParseFiles("view/index.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	f := &model.File{}
-
-	f.CountFiles()
+	file := &model.File{}
+	folder := &model.Folder{}
 
 	CheckpointUserChange(w, r)
 
 	m := make(map[string]interface{})
 	m["title"] = "See or Download"
-	m["files"] = f.SearchAllFiles()
-	m["folder"] = f.SearchFolder()
+	m["files"] = file.SearchAllFiles()
+	m["folder"] = folder.Search()
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

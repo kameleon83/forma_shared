@@ -64,18 +64,22 @@ body .container.help > .follow ul .help {
 }
 
 body .container header {
-    position: relative;
+    position: fixed;
     width: 80px;
     text-align: center;
     height: 100%;
     background-color: black;
-    position: fixed;
     top: 0;
     left: 0;
     margin: 0;
-    padding: 2px;
+    padding: 0;
     color: #19b5fe;
     z-index: 9980;
+    overflow-y: auto;
+}
+
+body .container header::-webkit-scrollbar {
+    display: none;
 }
 
 body .container header h3 {
@@ -93,6 +97,7 @@ body .container header ul {
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
+    padding-bottom: 165px;
 }
 
 body .container header ul li {
@@ -265,7 +270,8 @@ body .container .follow ul > li.help:hover {
 }
 
 body .container section {
-    width: 100%;
+    width: 90%;
+    margin-left: 80px;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -351,46 +357,121 @@ body .container section table tbody tr td .annuaireMail:hover {
     cursor: pointer;
 }
 
-body .container section .all {
-    width: 100%;
-    min-height: 100%;
-    text-align: center;
-    margin-left: 84px;
+body .container section .QAndA {
+    width: 90%;
     padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-body .container section .all .bar_anchor {
-    position: fixed;
-    text-align: left;
+body .container section .QAndA .question {
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+body .container section .QAndA .question h1 {
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: underline;
+    margin-bottom: 30px;
+}
+
+body .container section .QAndA .question h5 {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    font-style: italic;
+}
+
+body .container section .QAndA .question > p {
+    background-color: white;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+body .container section .QAndA .question .answer {
+    padding-left: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+body .container section .QAndA .question .answer h4 {
+    padding: 0;
     margin: 0;
-    width: 50px;
+    font-style: italic;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+body .container section .QAndA .question form.create_answer input[type^="submit"] {
+    height: 20px;
+    width: 70px;
+    padding: 0;
+    margin: 0;
+}
+
+body .container section .QAndA .create_question {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: white;
+    transition: 0.5s all;
+}
+
+body .container section .QAndA .create_question .form_group textarea {
+    width: 60%;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+body .container section .QAndA .create_question .form_group input[type="submit"] {
+    background-color: white;
+}
+
+body .container section .QAndA .create_question:hover, body .container section .QAndA .create_question:active, body .container section .QAndA .create_question:focus {
+    height: 400px;
+}
+
+body .container section .bar_anchor {
+    position: fixed;
+    left: 82px;
+    margin: 0;
+    width: 43px;
     height: 100%;
     background-color: black;
     border-left: 3px solid white;
-    transition: 0.5s all;
+    transition: 0.2s all;
     overflow-y: auto;
+    z-index: 9989;
 }
 
-body .container section .all .bar_anchor ul {
+body .container section .bar_anchor ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    transition: 0.5s all;
+    transition: 0.3s all;
 }
 
-body .container section .all .bar_anchor ul li {
+body .container section .bar_anchor ul li {
     margin: 8px 0;
-    padding: 6px;
-    transition: 0.5s all;
+    padding: 6px 0;
+    transition: 0.2s all;
     overflow: hidden;
 }
 
-body .container section .all .bar_anchor ul li a {
+body .container section .bar_anchor ul li a {
+    display: block;
     transition: 0.2s all;
-    width: 40px;
 }
 
-body .container section .all .bar_anchor ul li a h3 {
+body .container section .bar_anchor ul li a h3 {
     color: white;
     font-size: 2em;
     text-transform: uppercase;
@@ -400,53 +481,61 @@ body .container section .all .bar_anchor ul li a h3 {
     margin: 0;
 }
 
-body .container section .all .bar_anchor ul li a span {
+body .container section .bar_anchor ul li a span {
     display: none;
     transition: 0.3s all;
 }
 
-body .container section .all .bar_anchor ul li:hover {
+body .container section .bar_anchor ul li:hover {
     background-color: white;
 }
 
-body .container section .all .bar_anchor ul li:hover a {
+body .container section .bar_anchor ul li:hover a {
     color: black;
 }
 
-body .container section .all .bar_anchor:hover {
+body .container section .bar_anchor:hover {
     width: 200px;
     background-color: black;
 }
 
-body .container section .all .bar_anchor:hover ul li {
+body .container section .bar_anchor:hover ul li {
     color: black;
 }
 
-body .container section .all .bar_anchor:hover ul li a {
+body .container section .bar_anchor:hover ul li a {
     color: white;
     text-align: left;
 }
 
-body .container section .all .bar_anchor:hover ul li a h3 {
+body .container section .bar_anchor:hover ul li a h3 {
     display: inline;
     padding-right: 3px;
-    margin-left: 3px;
+    margin-left: 6px;
 }
 
-body .container section .all .bar_anchor:hover ul li a span {
+body .container section .bar_anchor:hover ul li a span {
     display: inline;
 }
 
-body .container section .all .bar_anchor:hover ul li:hover a {
+body .container section .bar_anchor:hover ul li:hover a {
     color: black;
 }
 
-body .container section .all .bar_anchor:hover ul li:hover a h3 {
+body .container section .bar_anchor:hover ul li:hover a h3 {
     color: black;
 }
 
-body .container section .all .bar_anchor::-webkit-scrollbar {
+body .container section .bar_anchor::-webkit-scrollbar {
     display: none;
+}
+
+body .container section .all {
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    margin-left: 84px;
+    padding-bottom: 100px;
 }
 
 body .container section .all .group_files {
@@ -465,7 +554,7 @@ body .container section .all .group_files .cat {
 
 body .container section .all .group_files .files {
     overflow-x: auto;
-    width: 92%;
+    width: 90%;
     table-layout: fixed;
     margin: 0 auto;
     transition: 0.5s all;
@@ -483,7 +572,6 @@ body .container section .all .group_files .files tr td {
     word-wrap: break-word;
     display: table-cell;
     text-align: center;
-    border-right: 1px solid #D9E4E6;
     padding-left: 0;
     padding-right: 0;
     transition: 0.2s all;
@@ -505,6 +593,7 @@ body .container section .all .group_files .files tr:nth-child(even) {
 
 body .container section .all .group_files .files tr:hover {
     background-color: rgba(0, 255, 0, 0.1);
+    cursor: pointer;
 }
 
 body .container section .all .group_files .files tr:hover td {

@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"forma_shared/model"
+	"forma_shared_dev/model"
 	"log"
 
 	"github.com/jinzhu/gorm"
@@ -23,7 +23,7 @@ import (
 func CreateDatabase() {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
 	defer db.Close()
-	db.AutoMigrate(&model.User{}, &model.Config{}, &model.File{})
+	db.AutoMigrate(&model.User{}, &model.Config{}, &model.File{}, &model.Folder{}, &model.Question{}, &model.Answer{})
 	if err != nil {
 		log.Println(err)
 	}

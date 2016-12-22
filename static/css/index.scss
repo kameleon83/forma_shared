@@ -92,19 +92,22 @@ body{
         }
 
         header{
-            position: relative;
+            position: fixed;
             width: 80px;
             text-align: center;
             height: 100%;
             background-color: rgba(0, 0, 0, 1);
-            position: fixed;
             top: 0;
             left: 0;
             margin: 0;
-            padding: 2px;
+            padding: 0;
             color: $razz_one;
             z-index: 9980;
+            overflow-y: auto;
             // box-shadow: 10px 7px 10px rgba(0,0,0,0.5);
+            &::-webkit-scrollbar {
+                display: none;
+            }
             h3{
                 padding: 0;
                 width: 100%;
@@ -121,6 +124,7 @@ body{
                 flex-wrap: wrap;
                 justify-content: center;
                 list-style: none;
+                padding-bottom: 165px;
                 li{
                     // border-right: 2px solid black;
                     // background-color: $razz;
@@ -288,7 +292,8 @@ body{
         }
 
         section{
-            width: 100%;
+            width: 90%;
+            margin-left: 80px;
             height: 100%;
             display: flex;
             flex-wrap: wrap;
@@ -372,92 +377,182 @@ body{
                     }
                 }
             }
+            .QAndA{
+                width: 90%;
+                padding-bottom: 100px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                .question{
+                    position: relative;
+                    margin: 5px;
+                    padding: 5px;
+                    border: 1px solid black;
+
+                    h1{
+                        text-align: center;
+                        text-transform: capitalize;
+                        text-decoration: underline;
+                        margin-bottom: 30px;
+                    }
+
+
+                    h5{
+                        position: absolute;
+                        top: 35px;
+                        right: 0;
+                        font-style: italic;
+                    }
+
+                    & > p{
+                        background-color: white;
+                        padding: 10px;
+                        margin: 0 0 20px 0;
+                        text-align: center;
+                    }
+
+                    .answer{
+                        // position: relative;
+                        // padding-top: 1px;
+                        padding-left: 30px;
+                        // margin: 0;
+                        // padding: 0;
+                        background-color: rgba(0,0,0,0.2);
+                        h4{
+                            padding: 0;
+                            margin: 0;
+                            font-style: italic;
+                            font-size: 0.9em;
+                            text-align: center;
+                        }
+                    }
+
+                    form.create_answer{
+                        input[type^="submit"]{
+
+                            height: 20px;
+                            width: 70px;
+                            padding: 0;
+                            margin: 0;
+
+                        }
+                        .form_group{
+                        }
+                    }
+                }
+
+                .create_question{
+                    position: fixed;
+                    width: 100%;
+                    height: 60px;
+                    background-color: rgba(0, 0, 0, 1);
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    color: white;
+                    transition: 0.5s all;
+                    .form_group{
+                        & textarea{
+                            width: 60%;
+                            text-align: center;
+                            font-size: 1.4em;
+                        }
+                        & input[type="submit"]{
+                            background-color: white;
+                        }
+                    }
+                    &:hover, &:active, &:focus{
+                        height: 400px;
+                    }
+                }
+            }
+            .bar_anchor{
+                position: fixed;
+                left: 82px;
+                margin: 0;
+                width: 43px;
+                height: 100%;
+                background-color: black;
+                border-left: 3px solid white;
+                transition: 0.2s all;
+                overflow-y: auto;
+                z-index: 9989;
+                ul{
+                    list-style: none;
+                    // text-align: left;
+                    margin: 0;
+                    padding: 0;
+                    transition: 0.3s all;
+                    li{
+                        margin: 8px 0;
+                        padding: 6px 0;
+                        transition:0.2s all;
+                        overflow: hidden;
+                        a{
+                            // width: 40px;
+                            display: block;
+                            transition: 0.2s all;
+                            h3{
+                                color: white;
+                                font-size: 2em;
+                                text-transform: uppercase;
+                                width: 40px;
+                                text-align: center;
+                                display: block;
+                                margin: 0;
+                            }
+                            span{
+                                display: none;
+                                transition: 0.3s all;
+                            }
+                        }
+                        &:hover{
+                            background-color: white;
+                            a{
+                                color: black;
+                            }
+                        }
+                    }
+                }
+                &:hover{
+                    width: 200px;
+                    background-color: black;
+                    ul{
+                        li{
+                            color: black;
+                            a{
+                                color: white;
+                                text-align: left;
+                                h3{
+                                    display: inline;
+                                    padding-right: 3px;
+                                    margin-left: 6px;
+                                }
+                                span{
+                                    display: inline;
+                                }
+                            }
+                            &:hover{
+                                a{
+                                    color: black;
+                                    h3{
+                                        color: black;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
             .all{
                 width: 100%;
                 min-height: 100%;
                 text-align: center;
                 margin-left: 84px;
                 padding-bottom: 100px;
-                .bar_anchor{
-                    position: fixed;
-                    text-align: left;
-                    margin: 0;
-                    width: 50px;
-                    height: 100%;
-                    background-color: black;
-                    border-left: 3px solid white;
-                    transition: 0.5s all;
-                    overflow-y: auto;
-                    ul{
-                        list-style: none;
-                        // text-align: left;
-                        margin: 0;
-                        padding: 0;
-                        transition: 0.5s all;
-                        li{
-                            margin: 8px 0;
-                            padding: 6px;
-                            transition:0.5s all;
-                            overflow: hidden;
-                            a{
-                                transition: 0.2s all;
-                                width: 40px;
-
-                                h3{
-                                    color: white;
-                                    font-size: 2em;
-                                    text-transform: uppercase;
-                                    width: 40px;
-                                    text-align: center;
-                                    display: block;
-                                    margin: 0;
-                                }
-                                span{
-                                    display: none;
-                                    transition: 0.3s all;
-                                }
-                            }
-                            &:hover{
-                                background-color: white;
-                                a{
-                                    color: black;
-                                }
-                            }
-                        }
-                    }
-                    &:hover{
-                        width: 200px;
-                        background-color: black;
-                        ul{
-                            li{
-                                color: black;
-                                a{
-                                    color: white;
-                                    text-align: left;
-                                    h3{
-                                        display: inline;
-                                        padding-right: 3px;
-                                        margin-left: 3px;
-                                    }
-                                    span{
-                                        display: inline;
-                                    }
-                                }
-                                &:hover{
-                                    a{
-                                        color: black;
-                                        h3{
-                                            color: black;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    &::-webkit-scrollbar {
-                        display: none;
-                    }
-                }
                 .group_files{
                     padding: 10px 0;
                     .cat{
@@ -473,7 +568,7 @@ body{
                     }
                     .files{
                         overflow-x: auto;
-                        width: 92%;
+                        width: 90%;
                         table-layout: fixed;
                         margin: 0 auto;
                         transition: 0.5s all;
@@ -488,7 +583,7 @@ body{
                                 word-wrap: break-word;
                                 display: table-cell; // display the first one as a table cell (radio button) for mobile
                                 text-align: center;
-                                border-right: 1px solid #D9E4E6;
+                                // border-right: 1px solid #D9E4E6;
                                 padding-left: 0;
                                 padding-right: 0;
                                 transition: 0.2s all;
@@ -506,6 +601,7 @@ body{
                             }
                             &:hover{
                                 background-color: rgba(0,255,0,0.1);
+                                cursor: pointer;
                                 td{
                                     font-size: 1.02em;
                                     a{

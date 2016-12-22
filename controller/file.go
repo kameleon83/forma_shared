@@ -3,7 +3,7 @@ package controller
 import (
 	"bufio"
 	"fmt"
-	"forma_shared/model"
+	"forma_shared_dev/model"
 	"log"
 	"os"
 	"path/filepath"
@@ -81,24 +81,56 @@ func ListFiles(folder string) {
 	// files := &model.FolderFile{}
 	filepath.Walk(folder, func(path string, f os.FileInfo, err error) error {
 		if !f.IsDir() {
+
 			// fmt.Println(path)
 			file := &model.File{}
+			fold := &model.Folder{}
 			file.Name = f.Name()
 
-			if f.Name() != strings.Split(path[len(folder)-1:], "/")[1] {
-				file.Folder = strings.Split(path[len(folder)-1:], "/")[1]
-				// fmt.Println(file.Folder)
-			} else {
-				file.Folder = ""
-			}
+			fold.Name = strings.Split(path[len(folder)-1:], "/")[1]
+			fold.SearchWithName()
+
+			file.FolderRefer = fold.ID
+			// fmt.Println(file.Folder)
+
 			file.Size = float64(f.Size())
 			file.Ext = filepath.Ext(f.Name())[1:]
 			file.Path = path
 
 			file.CreateFile()
+		} else {
+			if path != DIRFILE {
+				fold := &model.Folder{}
+
+				fold.Name = f.Name()
+				fold.Empty = FilesorNotFolder(path)
+
+				if fold.SearchWithName() != nil {
+					fold.Create()
+				} else {
+					fold.Update()
+				}
+			}
+
 		}
 		return nil
 	})
 
 	// return files
+}
+
+// FilesorNotFolder f
+func FilesorNotFolder(path string) bool {
+	var count int
+
+	filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
+		if !f.IsDir() {
+			count++
+		}
+		return nil
+	})
+	if count > 0 {
+		return false
+	}
+	return true
 }

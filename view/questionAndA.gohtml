@@ -1,0 +1,56 @@
+{{ define "content" }}
+{{ $question := .question }}
+{{ $answer := .answer }}
+{{ $user := .user }}
+{{ $email := .email }}
+<section>
+    <div class="QAndA">
+        {{ range $kq, $vq := $question}}
+        <div class="question">
+            <h1>{{ $vq.Title }}</h1>
+            <h5>{{ $vq.UserRefer | searchEmailUser }}</h5>
+            <p>{{ $vq.Post }}</p>
+            {{ range $ka, $va := $answer}}
+            {{ if eq $vq.ID $va.QuestionRefer  }}
+            <div class="answer">
+                <h4>{{ $va.UserRefer | searchEmailUser }} : </h4>
+                <p>{{ $va.Post }}</p>
+            </div>
+            {{ end }}
+            {{ end }}
+            <form class="create_answer" action="/q&answer" method="post">
+                <div class="form_group">
+                    <textarea name="post" rows="4" cols="50" placeholder="Enter your Answer ..."></textarea>
+                </div>
+                <!-- <div class="form_group"> -->
+                    <input type="submit" name="send_answer" value="Send Answer">
+                <!-- </div> -->
+                <input type="hidden" name="email" value="{{ $email }}">
+                <input type="hidden" name="question_id" value="{{ $vq.ID }}">
+
+            </form>
+        </div>
+        {{ end }}
+
+        <form class="create_question" action="/question&a" method="post">
+            <h1>Create New Question</h1>
+            <div class="form_group">
+                <input type="text" name="title" value="" placeholder="Enter Title ...">
+            </div>
+            <div class="form_group">
+                <textarea name="post" rows="4" cols="50" placeholder="Enter your Question ..."></textarea>
+            </div>
+            <div class="form_group">
+                <input type="submit" name="send_question" value="Send Question">
+            </div>
+            <input type="hidden" name="email" value="{{ $email }}">
+        </form>
+
+    </div>
+</section>
+
+<script src="/js/jquery.js" charset="utf-8"></script>
+<!-- <script src="/js/index.js" charset="utf-8"></script> -->
+
+
+{{ end }}

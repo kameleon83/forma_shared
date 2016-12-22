@@ -10,11 +10,11 @@ import (
 // File struct
 type File struct {
 	gorm.Model
-	Name   string
-	Folder string
-	Size   float64
-	Ext    string
-	Path   string
+	Name        string
+	Size        float64
+	Ext         string
+	Path        string
+	FolderRefer uint
 }
 
 // COUNTFILES c
@@ -61,8 +61,12 @@ func (f *File) SearchAllFiles() *[]File {
 		log.Println(err)
 	}
 	defer db.Close()
+
 	file := []File{}
-	db.Order("folder").Order("created_at desc").Find(&file)
+	folder := []Folder{}
+
+	db.Model(&folder).Order("folder_refer").Order("created_at desc").Find(&file)
+	// db.Model(&folder).Find(&file)
 	return &file
 }
 
@@ -74,19 +78,19 @@ func (f *File) SearchFile() *gorm.DB {
 	}
 	defer db.Close()
 
-	return db.Where("name = ? AND folder = ?", f.Name, f.Folder).First(&f)
+	return db.Where("name = ? AND folder_refer = ?", f.Name, f.FolderRefer).First(&f)
 }
 
-// SearchFolder s
-func (f *File) SearchFolder() []string {
-	files := f.SearchAllFiles()
-	folders := []string{}
-	var folder string
-	for _, v := range *files {
-		if folder != v.Folder {
-			folders = append(folders, v.Folder)
-		}
-		folder = v.Folder
-	}
-	return folders
-}
+// // SearchFolder s
+// func (f *File) SearchFolder() []string {
+// 	files := f.SearchAllFiles()
+// 	folders := []string{}
+// 	var folder string
+// 	for _, v := range *files {
+// 		if folder != v.Folder {
+// 			folders = append(folders, v.Folder)
+// 		}
+// 		folder = v.Folder
+// 	}
+// 	return folders
+// }

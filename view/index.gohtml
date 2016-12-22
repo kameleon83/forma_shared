@@ -1,27 +1,27 @@
 {{ define "content" }}
 <section>
+    {{ $folder := .folder }}
+    {{ $files := .files}}
+    {{ $count := 0 }}
+    <div class="bar_anchor">
+        <ul>
+            {{ range $key, $val := $folder }}
+            <li><a href="#{{ $val.Name | lower}}"><h3>{{ $val.Name | firstLetter }}</h3><span>{{ $val.Name | lastLetter }}</span></a></li>
+            {{ end }}
+        </ul>
+    </div>
     <div class="all">
-        {{ $folder := .folder }}
-        {{ $files := .files}}
-        {{ $count := 0 }}
-        <div class="bar_anchor">
-            <ul>
-                {{ range $key, $val := $folder }}
-                <li><a href="#{{ $val }}"><h3>{{ $val | firstLetter }}</h3><span>{{ $val | lastLetter }}</span></a></li>
-                {{ end }}
-            </ul>
-        </div>
-        {{ range $key, $val := $folder }}
+    {{ range $key, $val := $folder }}
 
-        <div class="group_files" data-name="{{ $val }}" id="{{ $val }}">
-            <h1 class="cat" id="{{ $val }}">{{ $val }}</h1>
+        <div class="group_files" data-name="{{ $val.Name }}" id="{{ $val.Name | lower }}">
+            <h1 class="cat" id="{{ $val.Name }}">{{ $val.Name }}</h1>
 
             <table class="files">
                 {{ range $k,$v := $files }}
-                {{ if eq $v.Folder $val }}
+                {{ if eq $v.FolderRefer $val.ID }}
 
                 <tr data-name="{{ $v.Name }}">
-                    <td><a href="/download/{{ $v.Folder }}/{{ $v.Name }}" data-link="{{ $v.Folder }}/{{ $v.Name }}" data-name="{{ $v.Folder }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a></td>
+                    <td><a href="/download/{{ $val.Name }}/{{ $v.Name }}" data-link="{{ $val.Name }}/{{ $v.Name }}" data-name="{{ $val.Name }} - {{ $v.Name }}" data-size="{{ $v.Size | exp }}" data-ext="{{ $v.Ext }}">{{ $v.Name | title }}</a></td>
                     <td>{{ $v.Size | exp }}</td>
 
                     <td class="time" data-diff="{{$v.CreatedAt | time_diff }}">{{ $v.CreatedAt | time_fr }}</td>
