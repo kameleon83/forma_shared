@@ -3,7 +3,7 @@ package controller
 import (
 	"bufio"
 	"fmt"
-	"forma_shared_dev/model"
+	"forma_shared/model"
 	"log"
 	"os"
 	"path/filepath"

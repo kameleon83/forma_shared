@@ -2,10 +2,11 @@ package controllerView
 
 import (
 	"forma_shared/controller"
-	"forma_shared_dev/model"
+	"forma_shared/model"
 	"html/template"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // QuestionAndA q
@@ -16,6 +17,23 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 	question := &model.Question{}
 	answer := &model.Answer{}
 	user := &model.User{}
+
+	const layout = "02-Jan-06 15h04"
+
+	funcMap := template.FuncMap{
+		"title": strings.Title,
+		"up":    strings.ToUpper,
+		"searchEmailUser": func(i uint) string {
+			user.ID = i
+			user.SearchUserByID()
+			return user.Mail
+		},
+		"time_fr": func(t *time.Time) string {
+			return t.Format(layout)
+		},
+	}
+
+	tpl := template.Must(template.New("QuestionAndA").Funcs(funcMap).ParseFiles("view/questionAndA.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	if r.Method == "POST" {
 		question.Title = r.FormValue("title")
@@ -29,18 +47,6 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/question&a", http.StatusFound)
 
 	}
-
-	funcMap := template.FuncMap{
-		"title": strings.Title,
-		"up":    strings.ToUpper,
-		"searchEmailUser": func(i uint) string {
-			user.ID = i
-			user.SearchUserByID()
-			return user.Mail
-		},
-	}
-
-	tpl := template.Must(template.New("QuestionAndA").Funcs(funcMap).ParseFiles("view/questionAndA.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	m := make(map[string]interface{})
 	m["title"] = "Q&A"

@@ -8,12 +8,14 @@
         {{ range $kq, $vq := $question}}
         <div class="question">
             <h1>{{ $vq.Title }}</h1>
+            <time>{{ $vq.UpdatedAt | time_fr }}</time>
             <h5>{{ $vq.UserRefer | searchEmailUser }}</h5>
             <p>{{ $vq.Post }}</p>
             {{ range $ka, $va := $answer}}
             {{ if eq $vq.ID $va.QuestionRefer  }}
             <div class="answer">
-                <h4>{{ $va.UserRefer | searchEmailUser }} : </h4>
+                <h4>{{ $va.UserRefer | searchEmailUser }} <time>{{ $va.UpdatedAt | time_fr }}</time></h4>
+
                 <p>{{ $va.Post }}</p>
             </div>
             {{ end }}

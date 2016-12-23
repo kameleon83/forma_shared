@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"forma_shared_dev/controller"
-	"forma_shared_dev/controller/view"
+	"forma_shared/controller"
+	"forma_shared/controller/view"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 
 	http.Get("/refresh")
 
-	port := ":9001"
+	port := ":9000"
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", controllerView.Index)
 	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)

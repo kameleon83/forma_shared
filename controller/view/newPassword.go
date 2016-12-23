@@ -1,8 +1,8 @@
 package controllerView
 
 import (
-	"forma_shared_dev/controller"
-	"forma_shared_dev/model"
+	"forma_shared/controller"
+	"forma_shared/model"
 	"html/template"
 	"log"
 	"net/http"

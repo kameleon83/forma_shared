@@ -2,7 +2,7 @@ package controllerView
 
 import (
 	"forma_shared/controller"
-	"forma_shared_dev/model"
+	"forma_shared/model"
 	"net/http"
 	"strconv"
 )

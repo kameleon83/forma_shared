@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"forma_shared_dev/model"
+	"forma_shared/model"
 	"log"
 
 	"github.com/jinzhu/gorm"
