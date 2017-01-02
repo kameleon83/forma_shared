@@ -7,16 +7,31 @@
     <div class="QAndA">
         {{ range $kq, $vq := $question}}
         <div class="question">
-            <h1>{{ $vq.Title }}</h1>
-            <time>{{ $vq.UpdatedAt | time_fr }}</time>
+            <h3>{{ $vq.Title }} - <time>{{ $vq.UpdatedAt | time_fr }} : </time></h3>
+
             <h5>{{ $vq.UserRefer | searchEmailUser }}</h5>
-            <p>{{ $vq.Post }}</p>
+            <p class="post">
+                {{ $vq.Post }}
+            </p>
+
             {{ range $ka, $va := $answer}}
             {{ if eq $vq.ID $va.QuestionRefer  }}
-            <div class="answer">
-                <h4>{{ $va.UserRefer | searchEmailUser }} <time>{{ $va.UpdatedAt | time_fr }}</time></h4>
 
-                <p>{{ $va.Post }}</p>
+            <div class="answer">
+
+                <h4>{{ $va.UserRefer | searchEmailUser }} - <time>{{ $va.UpdatedAt | time_fr }}</time> : </h4>
+
+                <div class="post">
+                    <div class="like" data-post="{{ $va.ID }}">
+                        <div class="good" data-good="{{ $va.Good }}">{{ $va.Good }}</div>
+                        <img src="/images/like.png" alt="like" class="img-like" data-like="good">
+
+                        <div>{{ $va.Bad }}</div>
+                        <img src="/images/dont-like.png" alt="dont-like" class="img-dont-like" data-like="bad">
+                    </div>
+                    <span class="post-text">{{ $va.Post }}</span>
+                </div>
+                <hr>
             </div>
             {{ end }}
             {{ end }}
@@ -108,6 +123,40 @@ $(function(){
             });
         }
     }
+
+    $('.question .post').on('click ',function(){
+        $(this).parent().find(".answer").toggle();
+        $(this).parent().find(".create_answer").toggle();
+    })
+
+    $('.answer .post .like img').on('click', function(){
+        let postId = $(this).parent().data('post');
+        let like = $(this).data('like');
+        let $this = $(this)
+        $.post('/q&alike/' + postId + '/'+ like )
+        .done(function(data){
+            $this.parent().html(data)
+        })
+    })
+
+    $('.question').each(function(){
+        let i = 0;
+        $(this).find('.answer').each(function(){
+            let good = $(this).find(".good").data("good");
+            if (good > i ){
+                i = good
+                if (i >= 4){
+                    $(this).prepend("<div class='ok'><img src='/images/ok-mark.png'/></div>")
+                }
+            }
+
+        })
+        // let good = $(this).find(".good").data("good");
+        // if (good >= 4){
+        //     $(this).parent().css("background-color", "red");
+        // }
+
+    });
 })
 </script>
 

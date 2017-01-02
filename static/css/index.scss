@@ -381,6 +381,7 @@ body{
             }
             .QAndA{
                 width: 90%;
+                padding-left: 0px;
                 padding-bottom: 100px;
                 display: flex;
                 flex-wrap: wrap;
@@ -389,24 +390,27 @@ body{
                     position: relative;
                     margin: 5px;
                     padding: 5px;
-                    border: 1px solid black;
-
-                    h1{
-                        text-align: center;
+                    width: 100%;
+                    h3{
                         text-transform: capitalize;
-                        text-decoration: underline;
-                        margin-bottom: 30px;
+                        // text-decoration: underline;
+                        margin: 0;
+                        padding: 0;
+                        time{
+                            font-size: 0.7em;
+                        }
                     }
 
 
                     h5{
                         position: absolute;
-                        top: 35px;
-                        right: 0;
+                        top: -10px;
+                        right: 10px;
                         font-style: italic;
                     }
 
                     & > p{
+                        cursor: pointer;
                         background-color: white;
                         padding: 10px;
                         margin: 0 0 20px 0;
@@ -414,30 +418,59 @@ body{
                     }
 
                     .answer{
+                        display: none;
                         // position: relative;
                         // padding-top: 1px;
-                        padding-left: 30px;
-                        padding-top: 2px;
+                        padding: 10px 0;
+                        margin-left: 64px;
                         // margin: 0;
                         // padding: 0;
-                        background-color: rgba(0,0,0,0.2);
+                        // background-color: rgba(0,0,0,0.2);
                         h4{
                             position: relative;
                             padding: 0;
-                            margin: 0;
+                            margin: 0 0 10px 0;
                             font-style: italic;
                             font-size: 0.9em;
-                            // text-align: center;
                             time{
-                                position: absolute;
-                                right: 10px;
-                                top: 5px;
                                 font-size: 0.8em;
+                            }
+                        }
+                        .ok{
+                            display: inline-block;
+                            position: absolute;
+                            left: 0;
+                        }
+                        .post{
+                            display: inline-block;
+                            .post-text{
+                                display: inline-block;
+                                line-height: 32px;
+                                vertical-align: middle;
+                                margin-top: -17px;
+                            }
+                            .like{
+                                display: inline-block;
+                                // padding: 10px;
+                                // margin-top: 20px;
+                                // margin: 20px;
+                                div{
+                                    display: inline-block;
+                                    line-height: 32px;
+                                    vertical-align: middle;
+                                    margin-top: -17px;
+                                }
+                                img{
+                                    cursor: pointer;
+                                    margin: 0 10px;
+                                    // padding: 5px;
+                                }
                             }
                         }
                     }
 
                     form.create_answer{
+                        display: none;
                         input[type^="submit"]{
                             font-size: 0.9em;
                             min-height: auto;

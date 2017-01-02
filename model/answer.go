@@ -25,7 +25,7 @@ func (a *Answer) Search() *[]Answer {
 	defer db.Close()
 
 	Answer := []Answer{}
-	db.Find(&Answer)
+	db.Order("good desc").Find(&Answer)
 
 	return &Answer
 }
@@ -50,4 +50,15 @@ func (a *Answer) Create() error {
 	defer db.Close()
 
 	return db.Create(&a).Error
+}
+
+// SearchByID c
+func (a *Answer) SearchByID() error {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	return db.First(&a).Error
 }
