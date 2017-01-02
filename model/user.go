@@ -23,6 +23,7 @@ type User struct {
 	Checkpoint int
 	Questions  []Question `gorm:"ForeignKey:UserRefer"`
 	Answers    []Answer   `gorm:"ForeignKey:UserRefer"`
+	// LikeAnswerRefer []LikeAnswer `gorm:"ForeignKey:UserRefer"`
 }
 
 // CreateUser c

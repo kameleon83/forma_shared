@@ -4,10 +4,11 @@
 <head>
     <title>{{ .title }}</title>
     <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
-    <link rel="manifest" href="/manifest.json">
 </head>
 <body>
-
+    {{ if .flashes }}
+    <div class="flashes">{{ .flashes }}</div>
+    {{ end }}
     <div class="container{{ .niveau }}">
 
         {{ if .active }}

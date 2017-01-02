@@ -9,11 +9,10 @@ import (
 // Answer a
 type Answer struct {
 	gorm.Model
-	Post          string
-	Good          int
-	Bad           int
-	UserRefer     uint
-	QuestionRefer uint
+	Post            string
+	UserRefer       uint
+	QuestionRefer   uint
+	LikeAnswerRefer uint
 }
 
 // Search c
@@ -25,7 +24,7 @@ func (a *Answer) Search() *[]Answer {
 	defer db.Close()
 
 	Answer := []Answer{}
-	db.Order("good desc").Find(&Answer)
+	db.Find(&Answer)
 
 	return &Answer
 }
