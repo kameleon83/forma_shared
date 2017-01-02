@@ -44,6 +44,13 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 
 		question.Create()
 
+		controller.CountQuestion = 1
+		if len(question.Title) > 30 {
+			controller.QuestionName = question.Title[0:30] + "..."
+		} else {
+			controller.QuestionName = question.Title
+		}
+
 		http.Redirect(w, r, "/question&a", http.StatusFound)
 
 	}

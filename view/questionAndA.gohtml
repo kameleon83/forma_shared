@@ -25,7 +25,7 @@
                     <textarea name="post" rows="4" cols="50" placeholder="Enter your Answer ..."></textarea>
                 </div>
                 <!-- <div class="form_group"> -->
-                    <input type="submit" name="send_answer" value="Send Answer">
+                <input type="submit" name="send_answer" value="Send Answer">
                 <!-- </div> -->
                 <input type="hidden" name="email" value="{{ $email }}">
                 <input type="hidden" name="question_id" value="{{ $vq.ID }}">
@@ -53,6 +53,62 @@
 
 <script src="/js/jquery.js" charset="utf-8"></script>
 <!-- <script src="/js/index.js" charset="utf-8"></script> -->
+<script>
+$(function(){
 
+    var checkNewQAndA = setInterval(function(){
+        $.get("/q&anotif", function(data){
+            if (data !== ""){
+                notify(data);
+            }
+        })
+    },4000)
+
+    checkNewQAndA;
+
+    function notify(name){
+
+        clearInterval(checkNewQAndA)
+
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        }
+        else if (Notification.permission === "granted") {
+            var options = {
+                body: "Un nouveau message dans le Q&A",
+                icon: "/images/letter.png",
+                dir : "ltr",
+                requireInteraction:true
+            };
+            var notification = new Notification(name,options);
+            notification.onclick = function() {
+                notification.close();
+                location.href = "/question&a";
+            };
+        }
+        else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (!('permission' in Notification)) {
+                    Notification.permission = permission;
+                }
+
+                if (permission === "granted") {
+                    var options = {
+                        body: "Un nouveau message dans le Q&A",
+                        icon: "/images/letter.png",
+                        dir : "ltr",
+                        requireInteraction:true
+                    };
+                    var notification = new Notification(name,options);
+                    notification.onclick = function() {
+                        notification.close();
+                        location.href = "/question&a";
+                    };
+                }
+            });
+        }
+    }
+})
+</script>
 
 {{ end }}

@@ -24,6 +24,13 @@ func QAndAnswer(w http.ResponseWriter, r *http.Request) {
 
 		answer.Create()
 
+		controller.CountAnswer = 1
+		if len(answer.Post) > 30 {
+			controller.AnswerName = answer.Post[0:30] + "..."
+		} else {
+			controller.AnswerName = answer.Post
+		}
+
 		http.Redirect(w, r, "/question&a", http.StatusFound)
 
 	}
