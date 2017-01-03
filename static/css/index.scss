@@ -409,7 +409,7 @@ body{
                         font-style: italic;
                     }
 
-                    & > p{
+                    & > pre{
                         cursor: pointer;
                         background-color: white;
                         padding: 10px;
@@ -445,9 +445,9 @@ body{
                             display: inline-block;
                             .post-text{
                                 display: inline-block;
-                                line-height: 32px;
+                                line-height: inherit;
                                 vertical-align: middle;
-                                margin-top: -17px;
+                                // margin-top: -17px;
                             }
                             .like{
                                 display: inline-block;

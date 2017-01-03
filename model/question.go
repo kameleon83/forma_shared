@@ -24,7 +24,8 @@ func (q *Question) Search() *[]Question {
 	defer db.Close()
 
 	question := []Question{}
-	db.Find(&question)
+
+	db.Order("created_at desc").Find(&question)
 
 	return &question
 }

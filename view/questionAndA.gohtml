@@ -10,9 +10,9 @@
             <h3>{{ $vq.Title }} - <time>{{ $vq.UpdatedAt | time_fr }} : </time></h3>
 
             <h5>{{ $vq.UserRefer | searchEmailUser }}</h5>
-            <p class="post">
+            <pre class="post">
                 {{ $vq.Post }}
-            </p>
+            </pre>
 
             {{ range $ka, $va := $answer}}
             {{ if eq $vq.ID $va.QuestionRefer  }}
@@ -29,7 +29,7 @@
                         <div>{{ $va.Bad }}</div>
                         <img src="/images/dont-like.png" alt="dont-like" class="img-dont-like" data-like="bad">
                     </div>
-                    <span class="post-text">{{ $va.Post }}</span>
+                    <pre class="post-text">{{ $va.Post }}</pre>
                 </div>
                 <hr>
             </div>

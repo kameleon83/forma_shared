@@ -392,7 +392,7 @@ body .container section .QAndA .question h5 {
     font-style: italic;
 }
 
-body .container section .QAndA .question > p {
+body .container section .QAndA .question > pre {
     cursor: pointer;
     background-color: white;
     padding: 10px;
@@ -430,9 +430,8 @@ body .container section .QAndA .question .answer .post {
 
 body .container section .QAndA .question .answer .post .post-text {
     display: inline-block;
-    line-height: 32px;
+    line-height: inherit;
     vertical-align: middle;
-    margin-top: -17px;
 }
 
 body .container section .QAndA .question .answer .post .like {
