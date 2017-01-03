@@ -1,8 +1,10 @@
 {{ define "content" }}
 {{ $question := .question }}
 {{ $answer := .answer }}
+{{ $like := .like }}
 {{ $user := .user }}
 {{ $email := .email }}
+
 <section>
     <div class="QAndA">
         {{ range $kq, $vq := $question}}
@@ -22,11 +24,11 @@
                 <h4>{{ $va.UserRefer | searchEmailUser }} - <time>{{ $va.UpdatedAt | time_fr }}</time> : </h4>
 
                 <div class="post">
-                    <div class="like" data-post="{{ $va.ID }}">
-                        <div class="good" data-good="{{ $va.Good }}">{{ $va.Good }}</div>
+                    <div class="like" data-post="{{ $va.LikeAnswerRefer }}" data-user="{{ $user }}">
+
                         <img src="/images/like.png" alt="like" class="img-like" data-like="good">
 
-                        <div>{{ $va.Bad }}</div>
+
                         <img src="/images/dont-like.png" alt="dont-like" class="img-dont-like" data-like="bad">
                     </div>
                     <pre class="post-text">{{ $va.Post }}</pre>
@@ -132,8 +134,9 @@ $(function(){
     $('.answer .post .like img').on('click', function(){
         let postId = $(this).parent().data('post');
         let like = $(this).data('like');
+        let user = $(this).parent().data('user');
         let $this = $(this)
-        $.post('/q&alike/' + postId + '/'+ like )
+        $.post('/q&alike/' + postId + '/' + user+ '/' + like )
         .done(function(data){
             $this.parent().html(data)
         })

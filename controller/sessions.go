@@ -9,21 +9,38 @@ import (
 var store = sessions.NewCookieStore([]byte("samestunbeaugosse"))
 
 // SetSessionsFlashes g
-func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) interface{} {
+func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) string {
 	// Get a session.
 	session, err := store.Get(r, "formation_PHP")
 	flashes := session.Flashes()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return flashes
+		return ""
 	}
-	session.AddFlash(message)
+	session.AddFlash(message, "message")
 	session.Save(r, w)
 
 	if len(flashes) > 0 {
-		return flashes
+		return flashes[0].(string)
 	}
-	return flashes
+	return ""
+}
+
+// GetSessionsFlashes g
+func GetSessionsFlashes(w http.ResponseWriter, r *http.Request) string {
+	session, err := store.Get(r, "formation_PHP")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	fm := session.Flashes("message")
+	if fm == nil {
+		// fmt.Fprint(w, "No flash messages")
+		return ""
+	}
+	session.Save(r, w)
+
+	return fm[0].(string)
+	// fmt.Fprintf(w, "%v", fm[0])
 }
 
 // StartSession s

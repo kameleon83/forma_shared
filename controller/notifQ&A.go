@@ -6,12 +6,19 @@ import (
 )
 
 var (
+	// CountQuestion c
 	CountQuestion int
-	CountAnswer   int
-	QuestionName  string
-	AnswerName    string
+	// CountAnswer c
+	CountAnswer int
+
+	//QuestionName s
+	QuestionName string
+
+	//AnswerName a
+	AnswerName string
 )
 
+// CheckNewQuestionAndAnswer c
 func CheckNewQuestionAndAnswer(w http.ResponseWriter, r *http.Request) {
 	if CountQuestion != 0 {
 		w.Write([]byte(QuestionName))

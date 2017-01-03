@@ -23,7 +23,7 @@ import (
 func CreateDatabase() {
 	db, err := gorm.Open("sqlite3", "./gorm.db")
 	defer db.Close()
-	db.AutoMigrate(&model.User{}, &model.Config{}, &model.File{}, &model.Folder{}, &model.Question{}, &model.Answer{})
+	db.AutoMigrate(&model.User{}, &model.Config{}, &model.File{}, &model.Folder{}, &model.Question{}, &model.Answer{}, &model.LikeAnswer{})
 	if err != nil {
 		log.Println(err)
 	}

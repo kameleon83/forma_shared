@@ -52,7 +52,7 @@ func main() {
 	router.HandleFunc("/question&a", controllerView.QuestionAndA)
 	router.HandleFunc("/q&answer", controllerView.QAndAnswer)
 	router.HandleFunc("/q&anotif", controller.CheckNewQuestionAndAnswer)
-	router.HandleFunc("/q&alike/{postID}/{like}", controllerView.QAndALike)
+	router.HandleFunc("/q&alike/{postID}/{user}/{like}", controllerView.QAndALike)
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
