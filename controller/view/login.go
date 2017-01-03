@@ -13,7 +13,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Login").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	var flashes string
+	var flashes interface{}
 
 	if r.Method == "POST" {
 

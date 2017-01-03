@@ -15,21 +15,14 @@ func QAndAnswer(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		answer := &model.Answer{}
 		user := &model.User{}
-		like := &model.LikeAnswer{}
 		answer.Post = r.FormValue("post")
 		user.Mail = r.FormValue("email")
 		questionID, _ := strconv.ParseUint(r.FormValue("question_id"), 10, 32)
 		answer.QuestionRefer = uint(questionID)
 		user.SearchUser()
 		answer.UserRefer = user.ID
-		like.Create()
-		answer.LikeAnswerRefer = like.ID
 
-		if len(answer.Post) == 0 {
-			controller.SetSessionsFlashes(w, r, "Le champ est vide !")
-		} else {
-			answer.Create()
-		}
+		answer.Create()
 
 		controller.CountAnswer = 1
 		if len(answer.Post) > 30 {
@@ -39,6 +32,7 @@ func QAndAnswer(w http.ResponseWriter, r *http.Request) {
 		}
 
 		http.Redirect(w, r, "/question&a", http.StatusFound)
+
 	}
 
 }

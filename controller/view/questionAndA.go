@@ -16,7 +16,6 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 
 	question := &model.Question{}
 	answer := &model.Answer{}
-	like := &model.LikeAnswer{}
 	user := &model.User{}
 
 	const layout = "02-Jan-06 15h04"
@@ -43,11 +42,7 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 		user.SearchUser()
 		question.UserRefer = user.ID
 
-		if len(question.Title) == 0 || len(question.Post) == 0 {
-			controller.SetSessionsFlashes(w, r, "Veuillez remplir les champs!!")
-		} else {
-			question.Create()
-		}
+		question.Create()
 
 		controller.CountQuestion = 1
 		if len(question.Title) > 30 {
@@ -56,7 +51,7 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 			controller.QuestionName = question.Title
 		}
 
-		// http.Redirect(w, r, "/question&a", http.StatusFound)
+		http.Redirect(w, r, "/question&a", http.StatusFound)
 
 	}
 
@@ -64,14 +59,12 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 	m["title"] = "Q&A"
 	m["question"] = question.Search()
 	m["answer"] = answer.Search()
-	m["like"] = like.Search()
-	m["user"] = controller.GetSessionsValues(w, r, "email")
+	m["user"] = user.SearchUserByID()
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
 	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
-	m["flashes"] = controller.GetSessionsFlashes(w, r)
 	// m["numberFiles"] = model.COUNTFILES
 	// m["ip_name"] = controller.AfficheNom(ip)
 

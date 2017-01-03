@@ -5,12 +5,9 @@ import (
 	"net/smtp"
 )
 
-const (
-	hostname = "smtp.gmail.com"
-)
-
 //SendEmail s
 func SendEmail(email string) {
+	hostname := "smtp.gmail.com"
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
 
@@ -38,6 +35,7 @@ func SendEmail(email string) {
 
 //SendEmailFormer s
 func SendEmailFormer(email string) {
+	hostname := "smtp.gmail.com"
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
 
@@ -62,6 +60,7 @@ func SendEmailFormer(email string) {
 
 //SendEmailRescue s
 func SendEmailRescue(email string) {
+	hostname := "smtp.gmail.com"
 	// Set up authentication information.
 	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
 
