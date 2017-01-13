@@ -1,7 +1,7 @@
 package controllerView
 
 import (
-	"forma_shared_dev/controller"
+	"forma_shared/controller"
 	"io"
 	"net/http"
 	"os"

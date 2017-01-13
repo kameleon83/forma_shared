@@ -8,8 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"forma_shared_dev/controller"
-	"forma_shared_dev/controller/view"
+	"forma_shared/controller"
 )
 
 func main() {
