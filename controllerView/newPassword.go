@@ -38,6 +38,8 @@ func NewPassword(w http.ResponseWriter, r *http.Request) {
 				if u.Active {
 					controller.SetSessionsValues(w, r, "active", u.Active)
 				}
+				flashes = controller.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
+				go controller.SendEmail(u.Mail)
 				http.Redirect(w, r, "/", http.StatusFound)
 			} else {
 				flashes = controller.SetSessionsFlashes(w, r, "Les mots de passes ne sont pas pareils.")

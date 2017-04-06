@@ -41,10 +41,10 @@ func Config(wg *sync.WaitGroup) {
 		fmt.Println("l'expéditeur mail est : ", c.MailSender)
 		fmt.Println("le mot de passe du serveur mail est : ", c.MailPassword)
 
+	} else {
+		DIRFILE = c.Directory
+		wg.Done()
 	}
-
-	DIRFILE = c.Directory
-	wg.Done()
 
 }
 
@@ -54,7 +54,6 @@ func directory() string {
 	dirActual, _ := os.Getwd()
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println()
 	fmt.Println("Le répertoire de partage n'est pas configuré !")
 	fmt.Println()
 	fmt.Println("Veux-tu en rentrer un un répertoire ? ex => /home/user/dlna/shared")
@@ -78,11 +77,10 @@ func directory() string {
 func mailServer() string {
 
 	var text string
+	reader := bufio.NewReader(os.Stdin)
 
 	for text == "" {
 
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Println()
 		fmt.Println("Le serveur mail n'est pas configurer")
 		fmt.Println()
 		fmt.Println("Rentres le server mail. (ex:smtp.gmail.com:587)")
@@ -98,11 +96,10 @@ func mailServer() string {
 func mailSender() string {
 
 	var text string
+	reader := bufio.NewReader(os.Stdin)
 
 	for text == "" {
 
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Println()
 		fmt.Println("L'expéditeur n'est pas configurer")
 		fmt.Println()
 		fmt.Println("Rentres le mail de l'expéditeur. (ex:toto@gmail.com)")
@@ -118,11 +115,10 @@ func mailSender() string {
 func mailPassword() string {
 
 	var text string
+	reader := bufio.NewReader(os.Stdin)
 
 	for text == "" {
 
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Println()
 		fmt.Println("Le mot de passe du serveur mail n'est pas configurer")
 		fmt.Println()
 		fmt.Println("Rentres le mot de passe du server mail. (ex:toto123456)")

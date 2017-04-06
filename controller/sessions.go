@@ -11,7 +11,7 @@ var store = sessions.NewCookieStore([]byte("samestunbeaugosse"))
 // SetSessionsFlashes g
 func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) interface{} {
 	// Get a session.
-	session, err := store.Get(r, "formation_PHP")
+	session, err := store.Get(r, "forma_shared")
 	flashes := session.Flashes()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

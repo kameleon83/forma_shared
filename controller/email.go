@@ -68,7 +68,7 @@ func SendEmailRescue(email string) {
 		"\r\n" +
 		"Bah alors comme ça on ne se souvient plus du mot de passe de ton compte?.\r\n" +
 		"\r\n" +
-		"Heureusement pour toi j'ai prévu et tu n'as qu'à copier ce code ci-dessous dans la page qui vient de s'ouvrir.\r\n" +
+		"Heureusement pour toi j'ai prévu.Voici ton mot de passe provisoire\r\n" +
 		"\r\n" +
 		EncryptionEmailRescue(email) + "\r\n" +
 		"\r\n" +
