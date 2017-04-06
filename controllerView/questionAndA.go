@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"net/http"
 	"strings"
+	"time"
 )
 
 // QuestionAndA q
@@ -17,18 +18,7 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 	answer := &model.Answer{}
 	user := &model.User{}
 
-	if r.Method == "POST" {
-		question.Title = r.FormValue("title")
-		question.Post = r.FormValue("post")
-		user.Mail = r.FormValue("email")
-		user.SearchUser()
-		question.UserRefer = user.ID
-
-		question.Create()
-
-		http.Redirect(w, r, "/question&a", http.StatusFound)
-
-	}
+	const layout = "02-Jan-06 15h04"
 
 	funcMap := template.FuncMap{
 		"title": strings.Title,
@@ -38,9 +28,32 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 			user.SearchUserByID()
 			return user.Mail
 		},
+		"time_fr": func(t *time.Time) string {
+			return t.Format(layout)
+		},
 	}
 
 	tpl := template.Must(template.New("QuestionAndA").Funcs(funcMap).ParseFiles("view/questionAndA.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+
+	if r.Method == "POST" {
+		question.Title = r.FormValue("title")
+		question.Post = r.FormValue("post")
+		user.Mail = r.FormValue("email")
+		user.SearchUser()
+		question.UserRefer = user.ID
+
+		question.Create()
+
+		controller.CountQuestion = 1
+		if len(question.Title) > 30 {
+			controller.QuestionName = question.Title[0:30] + "..."
+		} else {
+			controller.QuestionName = question.Title
+		}
+
+		http.Redirect(w, r, "/question&a", http.StatusFound)
+
+	}
 
 	m := make(map[string]interface{})
 	m["title"] = "Q&A"

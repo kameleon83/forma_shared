@@ -35,7 +35,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 			now := time.Now()
 			now.Format(layout)
 			diff := now.Sub(t.UTC())
-			return int(diff.Minutes() / 2)
+			return int(diff.Minutes() / 10)
 		},
 		"exp": func(i float64) string {
 			if i > math.Pow(10, 12) {

@@ -114,11 +114,13 @@ body .container header ul li a {
 }
 
 body .container header ul li a img {
-    width: 64px;
+    width: 42px;
 }
 
 body .container header ul li:hover {
-    transform: scale(0.98);
+    transform: scale(1.1);
+    border-left: 1px solid white;
+    padding-left: 3px;
 }
 
 body .container .checkpoint_user {
@@ -359,6 +361,7 @@ body .container section table tbody tr td .annuaireMail:hover {
 
 body .container section .QAndA {
     width: 90%;
+    padding-left: 0px;
     padding-bottom: 100px;
     display: flex;
     flex-wrap: wrap;
@@ -369,24 +372,28 @@ body .container section .QAndA .question {
     position: relative;
     margin: 5px;
     padding: 5px;
-    border: 1px solid black;
+    width: 100%;
 }
 
-body .container section .QAndA .question h1 {
-    text-align: center;
+body .container section .QAndA .question h3 {
     text-transform: capitalize;
-    text-decoration: underline;
-    margin-bottom: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+body .container section .QAndA .question h3 time {
+    font-size: 0.7em;
 }
 
 body .container section .QAndA .question h5 {
     position: absolute;
-    top: 35px;
-    right: 0;
+    top: -10px;
+    right: 10px;
     font-style: italic;
 }
 
-body .container section .QAndA .question > p {
+body .container section .QAndA .question > pre {
+    cursor: pointer;
     background-color: white;
     padding: 10px;
     margin: 0 0 20px 0;
@@ -394,22 +401,64 @@ body .container section .QAndA .question > p {
 }
 
 body .container section .QAndA .question .answer {
-    padding-left: 30px;
-    background-color: rgba(0, 0, 0, 0.2);
+    display: none;
+    padding: 10px 0;
+    margin-left: 64px;
 }
 
 body .container section .QAndA .question .answer h4 {
+    position: relative;
     padding: 0;
-    margin: 0;
+    margin: 0 0 10px 0;
     font-style: italic;
     font-size: 0.9em;
-    text-align: center;
+}
+
+body .container section .QAndA .question .answer h4 time {
+    font-size: 0.8em;
+}
+
+body .container section .QAndA .question .answer .ok {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+
+body .container section .QAndA .question .answer .post {
+    display: inline-block;
+}
+
+body .container section .QAndA .question .answer .post .post-text {
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: middle;
+}
+
+body .container section .QAndA .question .answer .post .like {
+    display: inline-block;
+}
+
+body .container section .QAndA .question .answer .post .like div {
+    display: inline-block;
+    line-height: 32px;
+    vertical-align: middle;
+    margin-top: -17px;
+}
+
+body .container section .QAndA .question .answer .post .like img {
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+body .container section .QAndA .question form.create_answer {
+    display: none;
 }
 
 body .container section .QAndA .question form.create_answer input[type^="submit"] {
-    height: 20px;
-    width: 70px;
-    padding: 0;
+    font-size: 0.9em;
+    min-height: auto;
+    min-width: 30%;
+    padding: 5px;
     margin: 0;
 }
 

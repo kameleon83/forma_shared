@@ -17,7 +17,7 @@ type Answer struct {
 // Search c
 func (a *Answer) Search() *[]Answer {
 	Answer := []Answer{}
-	db.Find(&Answer)
+	db.Order("good desc").Find(&Answer)
 
 	return &Answer
 }
@@ -30,4 +30,15 @@ func (a *Answer) Update() *gorm.DB {
 // Create c
 func (a *Answer) Create() error {
 	return db.Create(&a).Error
+}
+
+// SearchByID c
+func (a *Answer) SearchByID() error {
+	db, err := gorm.Open("sqlite3", "./gorm.db")
+	if err != nil {
+		log.Println(err)
+	}
+	defer db.Close()
+
+	return db.First(&a).Error
 }
