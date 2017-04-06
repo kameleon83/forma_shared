@@ -1,54 +1,12 @@
 package controller
 
 import (
-	"bufio"
-	"fmt"
 	"forma_shared/model"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
 )
-
-// DIRFILE folder list files
-var DIRFILE = ""
-
-// ReadDir see config_directory
-func ReadDir() {
-	dirActual, _ := os.Getwd()
-	// log.Println(dirActual)
-
-	c := &model.Config{}
-	c.SearchConfigDirectory()
-
-	if c.Directory == "" {
-		// c.CreateConfig()
-
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Println()
-		fmt.Println("Le répertoire de partage n'est pas configuré !")
-		fmt.Println()
-		fmt.Println("Veux-tu en rentrer un un répertoire ? ex => /home/user/dlna/shared")
-		fmt.Println()
-		fmt.Println("Si oui, rentres le chemin du dossier à partager, puis valides avec la touche entrer.")
-		fmt.Println()
-		fmt.Println("Si non, appuies de suite sur entrer !! Et dans ce cas, le dossier de partage sera " + dirActual)
-		fmt.Println()
-		text, _ := reader.ReadString('\n')
-
-		text = strings.TrimSpace(text)
-
-		c.Directory = filepath.Clean(text) + string(filepath.Separator)
-
-		err := c.CreateConfig()
-
-		log.Println(err)
-
-	}
-
-	DIRFILE = c.Directory
-
-}
 
 // CheckFilesInFolder pour append select to upload
 func CheckFilesInFolder(folder string) bool {
@@ -87,7 +45,7 @@ func ListFiles(folder string) {
 			fold := &model.Folder{}
 			file.Name = f.Name()
 
-			fold.Name = strings.Split(path[len(folder)-1:], "/")[1]
+			fold.Name = strings.Split(path[len(folder)-1:], string(os.PathSeparator))[1]
 			fold.SearchWithName()
 
 			file.FolderRefer = fold.ID
@@ -133,4 +91,13 @@ func FilesorNotFolder(path string) bool {
 		return false
 	}
 	return true
+}
+
+func folderIsExist(path string) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.Mkdir(path, 0666)
+		log.Printf("Dossier %s Créé", path)
+	}
+	log.Printf("Dossier %s déjà existant", path)
+
 }

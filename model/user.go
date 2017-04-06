@@ -1,7 +1,6 @@
 package model
 
 import (
-	"log"
 	"regexp"
 
 	"github.com/jinzhu/gorm"
@@ -27,22 +26,12 @@ type User struct {
 
 // CreateUser c
 func (u *User) CreateUser() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	return db.Create(u).Error
 }
 
 // SearchAllUsers read
 func (u *User) SearchAllUsers(col, sort string) *[]User {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	user := []User{}
 	if sort == "asc" {
@@ -54,33 +43,18 @@ func (u *User) SearchAllUsers(col, sort string) *[]User {
 
 // SearchUser s
 func (u *User) SearchUser() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	return db.Where("mail = ?", u.Mail).First(&u)
 }
 
 // SearchUserByID s
 func (u *User) SearchUserByID() *User {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 	db.First(&u)
 	return u
 }
 
 //UpdateUser u
 func (u *User) UpdateUser() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	return db.Save(u)
 }

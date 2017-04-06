@@ -1,7 +1,6 @@
 package model
 
 import (
-	"log"
 	"os"
 
 	"github.com/jinzhu/gorm"
@@ -22,11 +21,6 @@ var COUNTFILES int64
 
 // CreateFile c
 func (f *File) CreateFile() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	if err := f.SearchFile().Error; err != nil {
 		db.Create(&f)
@@ -43,11 +37,6 @@ func (f *File) CreateFile() error {
 
 // CountFiles c
 func (f *File) CountFiles() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	db.Model(&f).Count(&COUNTFILES)
 
@@ -56,11 +45,6 @@ func (f *File) CountFiles() error {
 
 // SearchAllFiles read
 func (f *File) SearchAllFiles() *[]File {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	file := []File{}
 	folder := []Folder{}
@@ -72,11 +56,6 @@ func (f *File) SearchAllFiles() *[]File {
 
 // SearchFile s
 func (f *File) SearchFile() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	return db.Where("name = ? AND folder_refer = ?", f.Name, f.FolderRefer).First(&f)
 }

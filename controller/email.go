@@ -1,20 +1,31 @@
 package controller
 
 import (
+	"forma_shared/model"
 	"log"
 	"net/smtp"
+	"strings"
 )
+
+func auth() (smtp.Auth, string, string) {
+	config := new(model.Config)
+	config.Find()
+
+	return smtp.PlainAuth("", config.MailSender, config.MailPassword, strings.Split(config.MailServer, ":")[0]), config.MailServer, config.MailSender
+}
+
+func send(recipient []string, msg []byte) {
+	auth, server, sender := auth()
+	err := smtp.SendMail(server, auth, sender, recipient, msg)
+	if err != nil {
+		log.Println(err)
+	}
+}
 
 //SendEmail s
 func SendEmail(email string) {
-	hostname := "smtp.gmail.com"
-	// Set up authentication information.
-	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
-
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
 	to := []string{email}
-	msg := []byte("To: kameleon836@gmail.com\r\n" +
+	msg := []byte("To: " + email + "\r\n" +
 		"Subject: Valid your account\r\n" +
 		"\r\n" +
 		"Coucou comment vas-tu?.\r\n" +
@@ -27,47 +38,30 @@ func SendEmail(email string) {
 		"\r\n" +
 		"A tout de suite. Biz :-P.\r\n")
 
-	err := smtp.SendMail(hostname+":587", auth, "samuel.michaux@gmail.com", to, msg)
-	if err != nil {
-		log.Fatal(err)
-	}
+	send(to, msg)
 }
 
 //SendEmailFormer s
 func SendEmailFormer(email string) {
-	hostname := "smtp.gmail.com"
-	// Set up authentication information.
-	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
-
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
-	to := []string{"samuel.michaux@gmail.com"}
-	msg := []byte("To: samuel.michaux@gmail.com\r\n" +
-		"CCi: kameleon836@gmail.com\r\n" +
+	config := new(model.Config)
+	config.Find()
+	to := []string{config.MailSender}
+	msg := []byte("To: " + config.MailSender + "\r\n" +
 		"Subject: Become a trainer\r\n" +
 		"\r\n" +
 		"Salut beau gosse.\r\n" +
 		"\r\n" +
 		email + " - veux devenir un formateur. Alors on le valides ou pas?\r\n" +
 		"\r\n" +
-		"A tout de suite. Biz :-P.\r\n")
+		"A tout de suite. :-P.\r\n")
 
-	err := smtp.SendMail(hostname+":587", auth, "samuel.michaux@gmail.com", to, msg)
-	if err != nil {
-		log.Fatal(err)
-	}
+	send(to, msg)
 }
 
 //SendEmailRescue s
 func SendEmailRescue(email string) {
-	hostname := "smtp.gmail.com"
-	// Set up authentication information.
-	auth := smtp.PlainAuth("", "samuel.michaux@gmail.com", "Mich_Sam_83600", hostname)
-
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
 	to := []string{email}
-	msg := []byte("To: kameleon836@gmail.com\r\n" +
+	msg := []byte("To: " + email + "\r\n" +
 		"Subject: Rescue Password\r\n" +
 		"\r\n" +
 		"Coucou comment vas-tu?.\r\n" +
@@ -78,10 +72,7 @@ func SendEmailRescue(email string) {
 		"\r\n" +
 		EncryptionEmailRescue(email) + "\r\n" +
 		"\r\n" +
-		"A tout de suite. Biz :-P.\r\n")
+		"A tout de suite. :-P.\r\n")
 
-	err := smtp.SendMail(hostname+":587", auth, "samuel.michaux@gmail.com", to, msg)
-	if err != nil {
-		log.Fatal(err)
-	}
+	send(to, msg)
 }

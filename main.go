@@ -2,34 +2,59 @@ package main
 
 import (
 	"fmt"
-	"net"
+	"log"
 	"net/http"
+	"os"
+	"runtime"
+	"sync"
 	"time"
 
 	"github.com/gorilla/mux"
 
 	"forma_shared/controller"
+	"forma_shared/controllerView"
+	"forma_shared/model"
 )
+
+func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+}
 
 func main() {
 
-	controller.CreateDatabase()
-
-	controller.ReadDir()
-
-	addrs, err := net.InterfaceAddrs()
+	f, err := os.OpenFile("forma_shared.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
-	for i, addr := range addrs {
-		fmt.Printf("%d %v\n", i, addr)
-	}
+	// don't forget to close it
+	defer f.Close()
+
+	// assign it to the standard logger
+	log.SetOutput(f)
+
+	var wg sync.WaitGroup
+	model.ConnDB()
+
+	wg.Add(1)
+	go controller.Config(&wg)
+	wg.Wait()
+
+	// addrs, err := net.InterfaceAddrs()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// for i, addr := range addrs {
+	// 	fmt.Printf("%d %v\n", i, addr)
+	// }
 
 	http.Get("/refresh")
 
 	port := ":9001"
+
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", controllerView.Index)
+
 	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)
 	router.HandleFunc("/upload", controllerView.Upload)
 	router.HandleFunc("/annuaire/{nameCol}/{sort:(?:asc|desc)}", controllerView.Annuaire)
@@ -53,6 +78,7 @@ func main() {
 
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
+
 	fmt.Println("Server start : ", time.Now(), " to port "+port)
 
 	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)

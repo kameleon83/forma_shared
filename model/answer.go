@@ -1,8 +1,6 @@
 package model
 
 import (
-	"log"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -18,12 +16,6 @@ type Answer struct {
 
 // Search c
 func (a *Answer) Search() *[]Answer {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
-
 	Answer := []Answer{}
 	db.Find(&Answer)
 
@@ -32,22 +24,10 @@ func (a *Answer) Search() *[]Answer {
 
 // Update c
 func (a *Answer) Update() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
-
 	return db.Save(&a)
 }
 
 // Create c
 func (a *Answer) Create() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
-
 	return db.Create(&a).Error
 }

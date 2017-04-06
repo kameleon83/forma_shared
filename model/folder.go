@@ -1,8 +1,6 @@
 package model
 
 import (
-	"log"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -16,12 +14,6 @@ type Folder struct {
 
 // Search c
 func (f *Folder) Search() *[]Folder {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
-
 	folder := []Folder{}
 	db.Find(&folder)
 
@@ -30,11 +22,6 @@ func (f *Folder) Search() *[]Folder {
 
 // SearchWithName c
 func (f *Folder) SearchWithName() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	db.Where("name = ?", f.Name).First(&f)
 
@@ -43,11 +30,6 @@ func (f *Folder) SearchWithName() error {
 
 // Create c
 func (f *Folder) Create() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	db.Create(&f)
 
@@ -56,11 +38,6 @@ func (f *Folder) Create() error {
 
 // Update u
 func (f *Folder) Update() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	db.Save(&f)
 
