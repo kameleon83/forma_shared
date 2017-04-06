@@ -1,8 +1,6 @@
 package model
 
 import (
-	"log"
-
 	"github.com/jinzhu/gorm"
 )
 
@@ -24,6 +22,13 @@ func (a *Answer) Search() *[]Answer {
 	return &Answer
 }
 
+// Best c
+func (a *Answer) Best() *Answer {
+	db.Order("good desc").First(&a)
+
+	return a
+}
+
 // Update c
 func (a *Answer) Update() *gorm.DB {
 	return db.Save(&a)
@@ -36,11 +41,6 @@ func (a *Answer) Create() error {
 
 // SearchByID c
 func (a *Answer) SearchByID() error {
-	db, err := gorm.Open("sqlite3", "./gorm.db")
-	if err != nil {
-		log.Println(err)
-	}
-	defer db.Close()
 
 	return db.First(&a).Error
 }

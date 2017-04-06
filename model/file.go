@@ -60,6 +60,11 @@ func (f *File) SearchFile() *gorm.DB {
 	return db.Where("name = ? AND folder_refer = ?", f.Name, f.FolderRefer).First(&f)
 }
 
+func (f *File) FindById() *File {
+	db.First(&f, f.ID)
+	return f
+}
+
 // // SearchFolder s
 // func (f *File) SearchFolder() []string {
 // 	files := f.SearchAllFiles()
@@ -73,3 +78,7 @@ func (f *File) SearchFile() *gorm.DB {
 // 	}
 // 	return folders
 // }
+
+func (f *File) Delete() {
+	db.Unscoped().Delete(&f)
+}

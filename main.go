@@ -59,6 +59,7 @@ func main() {
 	router.HandleFunc("/annuaire/{nameCol}/{sort:(?:asc|desc)}", controllerView.Annuaire)
 	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
 	router.HandleFunc("/refresh", controllerView.RefreshList)
+	router.HandleFunc("/delete/{fileID}", controller.DeleteFile).Methods("POST")
 	router.HandleFunc("/register", controllerView.Register)
 	router.HandleFunc("/valid", controllerView.Valid)
 	router.HandleFunc("/login", controllerView.Login)

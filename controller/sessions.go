@@ -28,7 +28,7 @@ func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) 
 
 // StartSession s
 func StartSession(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "formation_PHP")
+	session, _ := store.Get(r, "forma_shared")
 
 	session.Save(r, w)
 }
@@ -36,7 +36,7 @@ func StartSession(w http.ResponseWriter, r *http.Request) {
 // GetSessionsValues g
 func GetSessionsValues(w http.ResponseWriter, r *http.Request, value string) interface{} {
 	// Get a session.
-	session, _ := store.Get(r, "formation_PHP")
+	session, _ := store.Get(r, "forma_shared")
 
 	if session.Values[value] != nil {
 		return session.Values[value]
@@ -46,7 +46,7 @@ func GetSessionsValues(w http.ResponseWriter, r *http.Request, value string) int
 
 // SetSessionsValues g
 func SetSessionsValues(w http.ResponseWriter, r *http.Request, name string, value interface{}) {
-	session, _ := store.Get(r, "formation_PHP")
+	session, _ := store.Get(r, "forma_shared")
 
 	session.Values[name] = value
 	session.Save(r, w)
@@ -54,7 +54,7 @@ func SetSessionsValues(w http.ResponseWriter, r *http.Request, name string, valu
 
 //GetSessionLogin g
 func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
-	session, err := store.Get(r, "formation_PHP")
+	session, err := store.Get(r, "forma_shared")
 	session.Options = &sessions.Options{
 		Path:     "/",
 		MaxAge:   86400 * 7,
@@ -77,7 +77,7 @@ func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
 
 //GetSessionLogout g
 func GetSessionLogout(w http.ResponseWriter, r *http.Request) {
-	session, _ := store.Get(r, "formation_PHP")
+	session, _ := store.Get(r, "forma_shared")
 	session.Options = &sessions.Options{
 		MaxAge: -1,
 	}

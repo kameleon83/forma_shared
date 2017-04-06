@@ -67,6 +67,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
 	m["prof"] = controller.GetSessionsValues(w, r, "prof")
+	m["admin"] = controller.GetSessionsValues(w, r, "admin")
 	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
 	// m["ip_name"] = controller.AfficheNom(ip)
 

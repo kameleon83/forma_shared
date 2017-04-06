@@ -3,9 +3,13 @@ package controller
 import (
 	"forma_shared/model"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+
+	"github.com/gorilla/mux"
 )
 
 // CheckFilesInFolder pour append select to upload
@@ -48,6 +52,9 @@ func ListFiles(folder string) {
 			fold.Name = strings.Split(path[len(folder)-1:], string(os.PathSeparator))[1]
 			fold.SearchWithName()
 
+			fold.Empty = FilesorNotFolder(path)
+			fold.Update()
+
 			file.FolderRefer = fold.ID
 			// fmt.Println(file.Folder)
 
@@ -61,11 +68,12 @@ func ListFiles(folder string) {
 				fold := &model.Folder{}
 
 				fold.Name = f.Name()
-				fold.Empty = FilesorNotFolder(path)
 
 				if fold.SearchWithName() != nil {
+					fold.Empty = FilesorNotFolder(path)
 					fold.Create()
 				} else {
+					fold.Empty = FilesorNotFolder(path)
 					fold.Update()
 				}
 			}
@@ -100,4 +108,20 @@ func folderIsExist(path string) {
 	}
 	log.Printf("Dossier %s déjà existant", path)
 
+}
+
+// DeleteFile :
+func DeleteFile(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	idFile, _ := vars["fileID"]
+	id, _ := strconv.Atoi(idFile)
+
+	file := new(model.File)
+	file.ID = uint(id)
+	file.FindById()
+	err := os.Remove(file.Path)
+	if err == nil {
+		file.Delete()
+	}
 }

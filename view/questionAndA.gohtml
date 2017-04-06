@@ -125,8 +125,8 @@ $(function(){
     }
 
     $('.question .post').on('click ',function(){
-        $(this).parent().find(".answer").toggle();
-        $(this).parent().find(".create_answer").toggle();
+        $(this).parent().find(".answer").not(':first').slideToggle();
+        $(this).parent().find(".create_answer").slideToggle();
     })
 
     $('.answer .post .like img').on('click', function(){
@@ -140,6 +140,7 @@ $(function(){
     })
 
     $('.question').each(function(){
+        $(this).find('.answer').first().slideDown()
         let i = 0;
         $(this).find('.answer').each(function(){
             let good = $(this).find(".good").data("good");
@@ -149,7 +150,6 @@ $(function(){
                     $(this).prepend("<div class='ok'><img src='/images/ok-mark.png'/></div>")
                 }
             }
-
         })
         // let good = $(this).find(".good").data("good");
         // if (good >= 4){
@@ -157,6 +157,7 @@ $(function(){
         // }
 
     });
+
 })
 </script>
 

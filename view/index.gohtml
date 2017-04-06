@@ -2,6 +2,8 @@
 <section>
     {{ $folder := .folder }}
     {{ $files := .files}}
+    {{ $prof := .prof }}
+    {{ $admin := .admin }}
     {{ $count := 0 }}
     <div class="bar_anchor">
         <ul>
@@ -27,6 +29,9 @@
                     <td>{{ $v.Size | exp }}</td>
 
                     <td class="time" data-diff="{{$v.CreatedAt | time_diff }}">{{ $v.CreatedAt | time_fr }}</td>
+                    {{ if (or ( $prof ) ( $admin )) }}
+                        <td class="delete" data-id="{{ $v.ID }}"><img src="/images/delete.png"></td>
+                    {{ end }}
                     <input type="hidden" class="count" value="{{ $k }}">
                 </tr>
 
