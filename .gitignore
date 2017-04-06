@@ -8,3 +8,5 @@ forma_shared
 gorm*
 partage
 node*
+*~
+*.db
