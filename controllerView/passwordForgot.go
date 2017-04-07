@@ -10,7 +10,7 @@ import (
 // PasswordForgot controller view inde.gohtml
 func PasswordForgot(w http.ResponseWriter, r *http.Request) {
 
-	var flashes interface{}
+	var flashes []interface{}
 
 	tpl := template.Must(template.New("PasswordForgot").ParseFiles("view/passwordForgot.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
@@ -24,16 +24,18 @@ func PasswordForgot(w http.ResponseWriter, r *http.Request) {
 		} else {
 			go controller.SendEmailRescue(u.Mail)
 			u.Password = controller.EncryptionEmailRescue(u.Mail)
-			u.UpdateUser()
 			flashes = controller.SetSessionsFlashes(w, r, "Check tes mails pour rentrer ton mot de passe provisoire :-P")
 			controller.SetSessionsValues(w, r, "email", u.Mail)
 			controller.SetSessionsValues(w, r, "rescue", true)
+			u.UpdateUser()
 			http.Redirect(w, r, "/login", http.StatusFound)
 		}
 	}
 	m := make(map[string]interface{})
 	m["title"] = "PasswordForgot"
-	m["errors"] = flashes
+	if len(flashes) > 0 {
+		m["errors"] = flashes[0]
+	}
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

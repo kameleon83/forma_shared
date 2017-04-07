@@ -13,7 +13,7 @@ import (
 func Valid(w http.ResponseWriter, r *http.Request) {
 	tpl := template.Must(template.New("Valide").ParseFiles("view/valid.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	var flashes interface{}
+	var flashes []interface{}
 
 	email := controller.GetSessionsValues(w, r, "email")
 
@@ -42,7 +42,9 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 	m := make(map[string]interface{})
 	m["title"] = "Validation Compte"
 	m["email"] = email.(string)
-	m["errors"] = flashes
+	if len(flashes) > 0 {
+		m["errors"] = flashes[0]
+	}
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

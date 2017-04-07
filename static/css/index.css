@@ -1,559 +1,843 @@
 @font-face {
-  font-family: "architect";
-  src: url("/fonts/ArchitectsDaughter.ttf"); }
+    font-family: "architect";
+    src: url("/fonts/ArchitectsDaughter.ttf");
+}
 
 @font-face {
-  font-family: "coiny";
-  src: url("/fonts/Coiny-Regular.ttf"); }
+    font-family: "coiny";
+    src: url("/fonts/Coiny-Regular.ttf");
+}
 
 @font-face {
-  font-family: "comingSoon";
-  src: url("/fonts/ComingSoon.ttf"); }
+    font-family: "comingSoon";
+    src: url("/fonts/ComingSoon.ttf");
+}
 
 @font-face {
-  font-family: "indieFlower";
-  src: url("/fonts/IndieFlower.ttf"); }
+    font-family: "indieFlower";
+    src: url("/fonts/IndieFlower.ttf");
+}
 
 @font-face {
-  font-family: "varelaRound";
-  src: url("/fonts/VarelaRound-Regular.ttf"); }
+    font-family: "varelaRound";
+    src: url("/fonts/VarelaRound-Regular.ttf");
+}
 
 * {
-  font-family: 'varelaRound', cursive; }
+    font-family: 'varelaRound', cursive;
+}
 
 a {
-  text-decoration: none;
-  color: #000; }
+    text-decoration: none;
+    color: #000;
+}
 
 html {
-  height: 100%; }
+    height: 100%;
+}
 
 body {
-  min-height: 100%;
-  padding: 0;
-  margin: 0;
-  background-color: rgba(0, 0, 0, 0.1);
-  /* Modal Content */
-  /* Add Animation */
-  /* The Close Button */ }
-  body .container {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Modal Content */
+    /* Add Animation */
+    /* The Close Button */
+}
+
+body .errors {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+    font-size: calc(0.8em + 0.2vw);
+    word-wrap: break-word;
+    position: fixed;
+    transform: translateY(-65px);
+    padding: 15px;
+    margin: 0;
+    text-align: center;
+    height: 30px;
     width: 100%;
-    min-height: 100vh; }
-    body .container.done > .follow ul .done {
-      background-color: #2ecc71; }
-    body .container.in_progress > .follow ul .in_progress {
-      background-color: #ffc107; }
-    body .container.help > .follow ul .help {
-      background-color: #d50000; }
-    body .container header {
-      position: fixed;
-      width: 80px;
-      text-align: center;
-      height: 100%;
-      background-color: black;
-      top: 0;
-      left: 0;
-      margin: 0;
-      padding: 0;
-      color: #19b5fe;
-      z-index: 9980;
-      overflow-y: auto; }
-      body .container header::-webkit-scrollbar {
-        display: none; }
-      body .container header h3 {
-        padding: 0;
-        width: 100%;
-        font-size: auto; }
-      body .container header ul {
-        margin: 0;
-        padding: 0;
-        top: 0;
-        right: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        list-style: none;
-        padding-bottom: 165px; }
-        body .container header ul li {
-          width: auto;
-          text-align: center;
-          transition: 0.4s all;
-          margin-top: 40px; }
-          body .container header ul li a {
-            display: block;
-            font-size: 1.2em;
-            color: white; }
-            body .container header ul li a img {
-              width: 42px; }
-          body .container header ul li:hover {
-            transform: scale(1.1);
-            border-left: 1px solid white;
-            padding-left: 3px; }
-    body .container .checkpoint_user {
-      list-style: none;
-      text-align: center;
-      margin-top: 70px;
-      padding: 0; }
-      body .container .checkpoint_user li {
-        margin: 10px;
-        width: 250px;
-        line-height: 40px;
-        margin: 5px; }
-        body .container .checkpoint_user li[class^="level"] {
-          color: white;
-          font-weight: bold; }
-          body .container .checkpoint_user li[class^="level"].level0 {
-            background-color: rgba(0, 0, 0, 0.7); }
-          body .container .checkpoint_user li[class^="level"].level1 {
-            background-color: #2ecc71; }
-          body .container .checkpoint_user li[class^="level"].level2 {
-            color: black;
-            background-color: #ffc107; }
-          body .container .checkpoint_user li[class^="level"].level3 {
-            background-color: #d50000; }
-    body .container .checkpoint_reset {
-      width: 400px;
-      position: absolute;
-      line-height: 40px;
-      height: 40px;
-      border: none;
-      background-color: rgba(255, 0, 0, 0.8);
-      box-shadow: 10px 7px 10px rgba(255, 0, 0, 0.8);
-      color: white;
-      font-size: 1.2em;
-      padding: 0;
-      transition: 0.4s all; }
-      body .container .checkpoint_reset:hover {
-        cursor: pointer;
-        background-color: red;
-        box-shadow: 5px 4px 5px rgba(255, 0, 0, 0.6);
-        transform: scale(0.97); }
-      body .container .checkpoint_reset:active, body .container .checkpoint_resetfocus, body .container .checkpoint_resetvisited {
-        border: none; }
-    body .container .follow {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      z-index: 9990;
-      width: 80px;
-      margin-bottom: 10px; }
-      body .container .follow ul {
-        margin: 0;
-        padding: 0; }
-        body .container .follow ul > li {
-          position: relative;
-          width: 40px;
-          height: 40px;
-          border-radius: 40px;
-          margin: 0 auto;
-          cursor: pointer;
-          transition: 0.4s all; }
-          body .container .follow ul > li::before {
-            position: absolute;
-            display: none;
-            top: 5px;
-            left: 50px;
-            width: 200px;
-            line-height: 25px;
-            transition: 0.4s all; }
-          body .container .follow ul > li::after {
-            margin: 15px;
-            content: "";
-            display: block; }
-          body .container .follow ul > li:hover::before {
-            display: block; }
-          body .container .follow ul > li.done:hover::before {
-            background-color: rgba(46, 204, 113, 0.8);
-            content: "It's Good"; }
-          body .container .follow ul > li.in_progress:hover::before {
-            background-color: rgba(255, 193, 7, 0.8);
-            content: "I'm Working"; }
-          body .container .follow ul > li.help:hover::before {
-            color: white;
-            background-color: rgba(213, 0, 0, 0.8);
-            content: "Help Me, Please!!!!"; }
-          body .container .follow ul > li.done {
-            content: "";
-            background-color: rgba(46, 204, 113, 0.5); }
-            body .container .follow ul > li.done:hover {
-              background-color: rgba(46, 204, 113, 0.8); }
-          body .container .follow ul > li.in_progress {
-            content: "";
-            background-color: rgba(255, 193, 7, 0.5); }
-            body .container .follow ul > li.in_progress:hover {
-              background-color: rgba(255, 193, 7, 0.8); }
-          body .container .follow ul > li.help {
-            content: "";
-            background-color: rgba(213, 0, 0, 0.5); }
-            body .container .follow ul > li.help:hover {
-              background-color: rgba(213, 0, 0, 0.8); }
-    body .container section {
-      width: 90%;
-      margin-left: 80px;
-      height: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center; }
-      body .container section .number_annuaire {
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-transform: uppercase; }
-        body .container section .number_annuaire b {
-          display: inline-block;
-          padding: 2px;
-          margin: 2px;
-          background-color: #000;
-          color: white;
-          border-radius: 30px;
-          line-height: 30px;
-          height: 30px;
-          width: 30px;
-          text-align: center; }
-          body .container section .number_annuaire b.formateur {
-            background-color: rgba(25, 181, 254, 0.5);
-            color: black; }
-          body .container section .number_annuaire b.total {
-            background-color: rgba(255, 0, 0, 0.5);
-            color: black; }
-      body .container section table {
-        border-collapse: collapse;
-        width: 100%;
-        text-align: center; }
-        body .container section table thead tr th {
-          position: relative;
-          min-width: 160px; }
-          body .container section table thead tr th a {
-            display: grid; }
-            body .container section table thead tr th a img {
-              width: 20px; }
-            body .container section table thead tr th a.not_reverse_annuaire {
-              left: 0; }
-        body .container section table,
-        body .container section table th,
-        body .container section table td {
-          border: 1px solid black; }
-        body .container section table th,
-        body .container section table td {
-          height: 43px; }
-        body .container section table th {
-          font-size: 1.6em; }
-        body .container section table tbody tr.m2i {
-          width: 100%;
-          height: auto;
-          background-color: rgba(25, 181, 254, 0.5); }
-        body .container section table tbody tr td .annuaireMail {
-          width: 100%;
-          display: block; }
-          body .container section table tbody tr td .annuaireMail:hover {
-            cursor: pointer; }
-      body .container section .QAndA {
-        width: 90%;
-        padding-left: 0px;
-        padding-bottom: 100px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center; }
-        body .container section .QAndA .question {
-          position: relative;
-          margin: 5px;
-          padding: 5px;
-          width: 100%; }
-          body .container section .QAndA .question h3 {
-            text-transform: capitalize;
-            margin: 0;
-            padding: 0; }
-            body .container section .QAndA .question h3 time {
-              font-size: 0.7em; }
-          body .container section .QAndA .question h5 {
-            position: absolute;
-            top: -10px;
-            right: 10px;
-            font-style: italic; }
-          body .container section .QAndA .question > pre {
-            cursor: pointer;
-            background-color: white;
-            padding: 10px;
-            margin: 0 0 20px 0;
-            text-align: center; }
-          body .container section .QAndA .question .answer {
-            display: none;
-            padding: 10px 0;
-            margin-left: 64px; }
-            body .container section .QAndA .question .answer:nth-child(1) {
-              display: block;
-              color: red; }
-            body .container section .QAndA .question .answer h4 {
-              position: relative;
-              padding: 0;
-              margin: 0 0 10px 0;
-              font-style: italic;
-              font-size: 0.9em; }
-              body .container section .QAndA .question .answer h4 time {
-                font-size: 0.8em; }
-            body .container section .QAndA .question .answer .ok {
-              display: inline-block;
-              position: absolute;
-              left: 0; }
-            body .container section .QAndA .question .answer .post {
-              display: inline-block; }
-              body .container section .QAndA .question .answer .post .post-text {
-                display: inline-block;
-                line-height: inherit;
-                vertical-align: middle; }
-              body .container section .QAndA .question .answer .post .like {
-                display: inline-block; }
-                body .container section .QAndA .question .answer .post .like div {
-                  display: inline-block;
-                  line-height: 32px;
-                  vertical-align: middle;
-                  margin-top: -17px; }
-                body .container section .QAndA .question .answer .post .like img {
-                  cursor: pointer;
-                  margin: 0 10px; }
-          body .container section .QAndA .question form.create_answer {
-            display: none; }
-            body .container section .QAndA .question form.create_answer input[type^="submit"] {
-              font-size: 0.9em;
-              min-height: auto;
-              min-width: 30%;
-              padding: 5px;
-              margin: 0; }
-        body .container section .QAndA .create_question {
-          position: fixed;
-          width: 100%;
-          height: 60px;
-          background-color: black;
-          right: 0;
-          left: 0;
-          bottom: 0;
-          color: white;
-          transition: 0.5s all; }
-          body .container section .QAndA .create_question .form_group textarea {
-            width: 60%;
-            text-align: center;
-            font-size: 1.4em; }
-          body .container section .QAndA .create_question .form_group input[type="submit"] {
-            background-color: white; }
-          body .container section .QAndA .create_question:hover, body .container section .QAndA .create_question:active, body .container section .QAndA .create_question:focus {
-            height: 400px; }
-      body .container section .bar_anchor {
-        position: fixed;
-        left: 82px;
-        margin: 0;
-        width: 43px;
-        height: 100%;
-        background-color: black;
-        border-left: 3px solid white;
-        transition: 0.2s all;
-        overflow-y: auto;
-        z-index: 9989; }
-        body .container section .bar_anchor ul {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          transition: 0.3s all; }
-          body .container section .bar_anchor ul li {
-            margin: 8px 0;
-            padding: 6px 0;
-            transition: 0.2s all;
-            overflow: hidden; }
-            body .container section .bar_anchor ul li a {
-              display: block;
-              transition: 0.2s all; }
-              body .container section .bar_anchor ul li a h3 {
-                color: white;
-                font-size: 2em;
-                text-transform: uppercase;
-                width: 40px;
-                text-align: center;
-                display: block;
-                margin: 0; }
-              body .container section .bar_anchor ul li a span {
-                display: none;
-                transition: 0.3s all; }
-            body .container section .bar_anchor ul li:hover {
-              background-color: white; }
-              body .container section .bar_anchor ul li:hover a {
-                color: black; }
-        body .container section .bar_anchor:hover {
-          width: 200px;
-          background-color: black; }
-          body .container section .bar_anchor:hover ul li {
-            color: black; }
-            body .container section .bar_anchor:hover ul li a {
-              color: white;
-              text-align: left; }
-              body .container section .bar_anchor:hover ul li a h3 {
-                display: inline;
-                padding-right: 3px;
-                margin-left: 6px; }
-              body .container section .bar_anchor:hover ul li a span {
-                display: inline; }
-            body .container section .bar_anchor:hover ul li:hover a {
-              color: black; }
-              body .container section .bar_anchor:hover ul li:hover a h3 {
-                color: black; }
-        body .container section .bar_anchor::-webkit-scrollbar {
-          display: none; }
-      body .container section .all {
-        width: 100%;
-        min-height: 100%;
-        text-align: center;
-        margin-left: 84px;
-        padding-bottom: 100px; }
-        body .container section .all .group_files {
-          padding: 10px 0; }
-          body .container section .all .group_files .cat {
-            display: block;
-            width: 100%;
-            text-align: center;
-            font-size: 2em;
-            justify-content: center;
-            margin: 10px 0;
-            text-transform: capitalize; }
-          body .container section .all .group_files .files {
-            overflow-x: auto;
-            width: 90%;
-            table-layout: fixed;
-            margin: 0 auto;
-            transition: 0.5s all; }
-            body .container section .all .group_files .files tr {
-              height: 50px;
-              line-height: 50px;
-              transition: 0.2s all; }
-              body .container section .all .group_files .files tr td {
-                display: block;
-                vertical-align: middle;
-                word-wrap: break-word;
-                display: table-cell;
-                text-align: center;
-                padding-left: 0;
-                padding-right: 0;
-                transition: 0.2s all; }
-                body .container section .all .group_files .files tr td a {
-                  display: block;
-                  height: 100%;
-                  width: 100%; }
-                body .container section .all .group_files .files tr td:first-child {
-                  width: 65%; }
-              body .container section .all .group_files .files tr:nth-child(even) {
-                background-color: rgba(0, 0, 0, 0.12); }
-              body .container section .all .group_files .files tr:hover {
-                background-color: rgba(0, 255, 0, 0.1);
-                cursor: pointer; }
-                body .container section .all .group_files .files tr:hover td {
-                  font-size: 1.02em; }
-                  body .container section .all .group_files .files tr:hover td a {
-                    text-decoration: underline; }
-              body .container section .all .group_files .files tr.oneDay {
-                background-color: rgba(227, 255, 0, 0.1); }
-      body .container section form {
-        text-align: center;
-        width: 100%; }
-        body .container section form input {
-          text-align: center;
-          font-size: 1.4em; }
-          body .container section form input:focus, body .container section form input:active {
-            outline: none; }
-        body .container section form input[type="submit"] {
-          border: none;
-          padding: 15px;
-          min-width: 60%;
-          min-height: 80px;
-          text-align: center;
-          font-size: 1.5em;
-          background-color: rgba(0, 0, 0, 0.2);
-          margin-top: 30px;
-          box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
-          transition: 0.4s all; }
-          body .container section form input[type="submit"]:not([disabled]):hover {
-            box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
-            transform: scale(0.98);
-            cursor: pointer; }
-        body .container section form .inputfile {
-          width: 0.1px;
-          height: 0.1px;
-          opacity: 0;
-          overflow: hidden;
-          position: absolute;
-          z-index: -1; }
-        body .container section form .inputfile + label {
-          font-weight: 700;
-          min-width: 300px;
-          min-height: 50px;
-          font-size: 1.5em;
-          color: white;
-          display: inline-block;
-          background-color: rgba(0, 0, 0, 0.7);
-          margin: 50px;
-          line-height: 80px;
-          box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
-          transition: 0.4s all; }
-        body .container section form .inputfile:focus + label,
-        body .container section form .inputfile + label:hover {
-          box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
-          transform: scale(0.98);
-          background-color: #19b5fe;
-          color: rgba(0, 0, 0, 0.7); }
-        body .container section form .inputfile + label {
-          cursor: pointer;
-          /* "hand" cursor */ }
-        body .container section form .folder {
-          min-width: 300px;
-          min-height: 50px;
-          border: none;
-          box-shadow: 5px 3px 5px rgba(125, 125, 125, 0.8);
-          text-align-last: center;
-          font-size: 1.5em;
-          margin: 20px; }
-        body .container section form .name_file {
-          font-size: 1.3em; }
-          body .container section form .name_file b {
-            font-size: 1.5em;
-            text-transform: capitalize;
-            text-decoration: underline; }
-        body .container section form .form_group {
-          position: relative;
-          padding: 5px;
-          margin: 0; }
-          body .container section form .form_group input:not([type="radio"]) {
-            height: 40px;
-            width: 60%;
-            margin: 5px; }
-          body .container section form .form_group input:required:not([type="radio"]) {
-            border: 1px solid rgba(255, 0, 0, 0.5);
-            box-shadow: 3px 2px 5px rgba(255, 0, 0, 0.5); }
-          body .container section form .form_group ::-webkit-input-placeholder {
-            /* Chrome/Opera/Safari */
-            text-align: center; }
-          body .container section form .form_group ::-moz-placeholder {
-            /* Firefox 19+ */
-            text-align: center; }
-          body .container section form .form_group :-ms-input-placeholder {
-            /* IE 10+ */
-            text-align: center; }
-          body .container section form .form_group :-moz-placeholder {
-            /* Firefox 18- */
-            text-align: center; }
-      body .container section .btn_page_login {
-        width: 100%;
-        text-align: center; }
-        body .container section .btn_page_login button {
-          border: none;
-          padding: 15px;
-          min-width: 60%;
-          min-height: 80px;
-          text-align: center;
-          font-size: 1.5em;
-          background-color: rgba(0, 0, 0, 0.2);
-          margin-top: 30px;
-          box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
-          transition: 0.4s all; }
-          body .container section .btn_page_login button:not([disabled]):hover {
-            box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
-            transform: scale(0.98);
-            cursor: pointer; }
-  body .modal {
+    z-index: 9999999;
+    animation: errorsSlide 7s;
+}
+
+body .errors + .container {
+    animation: errorsContainerSlide 7s;
+}
+
+body .container {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+body .container.done > .follow ul .done {
+    background-color: #2ecc71;
+}
+
+body .container.in_progress > .follow ul .in_progress {
+    background-color: #ffc107;
+}
+
+body .container.help > .follow ul .help {
+    background-color: #d50000;
+}
+
+body .container header {
+    position: fixed;
+    width: 80px;
+    text-align: center;
+    min-height: calc(100vh + 5px);
+    height: auto;
+    background-color: black;
+    top: -5px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    color: #19b5fe;
+    z-index: 9980;
+    overflow-y: auto;
+}
+
+body .container header::-webkit-scrollbar {
+    display: none;
+}
+
+body .container header h3 {
+    padding: 0;
+    width: 100%;
+    font-size: auto;
+}
+
+body .container header ul {
+    margin: 0;
+    padding: 0;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding-bottom: 165px;
+}
+
+body .container header ul li {
+    width: auto;
+    text-align: center;
+    transition: 0.4s all;
+    margin-top: 40px;
+}
+
+body .container header ul li a {
+    display: block;
+    font-size: 1.2em;
+    color: white;
+}
+
+body .container header ul li a img {
+    width: 42px;
+}
+
+body .container header ul li:hover {
+    transform: scale(1.1);
+    border-left: 1px solid white;
+    padding-left: 3px;
+}
+
+body .container .checkpoint_user {
+    list-style: none;
+    text-align: center;
+    margin-top: 70px;
+    padding: 0;
+}
+
+body .container .checkpoint_user li {
+    margin: 10px;
+    width: 250px;
+    line-height: 40px;
+    margin: 5px;
+}
+
+body .container .checkpoint_user li[class^="level"] {
+    color: white;
+    font-weight: bold;
+}
+
+body .container .checkpoint_user li[class^="level"].level0 {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+body .container .checkpoint_user li[class^="level"].level1 {
+    background-color: #2ecc71;
+}
+
+body .container .checkpoint_user li[class^="level"].level2 {
+    color: black;
+    background-color: #ffc107;
+}
+
+body .container .checkpoint_user li[class^="level"].level3 {
+    background-color: #d50000;
+}
+
+body .container .checkpoint_reset {
+    width: 400px;
+    position: absolute;
+    line-height: 40px;
+    height: 40px;
+    border: none;
+    background-color: rgba(255, 0, 0, 0.8);
+    box-shadow: 10px 7px 10px rgba(255, 0, 0, 0.8);
+    color: white;
+    font-size: 1.2em;
+    padding: 0;
+    transition: 0.4s all;
+}
+
+body .container .checkpoint_reset:hover {
+    cursor: pointer;
+    background-color: red;
+    box-shadow: 5px 4px 5px rgba(255, 0, 0, 0.6);
+    transform: scale(0.97);
+}
+
+body .container .checkpoint_reset:active, body .container .checkpoint_resetfocus, body .container .checkpoint_resetvisited {
+    border: none;
+}
+
+body .container .follow {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9990;
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+body .container .follow ul {
+    margin: 0;
+    padding: 0;
+}
+
+body .container .follow ul > li {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: 0.4s all;
+}
+
+body .container .follow ul > li::before {
+    position: absolute;
+    display: none;
+    top: 5px;
+    left: 50px;
+    width: 200px;
+    line-height: 25px;
+    transition: 0.4s all;
+}
+
+body .container .follow ul > li::after {
+    margin: 15px;
+    content: "";
+    display: block;
+}
+
+body .container .follow ul > li:hover::before {
+    display: block;
+}
+
+body .container .follow ul > li.done:hover::before {
+    background-color: rgba(46, 204, 113, 0.8);
+    content: "It's Good";
+}
+
+body .container .follow ul > li.in_progress:hover::before {
+    background-color: rgba(255, 193, 7, 0.8);
+    content: "I'm Working";
+}
+
+body .container .follow ul > li.help:hover::before {
+    color: white;
+    background-color: rgba(213, 0, 0, 0.8);
+    content: "Help Me, Please!!!!";
+}
+
+body .container .follow ul > li.done {
+    content: "";
+    background-color: rgba(46, 204, 113, 0.5);
+}
+
+body .container .follow ul > li.done:hover {
+    background-color: rgba(46, 204, 113, 0.8);
+}
+
+body .container .follow ul > li.in_progress {
+    content: "";
+    background-color: rgba(255, 193, 7, 0.5);
+}
+
+body .container .follow ul > li.in_progress:hover {
+    background-color: rgba(255, 193, 7, 0.8);
+}
+
+body .container .follow ul > li.help {
+    content: "";
+    background-color: rgba(213, 0, 0, 0.5);
+}
+
+body .container .follow ul > li.help:hover {
+    background-color: rgba(213, 0, 0, 0.8);
+}
+
+body .container section {
+    width: 90%;
+    margin-left: 80px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body .container section .number_annuaire {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+body .container section .number_annuaire b {
+    display: inline-block;
+    padding: 2px;
+    margin: 2px;
+    background-color: #000;
+    color: white;
+    border-radius: 30px;
+    line-height: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+body .container section .number_annuaire b.formateur {
+    background-color: rgba(25, 181, 254, 0.5);
+    color: black;
+}
+
+body .container section .number_annuaire b.total {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: black;
+}
+
+body .container section table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+body .container section table thead tr th {
+    position: relative;
+    min-width: 160px;
+}
+
+body .container section table thead tr th a {
+    display: grid;
+}
+
+body .container section table thead tr th a img {
+    width: 20px;
+}
+
+body .container section table thead tr th a.not_reverse_annuaire {
+    left: 0;
+}
+
+body .container section table,
+body .container section table th,
+body .container section table td {
+    border: 1px solid black;
+}
+
+body .container section table th,
+body .container section table td {
+    height: 43px;
+}
+
+body .container section table th {
+    font-size: 1.6em;
+}
+
+body .container section table tbody tr.m2i {
+    width: 100%;
+    height: auto;
+    background-color: rgba(25, 181, 254, 0.5);
+}
+
+body .container section table tbody tr td .annuaireMail {
+    width: 100%;
+    display: block;
+}
+
+body .container section table tbody tr td .annuaireMail:hover {
+    cursor: pointer;
+}
+
+body .container section .QAndA {
+    width: 90%;
+    padding-left: 0px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+body .container section .QAndA .question {
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+}
+
+body .container section .QAndA .question h3 {
+    text-transform: capitalize;
+    margin: 0;
+    padding: 0;
+}
+
+body .container section .QAndA .question h3 time {
+    font-size: 0.7em;
+}
+
+body .container section .QAndA .question h5 {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-style: italic;
+}
+
+body .container section .QAndA .question > pre {
+    cursor: pointer;
+    background-color: white;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+body .container section .QAndA .question .answer {
+    display: none;
+    padding: 10px 0;
+    margin-left: 64px;
+}
+
+body .container section .QAndA .question .answer:nth-child(1) {
+    display: block;
+    color: red;
+}
+
+body .container section .QAndA .question .answer h4 {
+    position: relative;
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+body .container section .QAndA .question .answer h4 time {
+    font-size: 0.8em;
+}
+
+body .container section .QAndA .question .answer .ok {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+
+body .container section .QAndA .question .answer .post {
+    display: inline-block;
+}
+
+body .container section .QAndA .question .answer .post .post-text {
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: middle;
+}
+
+body .container section .QAndA .question .answer .post .like {
+    display: inline-block;
+}
+
+body .container section .QAndA .question .answer .post .like div {
+    display: inline-block;
+    line-height: 32px;
+    vertical-align: middle;
+    margin-top: -17px;
+}
+
+body .container section .QAndA .question .answer .post .like img {
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+body .container section .QAndA .question form.create_answer {
+    display: none;
+}
+
+body .container section .QAndA .question form.create_answer input[type^="submit"] {
+    font-size: 0.9em;
+    min-height: auto;
+    min-width: 30%;
+    padding: 5px;
+    margin: 0;
+}
+
+body .container section .QAndA .create_question {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: white;
+    transition: 0.5s all;
+}
+
+body .container section .QAndA .create_question .form_group textarea {
+    width: 60%;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+body .container section .QAndA .create_question .form_group input[type="submit"] {
+    background-color: white;
+}
+
+body .container section .QAndA .create_question:hover, body .container section .QAndA .create_question:active, body .container section .QAndA .create_question:focus {
+    height: 400px;
+}
+
+body .container section .bar_anchor {
+    position: fixed;
+    left: 82px;
+    margin: 0;
+    width: 43px;
+    height: 100%;
+    background-color: black;
+    border-left: 3px solid white;
+    transition: 0.2s all;
+    overflow-y: auto;
+    z-index: 9989;
+}
+
+body .container section .bar_anchor ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: 0.3s all;
+}
+
+body .container section .bar_anchor ul li {
+    margin: 8px 0;
+    padding: 6px 0;
+    transition: 0.2s all;
+    overflow: hidden;
+}
+
+body .container section .bar_anchor ul li a {
+    display: block;
+    transition: 0.2s all;
+}
+
+body .container section .bar_anchor ul li a h3 {
+    color: white;
+    font-size: 2em;
+    text-transform: uppercase;
+    width: 40px;
+    text-align: center;
+    display: block;
+    margin: 0;
+}
+
+body .container section .bar_anchor ul li a span {
+    display: none;
+    transition: 0.3s all;
+}
+
+body .container section .bar_anchor ul li:hover {
+    background-color: white;
+}
+
+body .container section .bar_anchor ul li:hover a {
+    color: black;
+}
+
+body .container section .bar_anchor:hover {
+    width: 200px;
+    background-color: black;
+}
+
+body .container section .bar_anchor:hover ul li {
+    color: black;
+}
+
+body .container section .bar_anchor:hover ul li a {
+    color: white;
+    text-align: left;
+}
+
+body .container section .bar_anchor:hover ul li a h3 {
+    display: inline;
+    padding-right: 3px;
+    margin-left: 6px;
+}
+
+body .container section .bar_anchor:hover ul li a span {
+    display: inline;
+}
+
+body .container section .bar_anchor:hover ul li:hover a {
+    color: black;
+}
+
+body .container section .bar_anchor:hover ul li:hover a h3 {
+    color: black;
+}
+
+body .container section .bar_anchor::-webkit-scrollbar {
+    display: none;
+}
+
+body .container section .all {
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    margin-left: 84px;
+    padding-bottom: 100px;
+}
+
+body .container section .all .group_files {
+    padding: 10px 0;
+}
+
+body .container section .all .group_files .cat {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    justify-content: center;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+body .container section .all .group_files .files {
+    overflow-x: auto;
+    width: 90%;
+    table-layout: fixed;
+    margin: 0 auto;
+    transition: 0.5s all;
+}
+
+body .container section .all .group_files .files tr {
+    height: 50px;
+    line-height: 50px;
+    transition: 0.2s all;
+}
+
+body .container section .all .group_files .files tr td {
+    display: block;
+    vertical-align: middle;
+    word-wrap: break-word;
+    display: table-cell;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    transition: 0.2s all;
+}
+
+body .container section .all .group_files .files tr td a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+body .container section .all .group_files .files tr td:first-child {
+    width: 65%;
+}
+
+body .container section .all .group_files .files tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+body .container section .all .group_files .files tr:hover {
+    background-color: rgba(0, 255, 0, 0.1);
+    cursor: pointer;
+}
+
+body .container section .all .group_files .files tr:hover td {
+    font-size: 1.02em;
+}
+
+body .container section .all .group_files .files tr:hover td a {
+    text-decoration: underline;
+}
+
+body .container section .all .group_files .files tr.oneDay {
+    background-color: rgba(227, 255, 0, 0.1);
+}
+
+body .container section form {
+    text-align: center;
+    width: 100%;
+}
+
+body .container section form input {
+    text-align: center;
+    font-size: 1.4em;
+}
+
+body .container section form input:focus, body .container section form input:active {
+    outline: none;
+}
+
+body .container section form input[type="submit"] {
+    border: none;
+    padding: 15px;
+    min-width: 60%;
+    min-height: 80px;
+    text-align: center;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
+    transition: 0.4s all;
+}
+
+body .container section form input[type="submit"]:not([disabled]):hover {
+    box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
+    transform: scale(0.98);
+    cursor: pointer;
+}
+
+body .container section form .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+body .container section form .inputfile + label {
+    font-weight: 700;
+    min-width: 300px;
+    min-height: 50px;
+    font-size: 1.5em;
+    color: white;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 50px;
+    line-height: 80px;
+    box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
+    transition: 0.4s all;
+}
+
+body .container section form .inputfile:focus + label,
+body .container section form .inputfile + label:hover {
+    box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
+    transform: scale(0.98);
+    background-color: #19b5fe;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body .container section form .inputfile + label {
+    cursor: pointer;
+    /* "hand" cursor */
+}
+
+body .container section form .folder {
+    min-width: 300px;
+    min-height: 50px;
+    border: none;
+    box-shadow: 5px 3px 5px rgba(125, 125, 125, 0.8);
+    text-align-last: center;
+    font-size: 1.5em;
+    margin: 20px;
+}
+
+body .container section form .name_file {
+    font-size: 1.3em;
+}
+
+body .container section form .name_file b {
+    font-size: 1.5em;
+    text-transform: capitalize;
+    text-decoration: underline;
+}
+
+body .container section form .form_group {
+    position: relative;
+    padding: 5px;
+    margin: 0;
+}
+
+body .container section form .form_group input:not([type="radio"]) {
+    height: 40px;
+    width: 60%;
+    margin: 5px;
+}
+
+body .container section form .form_group input:required:not([type="radio"]) {
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    box-shadow: 3px 2px 5px rgba(255, 0, 0, 0.5);
+}
+
+body .container section form .form_group ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    text-align: center;
+}
+
+body .container section form .form_group ::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+}
+
+body .container section form .form_group :-ms-input-placeholder {
+    /* IE 10+ */
+    text-align: center;
+}
+
+body .container section form .form_group :-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+}
+
+body .container section .btn_page_login {
+    width: 100%;
+    text-align: center;
+}
+
+body .container section .btn_page_login button {
+    border: none;
+    padding: 15px;
+    min-width: 60%;
+    min-height: 80px;
+    text-align: center;
+    font-size: 1.5em;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
+    transition: 0.4s all;
+}
+
+body .container section .btn_page_login button:not([disabled]):hover {
+    box-shadow: 5px 3.5px 5px rgba(125, 125, 125, 0.8);
+    transform: scale(0.98);
+    cursor: pointer;
+}
+
+body .modal {
     display: none;
     /* Hidden by default */
     position: fixed;
@@ -573,8 +857,10 @@ body {
     background-color: black;
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */ }
-  body .modal-content {
+    /* Black w/ opacity */
+}
+
+body .modal-content {
     position: relative;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
@@ -589,24 +875,32 @@ body {
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s; }
+    animation-duration: 0.4s;
+}
 
 @-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0; }
-  to {
-    top: 0;
-    opacity: 1; } }
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
 
 @keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0; }
-  to {
-    top: 0;
-    opacity: 1; } }
-  body .close {
+    from {
+        top: -300px;
+        opacity: 0;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+body .close {
     position: absolute;
     right: 15px;
     top: 0px;
@@ -614,60 +908,111 @@ body {
     float: right;
     font-size: 28px;
     font-weight: bold;
-    transition: 0.7s all; }
-  body .close:hover,
-  body .close:focus {
+    transition: 0.7s all;
+}
+
+body .close:hover,
+body .close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-    transform: rotate(720deg) scale(1.2); }
-  body .modal-header {
+    transform: rotate(720deg) scale(1.2);
+}
+
+body .modal-header {
     padding: 3px 16px;
     background-color: #19b5fe;
     color: white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; }
-    body .modal-header h2 {
-      width: 60%;
-      text-overflow: ellipsis;
-      word-wrap: break-word; }
-    body .modal-header .download_img {
-      position: absolute;
-      left: 10px;
-      top: 10px;
-      width: 50px;
-      transition: 0.7s all;
-      box-shadow: -5px -5px 7px black;
-      border-radius: 50px; }
-      body .modal-header .download_img:hover {
-        box-shadow: 5px 5px 7px white;
-        transform: rotate(720deg) scale(0.97); }
-  body .modal-body {
+    justify-content: center;
+}
+
+body .modal-header h2 {
+    width: 60%;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+body .modal-header .download_img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    transition: 0.7s all;
+    box-shadow: -5px -5px 7px black;
+    border-radius: 50px;
+}
+
+body .modal-header .download_img:hover {
+    box-shadow: 5px 5px 7px white;
+    transform: rotate(720deg) scale(0.97);
+}
+
+body .modal-body {
     left: 0;
     right: 0;
     border-style: solid;
     border-color: grey;
     width: 100%;
     max-height: 49%;
-    white-space: pre-wrap; }
-    body .modal-body img {
-      max-width: 80%;
-      height: auto; }
-  body footer {
+    white-space: pre-wrap;
+}
+
+body .modal-body img {
+    max-width: 80%;
+    height: auto;
+}
+
+body footer {
     z-index: 9970;
     position: fixed;
     width: 100%;
     line-height: 80px;
     text-align: center;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); }
-    body footer a {
-      width: 100%;
-      height: auto;
-      color: white;
-      font-weight: bold;
-      font-size: 2em;
-      display: block; }
-      body footer a:hover {
-        cursor: pointer; }
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+body footer a {
+    width: 100%;
+    height: auto;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    display: block;
+}
+
+body footer a:hover {
+    cursor: pointer;
+}
+
+@keyframes errorsSlide {
+    0% {
+        transform: translateY(-65px);
+    }
+    15% {
+        transform: translateY(0);
+    }
+    85% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-65px);
+    }
+}
+
+@keyframes errorsContainerSlide {
+    0% {
+        transform: translateY(0);
+    }
+    15% {
+        transform: translateY(65px);
+    }
+    85% {
+        transform: translateY(65px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

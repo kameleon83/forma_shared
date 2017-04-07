@@ -9,7 +9,7 @@ import (
 var store = sessions.NewCookieStore([]byte("samestunbeaugosse"))
 
 // SetSessionsFlashes g
-func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) interface{} {
+func SetSessionsFlashes(w http.ResponseWriter, r *http.Request, message string) []interface{} {
 	// Get a session.
 	session, err := store.Get(r, "forma_shared")
 	flashes := session.Flashes()

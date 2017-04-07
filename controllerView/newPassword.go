@@ -11,7 +11,7 @@ import (
 // NewPassword controller view inde.gohtml
 func NewPassword(w http.ResponseWriter, r *http.Request) {
 
-	var flashes interface{}
+	var flashes []interface{}
 
 	tpl := template.Must(template.New("NewPassword").ParseFiles("view/newPassword.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
@@ -28,7 +28,6 @@ func NewPassword(w http.ResponseWriter, r *http.Request) {
 		} else {
 			if pass1 == pass2 {
 				u.Password = controller.EncryptionPassword(pass1)
-				u.UpdateUser()
 				controller.SetSessionsValues(w, r, "email", u.Mail)
 				controller.SetSessionsValues(w, r, "firstname", u.Firstname)
 				controller.SetSessionsValues(w, r, "lastname", u.Lastname)
@@ -38,8 +37,10 @@ func NewPassword(w http.ResponseWriter, r *http.Request) {
 				if u.Active {
 					controller.SetSessionsValues(w, r, "active", u.Active)
 				}
-				flashes = controller.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
-				go controller.SendEmail(u.Mail)
+				u.UpdateUser()
+				// flashes = controller.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
+				// go controller.SendEmail(u.Mail)
+
 				http.Redirect(w, r, "/", http.StatusFound)
 			} else {
 				flashes = controller.SetSessionsFlashes(w, r, "Les mots de passes ne sont pas pareils.")
@@ -50,7 +51,9 @@ func NewPassword(w http.ResponseWriter, r *http.Request) {
 	}
 	m := make(map[string]interface{})
 	m["title"] = "New Password"
-	m["errors"] = flashes
+	if len(flashes) > 0 {
+		m["errors"] = flashes[0]
+	}
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

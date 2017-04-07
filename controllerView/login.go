@@ -13,18 +13,21 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Login").ParseFiles("view/login.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	var flashes interface{}
+	var flashes []interface{}
 
 	if r.Method == "POST" {
 
+		u := model.User{}
+		u.Mail = r.FormValue("email")
+
 		if rescue := controller.GetSessionsValues(w, r, "rescue"); rescue != nil && rescue.(bool) {
-			http.Redirect(w, r, "/newPassword", http.StatusFound)
+			if r.FormValue("password") == controller.EncryptionEmailRescue(u.Mail) {
+				http.Redirect(w, r, "/newPassword", http.StatusFound)
+			}
+			flashes = controller.SetSessionsFlashes(w, r, "Vous avez perdu votre mot de passe. Un mot de passe provisoire vous a été envoyé. Veuillez le rentrer dans le champ mot de passe")
 		}
 
 		password := controller.EncryptionPassword(r.FormValue("password"))
-
-		u := model.User{}
-		u.Mail = r.FormValue("email")
 		u.SearchUser()
 
 		if u.Mail != "" {
@@ -53,7 +56,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	m := make(map[string]interface{})
 	m["title"] = "Login"
-	m["errors"] = flashes
+	if len(flashes) > 0 {
+		m["errors"] = flashes[0]
+	}
 	m["email"] = controller.GetSessionsValues(w, r, "email")
 	m["active"] = controller.GetSessionsValues(w, r, "active")
 	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")

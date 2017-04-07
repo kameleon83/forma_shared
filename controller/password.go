@@ -3,6 +3,7 @@ package controller
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"time"
 )
 
 // CheckEqualsPasswordString e
@@ -32,7 +33,7 @@ func EncryptionPassword(pass string) string {
 // EncryptionEmail e
 func EncryptionEmail(email string) string {
 	hasher := sha256.New()
-	hasher.Write([]byte(email))
+	hasher.Write([]byte(email + "_" + formatDateEncryption()))
 	sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 	return sha
 }
@@ -40,7 +41,14 @@ func EncryptionEmail(email string) string {
 // EncryptionEmailRescue e
 func EncryptionEmailRescue(email string) string {
 	hasher := sha256.New()
-	hasher.Write([]byte("rescue" + email))
+	hasher.Write([]byte("rescue" + email + "_" + formatDateEncryption()))
 	sha := base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 	return sha
+}
+
+func formatDateEncryption() string {
+	now := time.Now()
+	time := "2006-01-02"
+
+	return now.Format(time)
 }

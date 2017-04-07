@@ -55,8 +55,7 @@ func (u *User) SearchUserByID() *User {
 
 //UpdateUser u
 func (u *User) UpdateUser() *gorm.DB {
-
-	return db.Save(u)
+	return db.Save(&u)
 }
 
 // ValidFirstname v

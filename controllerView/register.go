@@ -19,7 +19,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	tpl := template.Must(template.New("Register").ParseFiles("view/register.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
-	var flashes interface{}
+	var flashes []interface{}
 
 	if r.Method == "POST" {
 		itsOk := true
@@ -101,6 +101,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	m := make(map[string]interface{})
 	m["title"] = "See or Download"
-	m["errors"] = flashes
+	if len(flashes) > 0 {
+		m["errors"] = flashes[0]
+	}
 	tpl.ExecuteTemplate(w, "layout", m)
 }

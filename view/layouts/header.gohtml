@@ -9,6 +9,10 @@
 </head>
 <body>
 
+    {{ if .errors }}
+    <div class="errors">{{ .errors }}</div>
+    {{ end }}
+
     <div class="container{{ .niveau }}">
 
         {{ if .active }}
