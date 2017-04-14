@@ -60,7 +60,7 @@ func directory() string {
 	fmt.Println()
 	fmt.Println("Si oui, rentres le chemin du dossier à partager, puis valides avec la touche entrer.")
 	fmt.Println()
-	fmt.Println("Si non, appuies de suite sur entrer !! Et dans ce cas, le dossier de partage sera " + dirActual)
+	fmt.Println("Si non, appuies de suite sur entrer !! Et dans ce cas, le dossier de partage sera " + dirActual + "/partage")
 	text, _ = reader.ReadString('\n')
 
 	text = strings.TrimSpace(text)

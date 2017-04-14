@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -21,7 +22,19 @@ func init() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 }
 
+// go build -ldflags "-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD` -X main.version=0.0.5-BETA"
+var buildstamp, githash, version string
+
 func main() {
+
+	v := flag.Bool("version", false, "prints current version")
+	flag.Parse()
+	if *v {
+		fmt.Printf("Date last build : %s\n", buildstamp)
+		fmt.Printf("Git Hash : %s\n", githash)
+		fmt.Printf("Version : %s\n", version)
+		os.Exit(0)
+	}
 
 	f, err := os.OpenFile("forma_shared.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
