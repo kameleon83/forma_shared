@@ -22,7 +22,9 @@ func init() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 }
 
-// go build -ldflags "-X main.buildstamp=`date '+%d-%m-%Y_%H:%M:%S'` -X main.githash=`git rev-parse HEAD` -X main.version=1.0.0-BETA"
+// linux : go build -ldflags "-X main.buildstamp=`date '+%d-%m-%Y_%H:%M:%S'` -X main.githash=`git rev-parse HEAD` -X main.version=1.0.0-BETA"
+// windows : go build -ldflags "-X main.buildstamp=$((get-date).tostring('d-MM-yyyy_H:mm:ss')) -X main.githash=$(git rev-parse HEAD) -X main.version=1.0.0-BETA "
+
 var buildstamp, githash, version string
 
 func main() {
