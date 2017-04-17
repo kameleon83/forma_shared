@@ -6,7 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 
@@ -24,19 +26,33 @@ func init() {
 
 // linux : go build -ldflags "-X main.buildstamp=`date '+%d-%m-%Y_%H:%M:%S'` -X main.githash=`git rev-parse HEAD` -X main.version=1.0.0-BETA"
 // windows : go build -ldflags "-X main.buildstamp=$((get-date).tostring('d-MM-yyyy_H:mm:ss')) -X main.githash=$(git rev-parse HEAD) -X main.version=1.0.0-BETA "
+// go build => Par défaut
 
 var buildstamp, githash, version string
 
-func main() {
+func versionning() {
+	t := time.Now()
+	buildstamp = t.Format("02-01-2006_15:04:05")
 
-	v := flag.Bool("version", false, "prints current version")
+	cmdOut, _ := exec.Command("git", "rev-parse", "HEAD").Output()
+	githash = strings.TrimSpace(string(cmdOut))
+
+	version = "1.0.0-BETA"
+
+	vers := flag.Bool("version", false, "prints current version")
+	flag.BoolVar(vers, "v", false, "prints current version")
 	flag.Parse()
-	if *v {
+
+	if *vers {
 		fmt.Printf("Date last build : %s\n", buildstamp)
 		fmt.Printf("Git Hash : %s\n", githash)
 		fmt.Printf("Version : %s\n", version)
 		os.Exit(0)
 	}
+}
+
+func main() {
+	versionning()
 
 	f, err := os.OpenFile("forma_shared.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
