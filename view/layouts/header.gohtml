@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
     <link rel="icon" type="image/png" href="/images/favicon.png" />
 
+    <script src="/js/jquery.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <div class="errors">{{ .errors }}</div>
     {{ end }}
 
-    <div class="container{{ .niveau }}">
+    <div class="container{{ .niveau }}" data-email="{{ .email }}">
 
         {{ if .active }} {{ if not .prof }}
         <div class="follow">
@@ -63,7 +64,6 @@
         {{ template "content" . }}
     </div>
     {{ template "footer" . }}
-    <script src="/js/jquery.js" charset="utf-8"></script>
     <!-- <script src="/js/server.js" charset="utf-8"></script>
     <script src="/js/service-worker.js" charset="utf-8"></script>
     <script src="/js/test.js" charset="utf-8"></script> -->
@@ -167,6 +167,63 @@
                         notification.onclick = function() {
                             notification.close();
                             location.href = "/";
+                        };
+                    }
+                });
+            }
+        }
+
+        let oldCheck;
+        let resetCheckpointUser = setInterval(function() {
+            let user_email = $(".container").data("email")
+            let i = false;
+            $.post("/checkpoint/" + user_email, function(e) {
+                if (e == 0 && oldCheck > 0 && !i) {
+                    $(".container").attr('class', 'container');
+                    notifyCheckpoint("Checkpoint remis à zéro");
+                    i = true;
+                } else if (e == 0 && oldCheck == 0 && i) {
+                    i = false;
+                }
+                oldCheck = e;
+            })
+
+        }, 5000)
+
+        resetCheckpointUser
+
+
+        function notifyCheckpoint(name) {
+
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                var options = {
+                    body: "Le Formateur vous demande de mettre à jour le checkpoint :-P",
+                    icon: "/images/danger.png",
+                    dir: "ltr",
+                    requireInteraction: true
+                };
+                var notification = new Notification(name, options);
+                notification.onclick = function() {
+                    notification.close();
+                };
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function(permission) {
+                    if (!('permission' in Notification)) {
+                        Notification.permission = permission;
+                    }
+
+                    if (permission === "granted") {
+                        var options = {
+                            body: "Le Formateur vous demande de mettre à jour le checkpoint :-P",
+                            icon: "/images/danger.png",
+                            dir: "ltr",
+                            requireInteraction: true
+                        };
+                        var notification = new Notification(name, options);
+                        notification.onclick = function() {
+                            notification.close();
                         };
                     }
                 });

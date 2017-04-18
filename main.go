@@ -37,7 +37,7 @@ func versionning() {
 	cmdOut, _ := exec.Command("git", "rev-parse", "HEAD").Output()
 	githash = strings.TrimSpace(string(cmdOut))
 
-	version = "1.0.1-BETA"
+	version = "1.0.2-BETA"
 
 	vers := flag.Bool("version", false, "prints current version")
 	flag.BoolVar(vers, "v", false, "prints current version")
@@ -100,6 +100,7 @@ func main() {
 	// router.HandleFunc("/autorized", controller.ClientAutorize)
 	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
 	router.HandleFunc("/checkpoint", controllerView.Checkpoint)
+	router.HandleFunc("/checkpoint/{email}", controllerView.CheckpointUser).Methods("POST")
 	router.HandleFunc("/checkpoint_reset", controllerView.CheckpointReset)
 	// router.HandleFunc("/notify", controllerView.InjectJavaScript)
 	router.HandleFunc("/countfiles", controllerView.NewFileCheck)

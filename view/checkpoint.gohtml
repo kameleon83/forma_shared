@@ -3,97 +3,93 @@
     <button type="button" class="checkpoint_reset">Reset</button>
 
     <ul class="checkpoint_user">
-        {{ range $k, $v := .user }}
-        {{ if not $v.Prof }}
+        {{ range $k, $v := .user }} {{ if not $v.Prof }}
         <li data-level="{{ $v.Checkpoint }}" class="level{{ $v.Checkpoint }}">{{ $v.Firstname }}</li>
-        {{ end }}
-        {{ end }}
+        {{ end }} {{ end }}
     </ul>
 </section>
-<div class="newNotif" hidden >0</div>
-<script src="/js/jquery.js" charset="utf-8"></script>
+<div class="newNotif" hidden>0</div>
+
 <script>
-$(function(){
+    $(function() {
 
-    let old = $(".checkpoint_user").html();
+        let old = $(".checkpoint_user").html();
 
-    function readHtmlChange(){
-        $(".checkpoint_user li").each(function(){
-            let level = $(this).data("level");
-            let name = $(this).text()
-            if (level == 3){
-                console.log(level, name);
-                notifyMe(name, level);
-            }
-        })
-    }
+        function readHtmlChange() {
+            $(".checkpoint_user li").each(function() {
+                let level = $(this).data("level");
+                let name = $(this).text()
+                if (level == 3) {
+                    console.log(level, name);
+                    notifyMe(name, level);
+                }
+            })
+        }
 
-    let one = setInterval(function(){
-        $.get('/checkpoint', function(data){
-            let newdata = $(data).find(".checkpoint_user").html();
-            if (old != newdata){
-                // console.log(newdata);
-                $('.checkpoint_user').html(newdata)
-                readHtmlChange();
-                old = newdata
-            }
-        })
-    }, 4000)
+        let one = setInterval(function() {
+            $.get('/checkpoint', function(data) {
+                let newdata = $(data).find(".checkpoint_user").html();
+                if (old != newdata) {
+                    // console.log(newdata);
+                    $('.checkpoint_user').html(newdata)
+                    readHtmlChange();
+                    old = newdata
+                }
+            })
+        }, 4000)
 
-    one;
+        one;
 
 
-    $('.checkpoint_reset').on('click', function(){
+        $('.checkpoint_reset').on('click', function() {
             location.href = "/checkpoint_reset";
-    })
+        })
 
 
-    function notifyMe(name, level) {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        else if (Notification.permission === "granted") {
-            var options = {
-                body: "Help Me, Please!!!! :-(",
-                icon: "/images/smiley_help.png",
-                dir : "ltr",
-                requireInteraction:true
-            };
-            if (level == 3 ){
-                var notification = new Notification(name,options);
-                notification.onclick = function() {
-                    notification.close();
-                    window.open().close();
-                    return window.focus();
+        function notifyMe(name, level) {
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                var options = {
+                    body: "Help Me, Please!!!! :-(",
+                    icon: "/images/smiley_help.png",
+                    dir: "ltr",
+                    requireInteraction: true
                 };
+                if (level == 3) {
+                    var notification = new Notification(name, options);
+                    notification.onclick = function() {
+                        notification.close();
+                        window.open().close();
+                        return window.focus();
+                    };
+                }
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function(permission) {
+                    if (!('permission' in Notification)) {
+                        Notification.permission = permission;
+                    }
+
+                    if (permission === "granted") {
+                        var options = {
+                            body: "Help Me, Please!!!! :-(",
+                            icon: "/images/smiley_help.png",
+                            dir: "ltr",
+                            requireInteraction: true
+                        };
+                        if (level == 3) {
+                            var notification = new Notification(name, options);
+                            notification.onclick = function() {
+                                notification.close();
+                                window.open().close();
+                                return window.focus();
+                            };
+                        }
+                    }
+                });
             }
         }
-        else if (Notification.permission !== 'denied') {
-            Notification.requestPermission(function (permission) {
-                if (!('permission' in Notification)) {
-                    Notification.permission = permission;
-                }
 
-                if (permission === "granted") {
-                    var options = {
-                        body: "Help Me, Please!!!! :-(",
-                        icon: "/images/smiley_help.png",
-                        dir : "ltr",
-                        requireInteraction:true
-                    };
-                    if (level == 3 ){
-                        var notification = new Notification(name,options);
-                        notification.onclick = function() {
-                            notification.close();
-                            window.open().close();
-                            return window.focus();
-                        };
-                    }
-                }
-            });
-        }
-    }
-
-})
+    })
 </script>
 {{ end }}

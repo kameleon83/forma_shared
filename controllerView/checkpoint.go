@@ -1,6 +1,7 @@
 package controllerView
 
 import (
+	"fmt"
 	"forma_shared/controller"
 	"forma_shared/model"
 	"html/template"
@@ -34,6 +35,19 @@ func Checkpoint(w http.ResponseWriter, r *http.Request) {
 	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)
+}
+
+// CheckpointUser s
+func CheckpointUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		vars := mux.Vars(r)
+		email := vars["email"]
+		user := new(model.User)
+		user.Mail = email
+		user.SearchUser()
+
+		fmt.Fprint(w, user.Checkpoint)
+	}
 }
 
 // CheckpointReset r
