@@ -6,9 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 	"runtime"
-	"strings"
 	"sync"
 	"time"
 
@@ -31,14 +29,6 @@ func init() {
 var buildstamp, githash, version string
 
 func versionning() {
-	t := time.Now()
-	buildstamp = t.Format("02-01-2006_15:04:05")
-
-	cmdOut, _ := exec.Command("git", "rev-parse", "HEAD").Output()
-	githash = strings.TrimSpace(string(cmdOut))
-
-	version = "1.0.2-BETA"
-
 	vers := flag.Bool("version", false, "prints current version")
 	flag.BoolVar(vers, "v", false, "prints current version")
 	flag.Parse()
