@@ -37,7 +37,7 @@ func versionning() {
 	cmdOut, _ := exec.Command("git", "rev-parse", "HEAD").Output()
 	githash = strings.TrimSpace(string(cmdOut))
 
-	version = "1.0.0-BETA"
+	version = "1.0.1-BETA"
 
 	vers := flag.Bool("version", false, "prints current version")
 	flag.BoolVar(vers, "v", false, "prints current version")
