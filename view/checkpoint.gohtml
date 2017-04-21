@@ -15,13 +15,28 @@
 
         let old = $(".checkpoint_user").html();
 
+        var oldListUserAndLevel = new Map();
+
+        function readListNameAndLevel(){
+            $(".checkpoint_user li").each(function() {
+                let level = $(this).data("level");
+                let name = $(this).text()
+                oldListUserAndLevel.set(name, level)
+            })
+        }
+        readListNameAndLevel();
+        
         function readHtmlChange() {
             $(".checkpoint_user li").each(function() {
                 let level = $(this).data("level");
                 let name = $(this).text()
-                if (level == 3) {
-                    console.log(level, name);
+                console.log(oldListUserAndLevel.get(name))
+                if (level == 3 && oldListUserAndLevel.get(name) != level) {
+                    oldListUserAndLevel.set(name,level)
                     notifyMe(name, level);
+                }
+                if (oldListUserAndLevel.get(name) != level){
+                    oldListUserAndLevel.set(name,level)
                 }
             })
         }
