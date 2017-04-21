@@ -28,7 +28,7 @@ func init() {
 
 var buildstamp, githash, version string
 
-func versionning() {
+func versioning() {
 	vers := flag.Bool("version", false, "prints current version")
 	flag.BoolVar(vers, "v", false, "prints current version")
 	flag.Parse()
@@ -42,7 +42,7 @@ func versionning() {
 }
 
 func main() {
-	versionning()
+	versioning()
 
 	f, err := os.OpenFile("forma_shared.log", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
 	if err != nil {
