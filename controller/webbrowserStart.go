@@ -13,8 +13,8 @@ func AutoStartBrowser(url string) {
 	case "windows":
 		exec.Command("cmd", "/C", "start", url).Run()
 	case "linux":
-		exec.Command("xdg-open", url)
+		exec.Command("xdg-open", url).Run()
 	case "darwin":
-		exec.Command("open", url)
+		exec.Command("open", url).Run()
 	}
 }
