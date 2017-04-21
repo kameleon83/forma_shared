@@ -107,6 +107,9 @@ func main() {
 
 	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)
 	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
+
+	go controller.AutoStartBrowser("http://localhost" + port)
+
 	http.ListenAndServe(port, router)
 
 }
