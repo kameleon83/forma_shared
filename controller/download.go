@@ -7,6 +7,8 @@ import (
 	"os"
 	"strconv"
 
+	"forma_shared/model"
+
 	"github.com/gorilla/mux"
 )
 
@@ -27,7 +29,8 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("Client requests: " + fileName)
 
 	//Check if file exists and open
-	Openfile, err := os.Open(lib.DIRFILE + folder + "/" + fileName)
+	config := new(model.Config)
+	Openfile, err := os.Open(config.SendDirectory() + folder + "/" + fileName)
 	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404

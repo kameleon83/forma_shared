@@ -48,7 +48,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 		// fmt.Fprintf(w, "%v", handler.Header)
-		f, err := os.OpenFile(lib.DIRFILE+folder+"/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+		config := new(model.Config)
+		f, err := os.OpenFile(config.SendDirectory()+folder+"/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			log.Println(err)
 			return

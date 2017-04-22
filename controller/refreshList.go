@@ -2,6 +2,7 @@ package controller
 
 import (
 	"forma_shared/lib"
+	"forma_shared/model"
 	"net/http"
 )
 
@@ -11,8 +12,8 @@ func RefreshList(w http.ResponseWriter, r *http.Request) {
 	lib.GetSessionLogin(w, r)
 
 	// log.Println("DIRFILE : " + lib.DIRFILE)
-
-	lib.ListFiles(lib.DIRFILE)
+	config := new(model.Config)
+	lib.ListFiles(config.SendDirectory())
 
 	http.Redirect(w, r, "/", http.StatusFound)
 }

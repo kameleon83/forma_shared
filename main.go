@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"runtime"
-	"sync"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -56,10 +55,10 @@ func main() {
 
 	model.ConnDB()
 
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go lib.Config(&wg)
-	wg.Wait()
+	// var wg sync.WaitGroup
+	// wg.Add(1)
+	// go lib.Config(&wg)
+	// wg.Wait()
 
 	// addrs, err := net.InterfaceAddrs()
 	// if err != nil {
@@ -81,6 +80,10 @@ func main() {
 	// J'ai remplacé : lib.RefreshListFilesAndFolder() par une route refresh
 	router.HandleFunc("/refresh", controller.RefreshList)
 	router.HandleFunc("/delete/{fileID}", lib.DeleteFile).Methods("POST")
+
+	router.HandleFunc("/config", controller.Config).Methods("GET")
+	router.HandleFunc("/config", controller.ConfigPost).Methods("POST")
+
 	router.HandleFunc("/register", controller.Register)
 	router.HandleFunc("/valid", controller.Valid)
 	router.HandleFunc("/login", controller.Login)
@@ -100,7 +103,8 @@ func main() {
 	router.HandleFunc("/q&anotif", lib.CheckNewQuestionAndAnswer)
 	router.HandleFunc("/q&alike/{postID}/{like}", controller.QAndALike)
 
-	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(lib.DIRFILE))))
+	config := new(model.Config)
+	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(config.SendDirectory()))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 
 	fmt.Println("Server start : ", time.Now(), " to port "+port)
@@ -108,7 +112,12 @@ func main() {
 	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)
 	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
 
-	go lib.AutoStartBrowser("http://localhost" + port)
+	fmt.Println(config.Count())
+	if config.Count() > 0 {
+		go lib.AutoStartBrowser("http://localhost" + port)
+	} else {
+		go lib.AutoStartBrowser("http://localhost" + port + "/config")
+	}
 
 	http.ListenAndServe(port, router)
 

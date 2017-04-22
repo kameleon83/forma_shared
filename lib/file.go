@@ -52,7 +52,7 @@ func ListFiles(folder string) {
 			fold.Name = strings.Split(path[len(folder)-1:], string(os.PathSeparator))[1]
 			fold.SearchWithName()
 
-			fold.Empty = FilesorNotFolder(path)
+			fold.Empty = FilesOrNotFolder(path)
 			fold.Update()
 
 			file.FolderRefer = fold.ID
@@ -64,16 +64,17 @@ func ListFiles(folder string) {
 
 			file.CreateFile()
 		} else {
-			if path != DIRFILE {
+			config := new(model.Config)
+			if path != config.SendDirectory() {
 				fold := &model.Folder{}
 
 				fold.Name = f.Name()
 
 				if fold.SearchWithName() != nil {
-					fold.Empty = FilesorNotFolder(path)
+					fold.Empty = FilesOrNotFolder(path)
 					fold.Create()
 				} else {
-					fold.Empty = FilesorNotFolder(path)
+					fold.Empty = FilesOrNotFolder(path)
 					fold.Update()
 				}
 			}
@@ -85,8 +86,8 @@ func ListFiles(folder string) {
 	// return files
 }
 
-// FilesorNotFolder f
-func FilesorNotFolder(path string) bool {
+// FilesOrNotFolder f
+func FilesOrNotFolder(path string) bool {
 	var count int
 
 	filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
@@ -101,7 +102,7 @@ func FilesorNotFolder(path string) bool {
 	return true
 }
 
-func folderIsExist(path string) {
+func FolderIsExist(path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, 0666)
 		log.Printf("Dossier %s Créé", path)

@@ -76,3 +76,15 @@ func SendEmailRescue(email string) {
 
 	send(to, msg)
 }
+
+//SendEmailTest s
+func SendEmailTest(email string) {
+	to := []string{email}
+	msg := []byte("To: " + email + "\r\n" +
+		"Subject: Test Email after first config\r\n" +
+		"\r\n" +
+		"Apparemment la configuration est bonne. Cool!!\r\n" +
+		"\r\n")
+
+	send(to, msg)
+}
