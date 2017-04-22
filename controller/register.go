@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"net/http"
@@ -15,7 +15,7 @@ var store = sessions.NewCookieStore([]byte("samestunbeaugosse"))
 // Register controller view inde.gohtml
 func Register(w http.ResponseWriter, r *http.Request) {
 
-	// controller.GetSessionLogin(w, r)
+	// lib.GetSessionLogin(w, r)
 
 	tpl := template.Must(template.New("Register").ParseFiles("view/register.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
@@ -30,28 +30,28 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		pass2 := strings.TrimSpace(r.FormValue("mdp_verif"))
 
 		if !u.ValidFirstname() {
-			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le prénom")
+			flashes = lib.SetSessionsFlashes(w, r, "Pas assez de caractères pour le prénom")
 			itsOk = false
 			// http.Redirect(w, r, "/register", http.StatusFound)
 		}
 		if !u.ValidLastname() {
-			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le nom")
+			flashes = lib.SetSessionsFlashes(w, r, "Pas assez de caractères pour le nom")
 			itsOk = false
 			// http.Redirect(w, r, "/register", http.StatusFound)
 		}
 
 		if len(pass1) < 6 || len(pass2) < 6 {
-			flashes = controller.SetSessionsFlashes(w, r, "Pas assez de caractères pour le mot de passe")
+			flashes = lib.SetSessionsFlashes(w, r, "Pas assez de caractères pour le mot de passe")
 			itsOk = false
 			// http.Redirect(w, r, "/register", http.StatusFound)
 		}
 
-		if controller.CheckEqualsPasswordString(pass1, pass2) != "" {
-			u.Password = controller.CheckEqualsPasswordString(pass1, pass2)
+		if lib.CheckEqualsPasswordString(pass1, pass2) != "" {
+			u.Password = lib.CheckEqualsPasswordString(pass1, pass2)
 			u.Function = strings.TrimSpace(r.FormValue("function"))
 			u.Phone = strings.TrimSpace(r.FormValue("phone"))
 			// if !u.ValidPhone() {
-			// 	flashes = controller.SetSessionsFlashes(w, r, "Numéro de téléphone incorrect")
+			// 	flashes = lib.SetSessionsFlashes(w, r, "Numéro de téléphone incorrect")
 			// 	itsOk = false
 			// 	http.Redirect(w, r, "/register", http.StatusFound)
 			// } else {
@@ -59,7 +59,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			// }
 			u.Mail = r.FormValue("email")
 			if !u.ValidEmail() {
-				flashes = controller.SetSessionsFlashes(w, r, "Email incorrect")
+				flashes = lib.SetSessionsFlashes(w, r, "Email incorrect")
 				itsOk = false
 				// http.Redirect(w, r, "/register", http.StatusFound)
 			}
@@ -70,7 +70,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			} else {
 				sendMailForma = true
 			}
-			u.IP = controller.CheckIP(w, r)
+			u.IP = lib.CheckIP(w, r)
 			u.Admin = 0
 			u.Active = false
 			u.Checkpoint = 0
@@ -79,22 +79,22 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 			if itsOk {
 				if err := u.CreateUser(); err != nil {
-					flashes = controller.SetSessionsFlashes(w, r, "Cet utilsateur existe déjà.")
+					flashes = lib.SetSessionsFlashes(w, r, "Cet utilsateur existe déjà.")
 					// http.Redirect(w, r, "/register", http.StatusFound)
 
 				} else {
-					flashes = controller.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
-					go controller.SendEmail(u.Mail)
+					flashes = lib.SetSessionsFlashes(w, r, "L'enregistrement c'est bien passé. Vous allez recevoir un email avec un code de validation")
+					go lib.SendEmail(u.Mail)
 					if sendMailForma {
-						go controller.SendEmailFormer(u.Mail)
+						go lib.SendEmailFormer(u.Mail)
 					}
-					controller.SetSessionsValues(w, r, "email", u.Mail)
+					lib.SetSessionsValues(w, r, "email", u.Mail)
 					http.Redirect(w, r, "/valid", http.StatusFound)
 
 				}
 			}
 		} else {
-			flashes = controller.SetSessionsFlashes(w, r, "les mdp ne sont pas pareil")
+			flashes = lib.SetSessionsFlashes(w, r, "les mdp ne sont pas pareil")
 			// http.Redirect(w, r, "/register", http.StatusFound)
 		}
 	}

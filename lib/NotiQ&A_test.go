@@ -1,4 +1,4 @@
-package controller
+package lib
 
 // func TestCheckNewQuestionAndAnswer(t *testing.T) {
 // 	if CheckNewQuestionAndAnswer() > 0 {

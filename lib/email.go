@@ -1,4 +1,4 @@
-package controller
+package lib
 
 import (
 	"forma_shared/model"

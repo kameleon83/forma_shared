@@ -1,4 +1,4 @@
-package controller
+package lib
 
 import (
 	"crypto/sha256"

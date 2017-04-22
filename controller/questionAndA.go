@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 // QuestionAndA q
 func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	question := &model.Question{}
 	answer := &model.Answer{}
@@ -44,11 +44,11 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 
 		question.Create()
 
-		controller.CountQuestion = 1
+		lib.CountQuestion = 1
 		if len(question.Title) > 30 {
-			controller.QuestionName = question.Title[0:30] + "..."
+			lib.QuestionName = question.Title[0:30] + "..."
 		} else {
-			controller.QuestionName = question.Title
+			lib.QuestionName = question.Title
 		}
 
 		http.Redirect(w, r, "/question&a", http.StatusFound)
@@ -60,13 +60,13 @@ func QuestionAndA(w http.ResponseWriter, r *http.Request) {
 	m["question"] = question.Search()
 	m["answer"] = answer.Search()
 	m["user"] = user.SearchUserByID()
-	m["email"] = controller.GetSessionsValues(w, r, "email")
-	m["active"] = controller.GetSessionsValues(w, r, "active")
-	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
-	m["prof"] = controller.GetSessionsValues(w, r, "prof")
-	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["email"] = lib.GetSessionsValues(w, r, "email")
+	m["active"] = lib.GetSessionsValues(w, r, "active")
+	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
+	m["prof"] = lib.GetSessionsValues(w, r, "prof")
+	m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
 	// m["numberFiles"] = model.COUNTFILES
-	// m["ip_name"] = controller.AfficheNom(ip)
+	// m["ip_name"] = lib.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())
 	tpl.ExecuteTemplate(w, "layout", m)

@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"io"
@@ -15,7 +15,7 @@ import (
 
 // Upload file user
 func Upload(w http.ResponseWriter, r *http.Request) {
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	if r.Method == "GET" {
 		folder := &model.Folder{}
@@ -24,21 +24,21 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		m := make(map[string]interface{})
 		m["title"] = "Upload"
 		m["folder"] = folder.Search()
-		m["email"] = controller.GetSessionsValues(w, r, "email")
-		m["active"] = controller.GetSessionsValues(w, r, "active")
-		m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
-		m["prof"] = controller.GetSessionsValues(w, r, "prof")
-		m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+		m["email"] = lib.GetSessionsValues(w, r, "email")
+		m["active"] = lib.GetSessionsValues(w, r, "active")
+		m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
+		m["prof"] = lib.GetSessionsValues(w, r, "prof")
+		m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
 		m["numberFiles"] = model.COUNTFILES
 
-		// m["ip_name"] = controller.AfficheNom(ip)
+		// m["ip_name"] = lib.AfficheNom(ip)
 
 		tpl.ExecuteTemplate(w, "layout", m)
 	} else {
 		r.ParseMultipartForm(32 << 20)
 		file, handler, err := r.FormFile("uploadfile")
 
-		handler.Filename = controller.GetSessionsValues(w, r, "firstname").(string) + "_" + slug(handler.Filename)
+		handler.Filename = lib.GetSessionsValues(w, r, "firstname").(string) + "_" + slug(handler.Filename)
 
 		// handler.Filename = handler.Filename
 		folder := r.FormValue("folder")
@@ -48,7 +48,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		}
 		defer file.Close()
 		// fmt.Fprintf(w, "%v", handler.Header)
-		f, err := os.OpenFile(controller.DIRFILE+folder+"/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
+		f, err := os.OpenFile(lib.DIRFILE+folder+"/"+handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			log.Println(err)
 			return
@@ -56,7 +56,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		defer f.Close()
 		_, err = io.Copy(f, file)
 		if err == nil {
-			controller.WriteLog("Upload de " + handler.Filename + " ok!!")
+			lib.WriteLog("Upload de " + handler.Filename + " ok!!")
 			http.Redirect(w, r, "/refresh", http.StatusFound)
 		}
 	}

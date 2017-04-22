@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 // Annuaire List user
 func Annuaire(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	funcMap := template.FuncMap{
 		"title": strings.Title,
@@ -30,13 +30,13 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	m := make(map[string]interface{})
 	m["title"] = "Annuaire"
 	m["users"] = u.SearchAllUsers(nameCol, sort)
-	m["email"] = controller.GetSessionsValues(w, r, "email")
-	m["active"] = controller.GetSessionsValues(w, r, "active")
-	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
-	m["prof"] = controller.GetSessionsValues(w, r, "prof")
-	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["email"] = lib.GetSessionsValues(w, r, "email")
+	m["active"] = lib.GetSessionsValues(w, r, "active")
+	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
+	m["prof"] = lib.GetSessionsValues(w, r, "prof")
+	m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
 	m["numberFiles"] = model.COUNTFILES
-	// m["ip_name"] = controller.AfficheNom(ip)
+	// m["ip_name"] = lib.AfficheNom(ip)
 
 	// fmt.Println(model.ReadUserJSON())
 	tpl.ExecuteTemplate(w, "layout", m)

@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"net/http"
 	"strconv"
@@ -10,7 +10,7 @@ import (
 )
 
 func QAndALike(w http.ResponseWriter, r *http.Request) {
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 	if r.Method == "POST" {
 		vars := mux.Vars(r)
 		postID, _ := strconv.ParseUint(vars["postID"], 10, 32)

@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"net/http"
 	"strconv"
@@ -10,7 +10,7 @@ import (
 // QAndAnswer q
 func QAndAnswer(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	if r.Method == "POST" {
 		answer := &model.Answer{}
@@ -24,11 +24,11 @@ func QAndAnswer(w http.ResponseWriter, r *http.Request) {
 
 		answer.Create()
 
-		controller.CountAnswer = 1
+		lib.CountAnswer = 1
 		if len(answer.Post) > 30 {
-			controller.AnswerName = answer.Post[0:30] + "..."
+			lib.AnswerName = answer.Post[0:30] + "..."
 		} else {
-			controller.AnswerName = answer.Post
+			lib.AnswerName = answer.Post
 		}
 
 		http.Redirect(w, r, "/question&a", http.StatusFound)

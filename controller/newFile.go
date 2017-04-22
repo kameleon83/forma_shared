@@ -1,4 +1,4 @@
-package controllerView
+package controller
 
 import (
 	"forma_shared/model"

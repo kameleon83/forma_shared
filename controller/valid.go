@@ -1,8 +1,8 @@
-package controllerView
+package controller
 
 import (
 	"fmt"
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"net/http"
@@ -15,12 +15,12 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 
 	var flashes []interface{}
 
-	email := controller.GetSessionsValues(w, r, "email")
+	email := lib.GetSessionsValues(w, r, "email")
 
 	if r.Method == "POST" {
 		key := strings.TrimSpace(r.FormValue("validKey"))
 		if email != nil {
-			if key == controller.EncryptionEmail(email.(string)) {
+			if key == lib.EncryptionEmail(email.(string)) {
 				u := model.User{}
 				u.Mail = email.(string)
 				u.SearchUser()
@@ -29,7 +29,7 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 				u.UpdateUser()
 				http.Redirect(w, r, "/login", http.StatusFound)
 			} else {
-				flashes = controller.SetSessionsFlashes(w, r, "La clef rentrée n'est pas la bonne")
+				flashes = lib.SetSessionsFlashes(w, r, "La clef rentrée n'est pas la bonne")
 				fmt.Println(flashes)
 			}
 		}
@@ -45,11 +45,11 @@ func Valid(w http.ResponseWriter, r *http.Request) {
 	if len(flashes) > 0 {
 		m["errors"] = flashes[0]
 	}
-	m["email"] = controller.GetSessionsValues(w, r, "email")
-	m["active"] = controller.GetSessionsValues(w, r, "active")
-	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
-	m["prof"] = controller.GetSessionsValues(w, r, "prof")
-	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
+	m["email"] = lib.GetSessionsValues(w, r, "email")
+	m["active"] = lib.GetSessionsValues(w, r, "active")
+	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
+	m["prof"] = lib.GetSessionsValues(w, r, "prof")
+	m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
 	m["numberFiles"] = model.COUNTFILES
 
 	tpl.ExecuteTemplate(w, "layout", m)

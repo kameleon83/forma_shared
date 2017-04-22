@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"io"
 	"net/http"
 	"os"
@@ -12,7 +12,7 @@ import (
 
 // Download View
 func Download(w http.ResponseWriter, r *http.Request) {
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	vars := mux.Vars(r)
 	folder := vars["folder"]
@@ -27,7 +27,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("Client requests: " + fileName)
 
 	//Check if file exists and open
-	Openfile, err := os.Open(controller.DIRFILE + folder + "/" + fileName)
+	Openfile, err := os.Open(lib.DIRFILE + folder + "/" + fileName)
 	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404

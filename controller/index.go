@@ -1,7 +1,7 @@
-package controllerView
+package controller
 
 import (
-	"forma_shared/controller"
+	"forma_shared/lib"
 	"forma_shared/model"
 	"html/template"
 	"math"
@@ -14,7 +14,7 @@ import (
 // Index controller view inde.gohtml
 func Index(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	controller.GetSessionLogin(w, r)
+	lib.GetSessionLogin(w, r)
 
 	const layout = "Mon 02 Jan 2006 - 15:04:05"
 
@@ -63,13 +63,13 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	m["title"] = "See or Download"
 	m["files"] = file.SearchAllFiles()
 	m["folder"] = folder.Search()
-	m["email"] = controller.GetSessionsValues(w, r, "email")
-	m["active"] = controller.GetSessionsValues(w, r, "active")
-	m["firstname"] = controller.GetSessionsValues(w, r, "firstname")
-	m["prof"] = controller.GetSessionsValues(w, r, "prof")
-	m["admin"] = controller.GetSessionsValues(w, r, "admin")
-	m["niveau"] = controller.GetSessionsValues(w, r, "niveau")
-	// m["ip_name"] = controller.AfficheNom(ip)
+	m["email"] = lib.GetSessionsValues(w, r, "email")
+	m["active"] = lib.GetSessionsValues(w, r, "active")
+	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
+	m["prof"] = lib.GetSessionsValues(w, r, "prof")
+	m["admin"] = lib.GetSessionsValues(w, r, "admin")
+	m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
+	// m["ip_name"] = lib.AfficheNom(ip)
 
 	tpl.ExecuteTemplate(w, "layout", m)
 }
