@@ -1,132 +1,135 @@
 package controller
 
 import (
-	"bufio"
-	"fmt"
+	"forma_shared/helper"
+	"forma_shared/lib"
 	"forma_shared/model"
+	"html/template"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
-	"sync"
 )
 
-// DIRFILE folder list files
-var DIRFILE = ""
+var flashes []interface{}
 
-// Config see config_directory
-func Config(wg *sync.WaitGroup) {
+func Config(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		tpl := template.Must(template.New("Config").ParseFiles("view/config.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
+		config := new(model.Config)
+		if config.Count() > 0 {
+			http.Redirect(w, r, "/", http.StatusFound)
+		}
+
+		// user := &model.User{}
+		// CheckpointUserChange(w, r)
+		m := make(map[string]interface{})
+		m["title"] = "Config"
+		m["pwd"] = directory()
+		m["token"] = lib.TokenCreate()
+		if len(flashes) > 0 {
+			m["errors"] = flashes[0]
+		}
+
+		tpl.ExecuteTemplate(w, "layout", m)
+	}
+}
+
+func ConfigPost(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == http.MethodPost {
+
+		token := r.FormValue("token")
+		pwd := r.FormValue("pwd")
+		mailSender := r.FormValue("mailSender")
+		mailServer := r.FormValue("mailServer")
+		mailPassword := r.FormValue("password")
+
+		var inputEmpty = func() bool {
+			if token == "" || pwd == "" || mailSender == "" || mailServer == "" || mailPassword == "" {
+				flashes = lib.SetSessionsFlashes(w, r, "Un ou plusieurs champs ne sont pas rempli ! :-(")
+				return false
+			}
+			return true
+		}
+
+		if !inputEmpty() {
+			http.Redirect(w, r, "/config", http.StatusFound)
+			return
+		}
+
+		var smtpValidation = func() bool {
+			if !helper.ValSmtp(mailServer) {
+				flashes = lib.SetSessionsFlashes(w, r, "Vérifier bien que le serveur soit écrit de cette manière : smtp.gmail.com:587")
+				return false
+			}
+			return true
+		}
+
+		if !smtpValidation() {
+			http.Redirect(w, r, "/config", http.StatusFound)
+			return
+		}
+
+		var emailValidation = func() bool {
+			if !helper.ValEmail(mailSender) {
+				flashes = lib.SetSessionsFlashes(w, r, "L'email est appremment éronné")
+				return false
+			}
+			return true
+		}
+
+		if !emailValidation() {
+			http.Redirect(w, r, "/config", http.StatusFound)
+			return
+		}
+
+		if inputEmpty() && emailValidation() && smtpValidation() {
+			err := configSendDb(token, pwd, mailSender, mailServer, mailPassword)
+
+			if err == nil {
+				go lib.SendEmailTest(mailSender)
+				http.Redirect(w, r, "/register", http.StatusFound)
+			}
+
+		}
+	}
+}
+
+func configSendDb(token, pwd, mailSender, mailServer, mailPassword string) error {
 	c := &model.Config{}
 	c.Find()
 
-	if c.Directory == "" || c.MailServer == "" || c.MailSender == "" || c.MailPassword == "" {
-		c.Directory = directory()
-		c.MailServer = mailServer()
-		c.MailSender = mailSender()
-		c.MailPassword = mailPassword()
+	var err error
 
-		folderIsExist(c.Directory)
+	if c.Token == "" || c.Directory == "" || c.MailServer == "" || c.MailSender == "" || c.MailPassword == "" {
+		c.Token = token
+		c.Directory = pwd
+		c.MailServer = mailServer
+		c.MailSender = mailSender
+		c.MailPassword = mailPassword
 
-		err := c.Create()
+		lib.FolderIsExist(c.Directory)
+
+		err = c.Create()
 
 		log.Println(err)
+		return err
 
-		if err == nil {
-			wg.Done()
-		}
-
-		fmt.Println("le dossier de partage se situe : ", c.Directory)
-		fmt.Println("le serveur mail est : ", c.MailServer)
-		fmt.Println("l'expéditeur mail est : ", c.MailSender)
-		fmt.Println("le mot de passe du serveur mail est : ", c.MailPassword)
-
-	} else {
-		DIRFILE = c.Directory
-		wg.Done()
 	}
-
+	return err
 }
 
 func directory() string {
 
-	var text string
 	dirActual, _ := os.Getwd()
 
-	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Le répertoire de partage n'est pas configuré !")
-	fmt.Println()
-	fmt.Println("Veux-tu en rentrer un un répertoire ? ex => /home/user/dlna/shared")
-	fmt.Println()
-	fmt.Println("Si oui, rentres le chemin du dossier à partager, puis valides avec la touche entrer.")
-	fmt.Println()
-	fmt.Println("Si non, appuies de suite sur entrer !! Et dans ce cas, le dossier de partage sera " + dirActual + "/partage")
-	text, _ = reader.ReadString('\n')
-
-	text = strings.TrimSpace(text)
-	if text == "" {
-		text = dirActual + string(os.PathSeparator) + "partage"
-	}
+	text := dirActual + string(os.PathSeparator) + "partage"
 
 	text = filepath.Clean(text) + string(os.PathSeparator)
 
-	return text
-
-}
-
-func mailServer() string {
-
-	var text string
-	reader := bufio.NewReader(os.Stdin)
-
-	for text == "" {
-
-		fmt.Println("Le serveur mail n'est pas configurer")
-		fmt.Println()
-		fmt.Println("Rentres le server mail. (ex:smtp.gmail.com:587)")
-		text, _ = reader.ReadString('\n')
-
-		text = strings.TrimSpace(text)
-
-	}
-	return text
-
-}
-
-func mailSender() string {
-
-	var text string
-	reader := bufio.NewReader(os.Stdin)
-
-	for text == "" {
-
-		fmt.Println("L'expéditeur n'est pas configurer")
-		fmt.Println()
-		fmt.Println("Rentres le mail de l'expéditeur. (ex:toto@gmail.com)")
-		text, _ = reader.ReadString('\n')
-
-		text = strings.TrimSpace(text)
-
-	}
-	return text
-
-}
-
-func mailPassword() string {
-
-	var text string
-	reader := bufio.NewReader(os.Stdin)
-
-	for text == "" {
-
-		fmt.Println("Le mot de passe du serveur mail n'est pas configurer")
-		fmt.Println()
-		fmt.Println("Rentres le mot de passe du server mail. (ex:toto123456)")
-		text, _ = reader.ReadString('\n')
-
-		text = strings.TrimSpace(text)
-
-	}
 	return text
 
 }

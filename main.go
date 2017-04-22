@@ -7,13 +7,12 @@ import (
 	"net/http"
 	"os"
 	"runtime"
-	"sync"
 	"time"
 
 	"github.com/gorilla/mux"
 
 	"forma_shared/controller"
-	"forma_shared/controllerView"
+	"forma_shared/lib"
 	"forma_shared/model"
 )
 
@@ -54,12 +53,12 @@ func main() {
 	// assign it to the standard logger
 	log.SetOutput(f)
 
-	var wg sync.WaitGroup
 	model.ConnDB()
 
-	wg.Add(1)
-	go controller.Config(&wg)
-	wg.Wait()
+	// var wg sync.WaitGroup
+	// wg.Add(1)
+	// go lib.Config(&wg)
+	// wg.Wait()
 
 	// addrs, err := net.InterfaceAddrs()
 	// if err != nil {
@@ -73,34 +72,39 @@ func main() {
 
 	port := ":9000"
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", controllerView.Index)
+	router.HandleFunc("/", controller.Index)
 
-	router.HandleFunc("/download/{folder}/{file}", controllerView.Download)
-	router.HandleFunc("/upload", controllerView.Upload)
-	router.HandleFunc("/annuaire/{nameCol}/{sort:(?:asc|desc)}", controllerView.Annuaire)
-	// J'ai remplacé : controller.RefreshListFilesAndFolder() par une route refresh
-	router.HandleFunc("/refresh", controllerView.RefreshList)
-	router.HandleFunc("/delete/{fileID}", controller.DeleteFile).Methods("POST")
-	router.HandleFunc("/register", controllerView.Register)
-	router.HandleFunc("/valid", controllerView.Valid)
-	router.HandleFunc("/login", controllerView.Login)
-	router.HandleFunc("/logout", controllerView.Logout)
-	router.HandleFunc("/passwordForgot", controllerView.PasswordForgot)
-	router.HandleFunc("/newPassword", controllerView.NewPassword)
-	// router.HandleFunc("/autorized", controller.ClientAutorize)
-	router.HandleFunc("/follow/{user}/{niveau}", controllerView.ChangeLevelByName)
-	router.HandleFunc("/checkpoint", controllerView.Checkpoint)
-	router.HandleFunc("/checkpoint/{email}", controllerView.CheckpointUser).Methods("POST")
-	router.HandleFunc("/checkpoint_reset", controllerView.CheckpointReset)
-	// router.HandleFunc("/notify", controllerView.InjectJavaScript)
-	router.HandleFunc("/countfiles", controllerView.NewFileCheck)
+	router.HandleFunc("/download/{folder}/{file}", controller.Download)
+	router.HandleFunc("/upload", controller.Upload)
+	router.HandleFunc("/annuaire/{nameCol}/{sort:(?:asc|desc)}", controller.Annuaire)
+	// J'ai remplacé : lib.RefreshListFilesAndFolder() par une route refresh
+	router.HandleFunc("/refresh", controller.RefreshList)
+	router.HandleFunc("/delete/{fileID}", lib.DeleteFile).Methods("POST")
 
-	router.HandleFunc("/question&a", controllerView.QuestionAndA)
-	router.HandleFunc("/q&answer", controllerView.QAndAnswer)
-	router.HandleFunc("/q&anotif", controller.CheckNewQuestionAndAnswer)
-	router.HandleFunc("/q&alike/{postID}/{like}", controllerView.QAndALike)
+	router.HandleFunc("/config", controller.Config).Methods("GET")
+	router.HandleFunc("/config", controller.ConfigPost).Methods("POST")
 
-	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(controller.DIRFILE))))
+	router.HandleFunc("/register", controller.Register)
+	router.HandleFunc("/valid", controller.Valid)
+	router.HandleFunc("/login", controller.Login)
+	router.HandleFunc("/logout", controller.Logout)
+	router.HandleFunc("/passwordForgot", controller.PasswordForgot)
+	router.HandleFunc("/newPassword", controller.NewPassword)
+	// router.HandleFunc("/autorized", lib.ClientAutorize)
+	router.HandleFunc("/follow/{user}/{niveau}", controller.ChangeLevelByName)
+	router.HandleFunc("/checkpoint", controller.Checkpoint)
+	router.HandleFunc("/checkpoint/{email}", controller.CheckpointUser).Methods("POST")
+	router.HandleFunc("/checkpoint_reset", controller.CheckpointReset)
+	// router.HandleFunc("/notify", controller.InjectJavaScript)
+	router.HandleFunc("/countfiles", controller.NewFileCheck)
+
+	router.HandleFunc("/question&a", controller.QuestionAndA)
+	router.HandleFunc("/q&answer", controller.QAndAnswer)
+	router.HandleFunc("/q&anotif", lib.CheckNewQuestionAndAnswer)
+	router.HandleFunc("/q&alike/{postID}/{like}", controller.QAndALike)
+
+	config := new(model.Config)
+	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(config.SendDirectory()))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))
 
 	fmt.Println("Server start : ", time.Now(), " to port "+port)
@@ -108,7 +112,12 @@ func main() {
 	// http.ListenAndServeTLS(port, "server.crt", "server.key", router)
 	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
 
-	go controller.AutoStartBrowser("http://localhost" + port)
+	fmt.Println(config.Count())
+	if config.Count() > 0 {
+		go lib.AutoStartBrowser("http://localhost" + port)
+	} else {
+		go lib.AutoStartBrowser("http://localhost" + port + "/config")
+	}
 
 	http.ListenAndServe(port, router)
 
