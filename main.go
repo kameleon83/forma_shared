@@ -55,11 +55,6 @@ func main() {
 
 	model.ConnDB()
 
-	// var wg sync.WaitGroup
-	// wg.Add(1)
-	// go lib.Config(&wg)
-	// wg.Wait()
-
 	// addrs, err := net.InterfaceAddrs()
 	// if err != nil {
 	// 	panic(err)
