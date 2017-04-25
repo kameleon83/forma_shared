@@ -3,12 +3,12 @@
 Overview
 --------------------------------------------------------------------------------
 
-This application facilitates the trainers during their training sessions.
+This application helps the trainers during their training sessions.
 
 It allows to share files locally for people in training.
-There is also a Question and Answer, for mutual help between students. This avoids repetitive questions to the trainer.
+There is also a Question and Answer system, for mutual help between students. This avoids repetitive questions to the trainer.
 
-For the trainer, there is a checkpoint to know the progress of each one on an exercise.
+For the trainer, there is a checkpoint system in order to know the progress of each student on an particular exercise.
 
 
 Status
@@ -18,7 +18,7 @@ This application is functional.
 
 Currently being optimized.
 
-Also arrives the administration, because currently, some things have to be changed in the hard database. (Ex: if admin or prof)
+Also implementing the backoffice part, because currently, some things have to be changed directly in the database. (i.e. : if a user is admin or prof)
 
 
 Client Setup
@@ -33,7 +33,7 @@ Client Setup
 git clone https://github.com/kameleon83/forma_shared.git
 
 ```
-> Enter to folder
+> Enter into folder
 ```
 cd forma_shared
 
