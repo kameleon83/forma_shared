@@ -19,5 +19,13 @@ func (u *User) CheckpointUsers() []User {
 	user := []User{}
 
 	db.Find(&user)
-	return user
+
+	tmp := []User{}
+	for _, v := range user {
+		if v.Checkpoint != 999 {
+			tmp = append(tmp, v)
+		}
+	}
+
+	return tmp
 }

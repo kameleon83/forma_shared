@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -14,7 +15,13 @@ import (
 // Checkpoint s
 func Checkpoint(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	tpl := template.Must(template.New("Checkpoint").ParseFiles("view/checkpoint.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
+
+	funcMap := template.FuncMap{
+		"title": strings.Title,
+		"up":    strings.ToUpper,
+	}
+
+	tpl := template.Must(template.New("Checkpoint").Funcs(funcMap).ParseFiles("view/checkpoint.gohtml", "view/layouts/header.gohtml", "view/layouts/footer.gohtml"))
 
 	lib.GetSessionLogin(w, r)
 
@@ -56,15 +63,33 @@ func CheckpointReset(w http.ResponseWriter, r *http.Request) {
 	u.CheckpointUsersReset()
 	CheckpointChange(w, r, 0)
 	lib.SetSessionsValues(w, r, "niveau", "")
-	http.Redirect(w, r, "/checkpoint", http.StatusFound)
+	// http.Redirect(w, r, "/checkpoint", http.StatusFound)
 }
 
 // ChangeLevelByName c
-func ChangeLevelByName(w http.ResponseWriter, r *http.Request) {
+func ChangeLevelByEmail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	// name := vars["user"]
 	niveau, _ := strconv.Atoi(vars["niveau"])
-	CheckpointChange(w, r, niveau)
+
+	u := model.User{}
+	u.Mail = vars["email"]
+	u.SearchUser()
+	u.Checkpoint = niveau
+	u.UpdateUser()
+	switch niveau {
+	case 0:
+		lib.SetSessionsValues(w, r, "niveau", "")
+	case 1:
+		lib.SetSessionsValues(w, r, "niveau", " done")
+	case 2:
+		lib.SetSessionsValues(w, r, "niveau", " in_progress")
+	case 3:
+		lib.SetSessionsValues(w, r, "niveau", " help")
+	case 666:
+		lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
+	case 999:
+		lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
+	}
 }
 
 // CheckpointChange c
@@ -85,6 +110,10 @@ func CheckpointChange(w http.ResponseWriter, r *http.Request, niveau int) {
 		lib.SetSessionsValues(w, r, "niveau", " in_progress")
 	case 3:
 		lib.SetSessionsValues(w, r, "niveau", " help")
+	case 666:
+		lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
+	case 999:
+		lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
 	}
 }
 

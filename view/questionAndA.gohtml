@@ -1,22 +1,14 @@
-{{ define "content" }}
-{{ $question := .question }}
-{{ $answer := .answer }}
-{{ $user := .user }}
-{{ $email := .email }}
+{{ define "content" }} {{ $question := .question }} {{ $answer := .answer }} {{ $user := .user }} {{ $email := .email }}
 <section>
     <div class="QAndA">
         {{ range $kq, $vq := $question}}
         <div class="question">
-            <h3>{{ $vq.Title }} - <time>{{ $vq.UpdatedAt | time_fr }} : </time></h3>
+            <h3>{{ $vq.Title }}<time>{{ $vq.UpdatedAt | time_fr }} : </time></h3>
 
             <h5>{{ $vq.UserRefer | searchEmailUser }}</h5>
-            <pre class="post">
+            <pre class="pre">
                 {{ $vq.Post }}
-            </pre>
-
-            {{ range $ka, $va := $answer}}
-            {{ if eq $vq.ID $va.QuestionRefer  }}
-
+            </pre> {{ range $ka, $va := $answer}} {{ if eq $vq.ID $va.QuestionRefer }}
             <div class="answer">
 
                 <h4>{{ $va.UserRefer | searchEmailUser }} - <time>{{ $va.UpdatedAt | time_fr }}</time> : </h4>
@@ -33,8 +25,7 @@
                 </div>
                 <hr>
             </div>
-            {{ end }}
-            {{ end }}
+            {{ end }} {{ end }}
             <form class="create_answer" action="/q&answer" method="post">
                 <div class="form_group">
                     <textarea name="post" rows="4" cols="50" placeholder="Enter your Answer ..."></textarea>
@@ -69,96 +60,96 @@
 
 <!-- <script src="/js/index.js" charset="utf-8"></script> -->
 <script>
-$(function(){
+    $(function() {
 
-    var checkNewQAndA = setInterval(function(){
-        $.get("/q&anotif", function(data){
-            if (data !== ""){
-                notify(data);
+        var checkNewQAndA = setInterval(function() {
+            $.get("/q&anotif", function(data) {
+                if (data !== "") {
+                    notify(data);
+                }
+            })
+        }, 4000)
+
+        checkNewQAndA;
+
+        function notify(name) {
+
+            clearInterval(checkNewQAndA)
+
+            if (!("Notification" in window)) {
+                alert("This browser does not support desktop notification");
+            } else if (Notification.permission === "granted") {
+                var options = {
+                    body: "Un nouveau message dans le Q&A",
+                    icon: "/images/letter.png",
+                    dir: "ltr",
+                    requireInteraction: true
+                };
+                var notification = new Notification(name, options);
+                notification.onclick = function() {
+                    notification.close();
+                    location.href = "/question&a";
+                };
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(function(permission) {
+                    if (!('permission' in Notification)) {
+                        Notification.permission = permission;
+                    }
+
+                    if (permission === "granted") {
+                        var options = {
+                            body: "Un nouveau message dans le Q&A",
+                            icon: "/images/letter.png",
+                            dir: "ltr",
+                            requireInteraction: true
+                        };
+                        var notification = new Notification(name, options);
+                        notification.onclick = function() {
+                            notification.close();
+                            location.href = "/question&a";
+                        };
+                    }
+                });
             }
+        }
+
+        $('.question .pre').on('click ', function() {
+            $(this).parent().find(".answer").not(':first').slideToggle();
+            $(this).parent().find(".create_answer").slideToggle();
         })
-    },4000)
 
-    checkNewQAndA;
+        $('.answer .post .like img').on('click', function() {
+            let postId = $(this).parent().data('post');
+            let like = $(this).data('like');
+            let $this = $(this)
+            $.post('/q&alike/' + postId + '/' + like)
+                .done(function(data) {
+                    $this.parent().html(data)
+                })
+        })
 
-    function notify(name){
+        $('.question').each(function() {
+            $(this).find('.answer').first().slideDown()
+            let count = $(this).find('.answer').length
+            $(this).children("pre").append("<div class='count_answer'>" + count + "</div>")
+            let i = 0;
+            $(this).find('.answer').each(function() {
+                    let good = $(this).find(".good").data("good");
+                    if (good > i) {
+                        i = good
+                        if (i >= 4) {
+                            $(this).prepend("<div class='ok'><img src='/images/ok-mark.png'/></div>")
+                        }
+                    }
+                })
+                // let good = $(this).find(".good").data("good");
+                // if (good >= 4){
+                //     $(this).parent().css("background-color", "red");
+                // }
 
-        clearInterval(checkNewQAndA)
+        });
 
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        }
-        else if (Notification.permission === "granted") {
-            var options = {
-                body: "Un nouveau message dans le Q&A",
-                icon: "/images/letter.png",
-                dir : "ltr",
-                requireInteraction:true
-            };
-            var notification = new Notification(name,options);
-            notification.onclick = function() {
-                notification.close();
-                location.href = "/question&a";
-            };
-        }
-        else if (Notification.permission !== 'denied') {
-            Notification.requestPermission(function (permission) {
-                if (!('permission' in Notification)) {
-                    Notification.permission = permission;
-                }
-
-                if (permission === "granted") {
-                    var options = {
-                        body: "Un nouveau message dans le Q&A",
-                        icon: "/images/letter.png",
-                        dir : "ltr",
-                        requireInteraction:true
-                    };
-                    var notification = new Notification(name,options);
-                    notification.onclick = function() {
-                        notification.close();
-                        location.href = "/question&a";
-                    };
-                }
-            });
-        }
-    }
-
-    $('.question .post').on('click ',function(){
-        $(this).parent().find(".answer").not(':first').slideToggle();
-        $(this).parent().find(".create_answer").slideToggle();
     })
-
-    $('.answer .post .like img').on('click', function(){
-        let postId = $(this).parent().data('post');
-        let like = $(this).data('like');
-        let $this = $(this)
-        $.post('/q&alike/' + postId + '/'+ like )
-        .done(function(data){
-            $this.parent().html(data)
-        })
-    })
-
-    $('.question').each(function(){
-        $(this).find('.answer').first().slideDown()
-        let i = 0;
-        $(this).find('.answer').each(function(){
-            let good = $(this).find(".good").data("good");
-            if (good > i ){
-                i = good
-                if (i >= 4){
-                    $(this).prepend("<div class='ok'><img src='/images/ok-mark.png'/></div>")
-                }
-            }
-        })
-        // let good = $(this).find(".good").data("good");
-        // if (good >= 4){
-        //     $(this).parent().css("background-color", "red");
-        // }
-
-    });
-
-})
 </script>
 
 {{ end }}

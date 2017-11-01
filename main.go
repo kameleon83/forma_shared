@@ -86,10 +86,11 @@ func main() {
 	router.HandleFunc("/passwordForgot", controller.PasswordForgot)
 	router.HandleFunc("/newPassword", controller.NewPassword)
 	// router.HandleFunc("/autorized", lib.ClientAutorize)
-	router.HandleFunc("/follow/{user}/{niveau}", controller.ChangeLevelByName)
+	router.HandleFunc("/follow/{email}/{niveau}", controller.ChangeLevelByEmail).Methods("POST")
 	router.HandleFunc("/checkpoint", controller.Checkpoint)
 	router.HandleFunc("/checkpoint/{email}", controller.CheckpointUser).Methods("POST")
 	router.HandleFunc("/checkpoint_reset", controller.CheckpointReset)
+	router.HandleFunc("/random-user", controller.RandomUser)
 	// router.HandleFunc("/notify", controller.InjectJavaScript)
 	router.HandleFunc("/countfiles", controller.NewFileCheck)
 
@@ -108,11 +109,11 @@ func main() {
 	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
 
 	fmt.Println(config.Count())
-	if config.Count() > 0 {
-		go lib.AutoStartBrowser("http://localhost" + port)
-	} else {
-		go lib.AutoStartBrowser("http://localhost" + port + "/config")
-	}
+	// if config.Count() > 0 {
+	// 	go lib.AutoStartBrowser("http://localhost" + port)
+	// } else {
+	// 	go lib.AutoStartBrowser("http://localhost" + port + "/config")
+	// }
 
 	http.ListenAndServe(port, router)
 

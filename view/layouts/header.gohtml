@@ -29,8 +29,10 @@
         {{ end }} {{ end }}
         <header>
 
-            <h3 data-name="{{ .firstname }}">{{ .firstname }}</h3>
+            <h3 data-name="{{ .firstname }}" data-email="{{ .email }}">{{ .firstname }}</h3>
             {{ if .active }}
+            <audio src="/sound/Tornado_Siren_II.mp3" id="audioPlayer666" style="display:none;"></audio>
+            <audio src="/sound/Jab.mp3" id="audioPlayer0" style="display:none;"></audio>
             <ul>
                 <li>
                     <a data-url="" href="/"><img src="/images/home.png" alt="Home"></a>
@@ -47,6 +49,9 @@
                 {{ if .prof }}
                 <li>
                     <a data-url="checkpoint" href="/checkpoint"><img src="/images/traffic-light.png" alt="Checkpoint"></a>
+                </li>
+                <li>
+                    <a data-url="refresh-folder" href="/refresh"><img src="/images/refresh-button.png" alt="Refresh folders and files"></a>
                 </li>
                 {{ end }}
                 <li>
@@ -73,15 +78,15 @@
             let evtobj = window.event ? event : e
             if (evtobj.ctrlKey && evtobj.altKey) {
                 if (evtobj.keyCode == 49 || evtobj.keyCode == 97) {
-                    $.get('/follow/' + $('header > h3').data('name') + '/1', function(data) {
+                    $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
                         $('.container').removeClass().addClass("container done")
                     })
                 } else if (evtobj.keyCode == 50 || evtobj.keyCode == 98) {
-                    $.get('/follow/' + $('header > h3').data('name') + '/2', function(data) {
+                    $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
                         $('.container').removeClass().addClass("container in_progress")
                     })
                 } else if (evtobj.keyCode == 51 || evtobj.keyCode == 99) {
-                    $.get('/follow/' + $('header > h3').data('name') + '/3', function(data) {
+                    $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
                         $('.container').removeClass().addClass("container help")
                     })
 
@@ -93,15 +98,15 @@
 
         $('.follow_li').on('click', function() {
             if ($(this).attr('class') === "follow_li done") {
-                $.get('/follow/' + $('header > h3').data('name') + '/1', function(data) {
+                $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
                     $('.container').removeClass().addClass("container done")
                 })
             } else if ($(this).attr('class') === "follow_li in_progress") {
-                $.get('/follow/' + $('header > h3').data('name') + '/2', function(data) {
+                $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
                     $('.container').removeClass().addClass("container in_progress")
                 })
             } else if ($(this).attr('class') === "follow_li help") {
-                $.get('/follow/' + $('header > h3').data('name') + '/3', function(data) {
+                $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
                     $('.container').removeClass().addClass("container help")
                 })
             }
@@ -176,14 +181,22 @@
         let oldCheck;
         let resetCheckpointUser = setInterval(function() {
             let user_email = $(".container").data("email")
-            let i = false;
             $.post("/checkpoint/" + user_email, function(e) {
-                if (e == 0 && oldCheck > 0 && !i) {
+                if (e == 0 && oldCheck > e) {
                     $(".container").attr('class', 'container');
-                    notifyCheckpoint("Checkpoint remis à zéro");
-                    i = true;
-                } else if (e == 0 && oldCheck == 0 && i) {
-                    i = false;
+                    notifyCheckpoint("Checkpoint remis à zéro",
+                        "Mets à jour le checkpoint STP :-P. Sinon ... :-D",
+                        "/images/danger.png",
+                    );
+
+                } else if (e == 666 && oldCheck != e) {
+                    let player = document.querySelector('#audioPlayer666');
+                    player.play()
+                    notifyCheckpoint("Perdu !! Hihihi",
+                        "Dommage tu as perdu!! As toi de répondre ou faire l'exercice ;-)",
+                        "/images/loser.png",
+                        player
+                    );
                 }
                 oldCheck = e;
             })
@@ -193,20 +206,21 @@
         resetCheckpointUser
 
 
-        function notifyCheckpoint(name) {
-
+        function notifyCheckpoint(name, body, img, audioPlayer) {
             if (!("Notification" in window)) {
                 alert("This browser does not support desktop notification");
             } else if (Notification.permission === "granted") {
                 var options = {
-                    body: "Le Formateur vous demande de mettre à jour le checkpoint :-P",
-                    icon: "/images/danger.png",
+                    body: body,
+                    icon: img,
                     dir: "ltr",
                     requireInteraction: true
                 };
                 var notification = new Notification(name, options);
                 notification.onclick = function() {
                     notification.close();
+                    audioPlayer.pause();
+                    audioPlayer.currentTime = 0;
                 };
             } else if (Notification.permission !== 'denied') {
                 Notification.requestPermission(function(permission) {
@@ -216,14 +230,16 @@
 
                     if (permission === "granted") {
                         var options = {
-                            body: "Le Formateur vous demande de mettre à jour le checkpoint :-P",
-                            icon: "/images/danger.png",
+                            body: body,
+                            icon: img,
                             dir: "ltr",
                             requireInteraction: true
                         };
                         var notification = new Notification(name, options);
                         notification.onclick = function() {
                             notification.close();
+                            audioPlayer.pause();
+                            audioPlayer.currentTime = 0;
                         };
                     }
                 });

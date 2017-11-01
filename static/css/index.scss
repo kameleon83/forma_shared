@@ -59,6 +59,7 @@ $blue-dark: darken($blue, 5%);
 
 * {
     font-family: 'varelaRound', cursive;
+    box-sizing: border-box;
 }
 
 a {
@@ -67,17 +68,34 @@ a {
 }
 
 html {
+    display: flex;
+    /* correction bug IE de min-height non appliqué à body */
+    flex-direction: column;
+}
+
+html,
+body {
     height: 100%;
 }
 
+button:active {
+    // retirer les bordures sous firefox au click
+    outline-style: none;
+}
+
 body {
-    // margin: $margin;
-    min-height: 100%;
     padding: 0;
     margin: 0;
     background-color: rgba(0, 0, 0, 0.1);
-    .errors{
-        background-color: rgba(255,0,0,0.8);
+    /* crée un contexte flex pour ses enfants */
+    display: flex;
+    /* affichage vertical */
+    flex-direction: column;
+    /* toute la hauteur du viewport */
+    min-height: 100vh;
+    padding: 1em;
+    .errors {
+        background-color: rgba(255, 0, 0, 0.8);
         color: white;
         font-size: calc(0.8em + 0.2vw);
         word-wrap: break-word;
@@ -91,15 +109,13 @@ body {
         z-index: 9999999;
         animation: errorsSlide 7s;
     }
-
-    .errors + .container{
+    .errors+.container {
         animation: errorsContainerSlide 7s;
     }
-
     .container {
         margin: 0;
         width: 100%;
-        min-height: 100vh;
+        // min-height: 100vh;
         &.done>.follow ul .done {
             background-color: rgba(46, 204, 113, 1);
         }
@@ -169,59 +185,6 @@ body {
                         // box-shadow: 5px 3px 5px rgba(0,0,0,0.5);
                     }
                 }
-            }
-        }
-        .checkpoint_user {
-            list-style: none;
-            text-align: center;
-            margin-top: 70px;
-            padding: 0;
-            li {
-                margin: 10px;
-                width: 250px;
-                line-height: 40px;
-                margin: 5px;
-                &[class^="level"] {
-                    color: white;
-                    font-weight: bold;
-                    &.level0 {
-                        background-color: rgba(0, 0, 0, 0.7);
-                    }
-                    &.level1 {
-                        background-color: rgba(46, 204, 113, 1);
-                    }
-                    &.level2 {
-                        color: black;
-                        background-color: rgba(255, 193, 7, 1);
-                    }
-                    &.level3 {
-                        background-color: rgba(213, 0, 0, 1);
-                    }
-                }
-            }
-        }
-        .checkpoint_reset {
-            width: 400px;
-            position: absolute;
-            line-height: 40px;
-            height: 40px;
-            border: none;
-            background-color: rgba(255, 0, 0, 0.8);
-            box-shadow: 10px 7px 10px rgba(255, 0, 0, 0.8);
-            color: white;
-            font-size: 1.2em;
-            padding: 0;
-            transition: 0.4s all;
-            &:hover {
-                cursor: pointer;
-                background-color: rgba(255, 0, 0, 1);
-                box-shadow: 5px 4px 5px rgba(255, 0, 0, 0.6);
-                transform: scale(0.97);
-            }
-            &:active,
-            &focus,
-            &visited {
-                border: none;
             }
         }
         .follow {
@@ -299,86 +262,178 @@ body {
             }
         }
         section {
-            width: 90%;
-            margin-left: 80px;
             height: 100%;
+            padding: 0;
+            margin: 0 70px;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            // margin-top: 10px;
-            // padding-bottom: 100px;
-            .number_annuaire {
-                font-weight: bold;
-                margin-bottom: 10px;
-                text-transform: uppercase;
-                b {
-                    display: inline-block;
-                    padding: 2px;
-                    margin: 2px;
-                    background-color: #000;
-                    // background-position: 25% 50%;
-                    color: white;
-                    border-radius: 30px;
-                    line-height: 30px;
-                    height: 30px;
-                    width: 30px;
-                    text-align: center;
-                    &.formateur {
-                        background-color: $razz;
-                        color: black;
-                    }
-                    &.total {
-                        background-color: rgba(255, 0, 0, 0.5);
-                        color: black;
-                    }
-                }
-            }
-            table {
-                border-collapse: collapse;
+            .row {
                 width: 100%;
                 text-align: center;
-                thead {
-                    tr {
-                        th {
-                            position: relative;
-                            min-width: 160px;
-                            a {
-                                display: grid;
-                                img {
-                                    width: 20px;
+                padding: 10px;
+                margin: 10px;
+                .div_check_button {
+                    width: 100%;
+                    .checkpoint_reset,
+                    .random-user {
+                        width: 400px;
+                        position: relative;
+                        line-height: 40px;
+                        height: 40px;
+                        border: none;
+                        color: white;
+                        font-size: 1.2em;
+                        padding: 0;
+                        margin: 10px;
+                        transition: 0.4s all;
+                        &:hover {
+                            cursor: pointer;
+                            transform: scale(0.97);
+                        }
+                        &:active,
+                        &focus,
+                        &visited {
+                            border: none;
+                        }
+                    }
+                    .btn-red {
+                        background-color: rgba(255, 0, 0, 0.8);
+                        box-shadow: 10px 7px 10px rgba(255, 0, 0, 0.8);
+                        &:hover {
+                            background-color: rgba(255, 0, 0, 1);
+                            box-shadow: 5px 4px 5px rgba(255, 0, 0, 0.6);
+                        }
+                    }
+                    .btn-blue {
+                        background-color: rgba(25, 0, 255, 0.556);
+                        box-shadow: 10px 7px 10px rgba(25, 0, 255, 0.556);
+                        &:hover {
+                            background-color: rgba(25, 0, 255, 0.8);
+                            box-shadow: 5px 4px 5px rgba(25, 0, 255, 0.6);
+                        }
+                    }
+                }
+                .div_checkpoint {
+                    width: 100%;
+                    .checkpoint_user {
+                        list-style: none;
+                        text-align: center;
+                        // margin-top: 100px;
+                        padding: 0;
+                        // position: absolute;
+                        li {
+                            transition: 500ms all ease-in-out;
+                            margin: 10px;
+                            width: 600px;
+                            line-height: 50px;
+                            margin: 10px auto;
+                            font-size: 1.5em;
+                            &[class^="level"] {
+                                color: white;
+                                font-weight: bold;
+                                &.level0 {
+                                    background-color: rgba(0, 0, 0, 0.7);
                                 }
-                                &.not_reverse_annuaire {
-                                    left: 0;
+                                &.level1 {
+                                    background-color: rgba(46, 204, 113, 1);
+                                }
+                                &.level2 {
+                                    color: black;
+                                    background-color: rgba(255, 193, 7, 1);
+                                }
+                                &.level3 {
+                                    background-color: rgba(213, 0, 0, 1);
+                                }
+                                &.level666 {
+                                    animation: blink 700ms infinite;
                                 }
                             }
                         }
                     }
                 }
-                &,
-                th,
-                td {
-                    border: 1px solid black;
-                }
-                th,
-                td {
-                    height: 43px;
-                }
-                th {
-                    font-size: 1.6em;
-                }
-                tbody {
-                    tr {
-                        &.m2i {
-                            width: 100%;
-                            height: auto;
+                .number_annuaire {
+                    font-weight: bold;
+                    width: 90%;
+                    text-transform: uppercase;
+                    font-size: 1.2em;
+                    margin: 10px;
+                    padding: 10px;
+                    b {
+                        display: inline-block;
+                        padding: 2px;
+                        margin: 2px;
+                        background-color: #000;
+                        // background-position: 25% 50%;
+                        color: white;
+                        border-radius: 30px;
+                        line-height: 30px;
+                        height: 30px;
+                        width: 30px;
+                        text-align: center;
+                        &.formateur {
                             background-color: $razz;
+                            color: black;
                         }
-                        td {
-                            .annuaireMail {
+                        &.total {
+                            background-color: rgba(255, 0, 0, 0.5);
+                            color: black;
+                        }
+                    }
+                }
+                table {
+                    border-collapse: collapse;
+                    width: auto;
+                    margin: 0;
+                    padding: 0;
+                    // text-align: center;
+                    thead {
+                        tr {
+                            th {
+                                position: relative;
+                                width: 20%;
+                                a {
+                                    display: grid;
+                                    img {
+                                        width: 20px;
+                                    }
+                                    &.not_reverse_annuaire {
+                                        left: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    &,
+                    th,
+                    td {
+                        border: 1px solid black;
+                    }
+                    th,
+                    td {
+                        height: 43px;
+                    }
+                    th {
+                        font-size: 1.6em;
+                    }
+                    tbody {
+                        tr {
+                            &.m2i {
                                 width: 100%;
-                                display: block;
-                                &:hover {
-                                    cursor: pointer;
+                                height: auto;
+                                background-color: $razz;
+                            }
+                            td {
+                                .annuaireMail {
+                                    width: 100%;
+                                    display: block;
+                                    &:hover {
+                                        cursor: pointer;
+                                    }
                                 }
                             }
                         }
@@ -386,38 +441,68 @@ body {
                 }
             }
             .QAndA {
-                width: 90%;
-                padding-left: 0px;
-                padding-bottom: 100px;
+                height: 100%;
+                padding: 0;
+                margin: 0 50px 100px 50px;
+                /* instaure la flexbox */
+                display: -webkit-flex;
+                -webkit-flex-direction: row;
                 display: flex;
+                flex-direction: row;
                 flex-wrap: wrap;
+                // align-items: center;
                 justify-content: center;
                 .question {
                     position: relative;
                     margin: 5px;
-                    padding: 5px;
+                    padding: 15px;
                     width: 100%;
+                    -webkit-flex: 1 1 auto;
+                    flex: 1 1 auto;
+                    width: 500px;
+                    -webkit-transition: width 0.7s ease-out;
+                    transition: width 0.7s ease-out;
+                    background-color: rgba(0, 0, 0, 0.05);
                     h3 {
                         text-transform: capitalize;
-                        // text-decoration: underline;
+                        display: block;
                         margin: 0;
                         padding: 0;
                         time {
-                            font-size: 0.7em;
+                            padding-top: 7px;
+                            display: block;
+                            font-size: 0.8em;
                         }
                     }
                     h5 {
-                        position: absolute;
-                        top: -10px;
-                        right: 10px;
+                        position: relative;
+                        display: block;
+                        margin: 0;
+                        padding: 7px;
+                        text-align: right;
                         font-style: italic;
                     }
                     &>pre {
+                        position: relative;
                         cursor: pointer;
-                        background-color: white;
-                        padding: 10px;
+                        background-color: black;
+                        color: white;
+                        padding: 5%;
                         margin: 0 0 20px 0;
-                        text-align: center;
+                        text-indent: -60px;
+                        .count_answer {
+                            position: absolute;
+                            text-align: center;
+                            text-indent: 0;
+                            top: 5px;
+                            right: 5px;
+                            font-size: 1.5em;
+                            width: 50px;
+                            height: 50px;
+                            line-height: 50px;
+                            background-color: rgba(39, 174, 96, 0.7);
+                            border-radius: 25px;
+                        }
                     }
                     .answer {
                         &:nth-child(1) {
@@ -444,6 +529,7 @@ body {
                         }
                         .post {
                             display: inline-block;
+                            text-align: left;
                             .post-text {
                                 display: inline-block;
                                 line-height: inherit;
@@ -471,10 +557,18 @@ body {
                     }
                     form.create_answer {
                         display: none;
+                        div {
+                            textarea {
+                                width: 100%;
+                                min-height: 100px;
+                                font-size: 1.2em;
+                                resize: vertical;
+                            }
+                        }
                         input[type^="submit"] {
                             font-size: 0.9em;
-                            min-height: auto;
-                            min-width: 30%;
+                            height: 30px;
+                            width: 100%;
                             padding: 5px;
                             margin: 0;
                         }
@@ -510,6 +604,7 @@ body {
             .bar_anchor {
                 position: fixed;
                 left: 82px;
+                top: 0;
                 margin: 0;
                 width: 43px;
                 height: 100%;
@@ -746,19 +841,19 @@ body {
                         border: 1px solid rgba(255, 0, 0, 0.5);
                         box-shadow: 3px 2px 5px rgba(255, 0, 0, 0.5);
                     }
-                    ::-webkit-input-placeholder {
+                     ::-webkit-input-placeholder {
                         /* Chrome/Opera/Safari */
                         text-align: center;
                     }
-                    ::-moz-placeholder {
+                     ::-moz-placeholder {
                         /* Firefox 19+ */
                         text-align: center;
                     }
-                    :-ms-input-placeholder {
+                     :-ms-input-placeholder {
                         /* IE 10+ */
                         text-align: center;
                     }
-                    :-moz-placeholder {
+                     :-moz-placeholder {
                         /* Firefox 18- */
                         text-align: center;
                     }
@@ -943,7 +1038,7 @@ body {
     15% {
         transform: translateY(0);
     }
-    85%{
+    85% {
         transform: translateY(0);
     }
     100% {
@@ -958,10 +1053,28 @@ body {
     15% {
         transform: translateY(65px);
     }
-    85%{
+    85% {
         transform: translateY(65px);
     }
     100% {
         transform: translateY(0);
+    }
+}
+
+@keyframes blink {
+    0% {
+        transform: scale(0.9);
+        background-color: black;
+        color: red;
+    }
+    49% {
+        transform: scale(1.1);
+        background-color: red;
+        color: black;
+    }
+    100% {
+        transform: scale(0.9);
+        background-color: black;
+        color: red;
     }
 }

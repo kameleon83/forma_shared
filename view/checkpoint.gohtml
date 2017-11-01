@@ -1,12 +1,19 @@
 {{ define "content" }}
 <section>
-    <button type="button" class="checkpoint_reset">Reset</button>
+    <div class="row">
+        <div class="div_check_button">
+            <button type="button" class="checkpoint_reset btn-red">Reset</button>
+            <button type="button" data-url="random-user" class="random-user btn-blue">Random</button>
+        </div>
 
-    <ul class="checkpoint_user">
-        {{ range $k, $v := .user }} {{ if not $v.Prof }}
-        <li data-level="{{ $v.Checkpoint }}" class="level{{ $v.Checkpoint }}">{{ $v.Firstname }}</li>
-        {{ end }} {{ end }}
-    </ul>
+        <div class="div_checkpoint">
+            <ul class="checkpoint_user">
+                {{ range $k, $v := .user }} {{ if not $v.Prof }}
+                <li data-level="{{ $v.Checkpoint }}" class="level{{ $v.Checkpoint }} user" onclick="window.open('http://{{ $v.IP }}:7070', '_blank')" data-email="{{ $v.Mail }}">{{ $v.Firstname | title }}</li>
+                {{ end }} {{ end }}
+            </ul>
+        </div>
+    </div>
 </section>
 <div class="newNotif" hidden>0</div>
 
@@ -17,7 +24,7 @@
 
         var oldListUserAndLevel = new Map();
 
-        function readListNameAndLevel(){
+        function readListNameAndLevel() {
             $(".checkpoint_user li").each(function() {
                 let level = $(this).data("level");
                 let name = $(this).text()
@@ -25,24 +32,23 @@
             })
         }
         readListNameAndLevel();
-        
+
         function readHtmlChange() {
             $(".checkpoint_user li").each(function() {
                 let level = $(this).data("level");
                 let name = $(this).text()
-                console.log(oldListUserAndLevel.get(name))
                 if (level == 3 && oldListUserAndLevel.get(name) != level) {
-                    oldListUserAndLevel.set(name,level)
+                    oldListUserAndLevel.set(name, level)
                     notifyMe(name, level);
                 }
-                if (oldListUserAndLevel.get(name) != level){
-                    oldListUserAndLevel.set(name,level)
+                if (oldListUserAndLevel.get(name) != level) {
+                    oldListUserAndLevel.set(name, level)
                 }
             })
         }
 
         let one = setInterval(function() {
-            $.get('/checkpoint', function(data) {
+            $.post('/checkpoint', function(data) {
                 let newdata = $(data).find(".checkpoint_user").html();
                 if (old != newdata) {
                     // console.log(newdata);
@@ -56,8 +62,20 @@
         one;
 
 
-        $('.checkpoint_reset').on('click', function() {
-            location.href = "/checkpoint_reset";
+        $('.checkpoint_reset').on('click', function(e) {
+            e.preventDefault();
+            $.post("/checkpoint_reset")
+        })
+
+        $('.random-user').on('click', function(e) {
+            e.preventDefault();
+            let url = $(this).data("url")
+            $(".checkpoint_user li").each(function() {
+                if ($(this).data("level") == 666) {
+                    $.post('/follow/' + $(this).data("email") + '/999')
+                }
+            })
+            $.post(url)
         })
 
 

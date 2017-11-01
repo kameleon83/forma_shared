@@ -49,7 +49,7 @@ $(function() {
     });
 
     $('.files .time').each(function() {
-        console.log($(this).data('diff'));
+        // console.log($(this).data('diff'));
         if ($(this).data('diff') == 0) {
             $(this).parent().addClass('oneDay');
         }
