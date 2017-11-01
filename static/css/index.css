@@ -43,6 +43,7 @@ html {
 html,
 body {
   height: 100%;
+  font-size: small;
 }
 
 button:active {
@@ -104,7 +105,7 @@ body .container.help > .follow ul .help {
 
 body .container header {
   position: fixed;
-  width: 80px;
+  width: 55px;
   text-align: center;
   min-height: calc(100vh + 5px);
   height: auto;
@@ -154,7 +155,7 @@ body .container header ul li a {
 }
 
 body .container header ul li a img {
-  width: 42px;
+  width: 35px;
 }
 
 body .container header ul li:hover {
@@ -333,11 +334,11 @@ body .container section .row .div_checkpoint .checkpoint_user {
 
 body .container section .row .div_checkpoint .checkpoint_user li {
   transition: 500ms all ease-in-out;
-  margin: 10px;
-  width: 600px;
-  line-height: 50px;
+  width: 32%;
+  min-width: 200px;
+  line-height: 37px;
   margin: 10px auto;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 body .container section .row .div_checkpoint .checkpoint_user li[class^="level"] {
@@ -401,7 +402,7 @@ body .container section .row .number_annuaire b.total {
 body .container section .row table {
   border-collapse: collapse;
   width: auto;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
 
@@ -627,7 +628,7 @@ body .container section .QAndA .create_question:hover, body .container section .
 
 body .container section .bar_anchor {
   position: fixed;
-  left: 82px;
+  left: 55px;
   top: 0;
   margin: 0;
   width: 43px;
@@ -755,13 +756,13 @@ body .container section .all .group_files .files tr {
 
 body .container section .all .group_files .files tr td {
   display: block;
-  vertical-align: middle;
   word-wrap: break-word;
   display: table-cell;
   text-align: center;
   padding-left: 0;
   padding-right: 0;
   transition: 0.2s all;
+  width: 20%;
 }
 
 body .container section .all .group_files .files tr td a {
@@ -802,7 +803,7 @@ body .container section form {
 
 body .container section form input {
   text-align: center;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 
 body .container section form input:focus, body .container section form input:active {
@@ -815,7 +816,7 @@ body .container section form input[type="submit"] {
   min-width: 60%;
   min-height: 80px;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.3em;
   background-color: rgba(0, 0, 0, 0.2);
   margin-top: 30px;
   box-shadow: 10px 7px 10px rgba(125, 125, 125, 0.8);
@@ -886,8 +887,9 @@ body .container section form .name_file b {
 
 body .container section form .form_group {
   position: relative;
-  padding: 5px;
-  margin: 0;
+  padding: 8px;
+  margin: 0 auto;
+  width: 60%;
 }
 
 body .container section form .form_group input:not([type="radio"]) {
@@ -922,14 +924,14 @@ body .container section form .form_group :-moz-placeholder {
 }
 
 body .container section .btn_page_login {
-  width: 100%;
-  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  width: 60%;
 }
 
 body .container section .btn_page_login button {
   border: none;
-  padding: 15px;
-  min-width: 60%;
+  width: 60%;
   min-height: 80px;
   text-align: center;
   font-size: 1.5em;
