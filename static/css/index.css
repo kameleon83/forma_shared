@@ -169,7 +169,7 @@ body .container .follow {
   left: 0;
   bottom: 0;
   z-index: 9990;
-  width: 80px;
+  width: 55px;
   margin-bottom: 10px;
 }
 
@@ -334,20 +334,11 @@ body .container section .row .div_checkpoint .checkpoint_user {
 
 body .container section .row .div_checkpoint .checkpoint_user li {
   transition: 500ms all ease-in-out;
-<<<<<<< Updated upstream
   width: 32%;
   min-width: 200px;
   line-height: 37px;
   margin: 10px auto;
   font-size: 1.2em;
-=======
-  margin: 10px;
-  width: 49%;
-  line-height: 50px;
-  margin: 10px auto;
-  font-size: 1.5em;
-  display: flex;
->>>>>>> Stashed changes
 }
 
 body .container section .row .div_checkpoint .checkpoint_user li[class^="level"] {
@@ -479,10 +470,11 @@ body .container section .QAndA .question {
   position: relative;
   margin: 5px;
   padding: 15px;
-  width: 100%;
+  width: auto;
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
-  width: 500px;
+  width: auto;
+  flex-basis: content;
   -webkit-transition: width 0.7s ease-out;
   transition: width 0.7s ease-out;
   background-color: rgba(0, 0, 0, 0.05);
@@ -517,7 +509,8 @@ body .container section .QAndA .question > pre {
   color: white;
   padding: 5%;
   margin: 0 0 20px 0;
-  text-indent: -60px;
+  text-align: left;
+  white-space: pre-line;
 }
 
 body .container section .QAndA .question > pre .count_answer {
@@ -594,6 +587,10 @@ body .container section .QAndA .question form.create_answer {
   display: none;
 }
 
+body .container section .QAndA .question form.create_answer div {
+  width: 100%;
+}
+
 body .container section .QAndA .question form.create_answer div textarea {
   width: 100%;
   min-height: 100px;
@@ -623,7 +620,7 @@ body .container section .QAndA .create_question {
 
 body .container section .QAndA .create_question .form_group textarea {
   width: 60%;
-  text-align: center;
+  text-align: left;
   font-size: 1.4em;
 }
 
