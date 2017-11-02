@@ -321,11 +321,20 @@ body {
                         padding: 0; // position: absolute;
                         li {
                             transition: 500ms all ease-in-out;
+<<<<<<< Updated upstream
                             width: 32%;
                             min-width: 200px;
                             line-height: 37px;
                             margin: 10px auto;
                             font-size: 1.2em;
+=======
+                            margin: 10px;
+                            width: 49%;
+                            line-height: 50px;
+                            margin: 10px auto;
+                            font-size: 1.5em;
+                            display: flex;
+>>>>>>> Stashed changes
                             &[class^="level"] {
                                 color: white;
                                 font-weight: bold;
