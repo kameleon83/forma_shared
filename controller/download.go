@@ -30,7 +30,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 
 	//Check if file exists and open
 	config := new(model.Config)
-	Openfile, err := os.Open(config.SendDirectory() + folder + "/" + fileName)
+	Openfile, err := os.Open(config.SendDirectory() + folder + os.PathListSeparator + fileName)
 	defer Openfile.Close() //Close after function return
 	if err != nil {
 		//File not found, send 404

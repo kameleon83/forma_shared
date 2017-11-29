@@ -112,13 +112,13 @@ func main() {
 	// 	go lib.AutoStartBrowser("http://localhost" + port + "/config")
 	// }
 
-	go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
-	http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
-	// http.ListenAndServe(port, router)
+	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
+	// http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
+	http.ListenAndServe(port, router)
 
 }
 
 func redirectToHttps(w http.ResponseWriter, r *http.Request) {
 	// Redirect the incoming HTTP request. Note that "127.0.0.1:8081" will only work if you are accessing the server from your local machine.
-	http.Redirect(w, r, ":9001"+r.RequestURI, http.StatusMovedPermanently)
+	http.Redirect(w, r, "http://localhost:9001"+r.RequestURI, http.StatusMovedPermanently)
 }

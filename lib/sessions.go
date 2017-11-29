@@ -2,6 +2,7 @@ package lib
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gorilla/sessions"
 )
@@ -56,7 +57,7 @@ func SetSessionsValues(w http.ResponseWriter, r *http.Request, name string, valu
 func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "forma_shared")
 	session.Options = &sessions.Options{
-		Path:     "/",
+		Path:     os.PathListSeparator,
 		MaxAge:   28800,
 		HttpOnly: true,
 	}
