@@ -57,7 +57,7 @@ func SetSessionsValues(w http.ResponseWriter, r *http.Request, name string, valu
 func GetSessionLogin(w http.ResponseWriter, r *http.Request) {
 	session, err := store.Get(r, "forma_shared")
 	session.Options = &sessions.Options{
-		Path:     os.PathListSeparator,
+		Path:     string(os.PathSeparator),
 		MaxAge:   28800,
 		HttpOnly: true,
 	}
