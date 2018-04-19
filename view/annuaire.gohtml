@@ -29,8 +29,20 @@
                     <td><a class="annuaireMail" target="_blank" href="mailto:{{ $v.Mail }}">{{ $v.Mail }}</a></td>
                 </tr>
                 {{ end }} {{ end }}
+                
             </tbody>
         </table>
+        <br>
+        <br>
+        <div>
+        {{ if .prof}}
+           {{ range $k, $v := .users }} 
+                {{ if (and ($v.Active) (not $v.Admin)) }}
+                   {{ $v.Mail }},
+                {{ end }} 
+            {{ end }}
+        {{ end }}
+        </div>
     </div>
 </section>
 

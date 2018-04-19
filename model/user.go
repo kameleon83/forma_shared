@@ -26,7 +26,6 @@ type User struct {
 
 // CreateUser c
 func (u *User) CreateUser() error {
-
 	return db.Create(u).Error
 }
 
