@@ -11,3 +11,4 @@ node*
 *~
 *.db
 *.zip
+/pdf/*
