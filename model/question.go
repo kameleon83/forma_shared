@@ -13,6 +13,8 @@ type Question struct {
 	UserRefer uint
 }
 
+// Todo: Faire une table entre user and like afin de ne pouvoir checker qu'une seule fois
+
 // Search c
 func (q *Question) Search() *[]Question {
 

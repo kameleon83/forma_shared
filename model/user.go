@@ -42,8 +42,10 @@ func (u *User) SearchAllUsers(col, sort string) *[]User {
 
 // SearchUser s
 func (u *User) SearchUser() *gorm.DB {
-
 	return db.Where("mail = ?", u.Mail).First(&u)
+}
+func (u *User) SearchProf() *gorm.DB {
+	return db.Where("prof = ?", u.Prof).First(&u)
 }
 
 // SearchUserByID s

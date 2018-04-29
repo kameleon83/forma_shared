@@ -1,0 +1,275 @@
+{{ define "content" }}
+{{/*<section >*/}}
+<form action="/stagiaire" method="post" class="col align-self-center" style="padding-left: 50px;padding-bottom: 100px;">
+    <h1 class="col-12">Evaluation de {{ .nameProf }}</h1>
+    <br>
+    <div class="form-group text-center">
+        <label for="stage">Stage</label>
+        <input type="text" class="form-control" id="stage" name="stage" placeholder="Java POE" required>
+    </div>
+    <div class="form-group text-center">
+        <label for="module">Module</label>
+        <input type="text" class="form-control" id="module" name="module" placeholder="Spring - JEE - HTML - CSS ...."
+               required>
+    </div>
+    <div class="row">
+        <div class="form-group text-center col-6">
+            <label for="date">Du</label>
+            <input type="date" class="form-control" id="date1" name="date1" required>
+        </div>
+        <div class="form-group text-center col-6">
+            <label for="date">au</label>
+            <input type="date" class="form-control" id="date2" name="date2" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label text-left">Disponibilté du formateur</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab1" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab1" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab1" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab1" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Structure du cours</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab2" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab2" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab2" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab2" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Pertinence des exercices</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab3" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab3" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab3" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab3" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Qualité des réponses apportés</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab4" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab4" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab4" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab4" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Compétences techniques</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab5" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab5" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab5" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab5" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Progression et rythme du stage</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab6" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab6" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab6" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab6" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Adéquation à vos attentes professionnelles</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab7" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab7" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab7" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab7" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Réponses à vos attentes personnelles</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab8" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab8" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab8" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab8" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Matériels pédagogiques - Salle</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab9" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab9" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab9" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab9" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Qualité de l'accueil</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab10" autocomplete="off" value="veryGood" required> Très Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab10" autocomplete="off" value="good" required> Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab10" autocomplete="off" value="prettyGood" required> Assez Bien
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="tab10" autocomplete="off" value="low" required> Faible
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="commentaires">Commentaires sur le stage</label>
+        <textarea class="form-control" id="commentaires" rows="3" name="comment"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label class="col-form-label">Les informations concernant l'organisation et le contenu de ce stage ont-elles été
+            suffisantes ?</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="q1" autocomplete="off" value="yes" required> Oui
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="q1" autocomplete="off" value="no" required> Non
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Estimez-vous nécessaire une formation appronfondie sur les thèmes abordés
+            ?</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="q2" autocomplete="off" value="yes" required> Oui
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="q2" autocomplete="off" value="no" required> Non
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Conseilleriez-vous ce stage à d'autres personnes ?</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="q3" autocomplete="off" value="yes" required> Oui
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="q3" autocomplete="off" value="no" required> Non
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-form-label">Envisagez-vous de nouvelles formations sur d'autres sujets ?</label>
+        <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
+            <label class="btn btn-secondary">
+                <input type="radio" name="q4" autocomplete="off" value="yes" required> Oui
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="q4" autocomplete="off" value="no" required> Non
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="new-forma">Si oui, lesquelles ?</label>
+        <textarea class="form-control" id="new-forma" rows="3" name="new-forma"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="avis">A votre avis, comment pourrait-on améliorer cette formation ?</label>
+        <textarea class="form-control" id="avis" rows="3" name="avis"></textarea>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="indice">Indice de satisfaction global : (1 = non satisfaisant - 5 =
+                très bien)</label>
+        </div>
+        <select class="custom-select" id="indice" name="indice">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <input type="hidden" name="prof" value="{{ .nameProf }}">
+    <input type="hidden" name="name" value="{{ .firstname }} {{ .lastname }}">
+    <h3 class="text-center">En validant, vous signez numériquement le pdf généré.</h3>
+    <button class="btn btn-primary col-12" type="submit">Valider</button>
+</form>
+{{/*</section>*/}}
+{{ end }}

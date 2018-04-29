@@ -4,10 +4,15 @@
 
 <head>
     <title>{{ .title }}</title>
-    <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
     <link rel="icon" type="image/png" href="/images/favicon.png" />
 
-    <script src="/js/jquery.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
+
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -16,7 +21,7 @@
     <div class="errors">{{ .errors }}</div>
     {{ end }}
 
-    <div class="container{{ .niveau }}" data-email="{{ .email }}">
+    <div class="container-fluid{{ .niveau }}" data-email="{{ .email }}">
 
         {{ if .active }} {{ if not .prof }}
         <div class="follow">
@@ -45,6 +50,12 @@
                 </li>
                 <li>
                     <a data-url="question&a" href="/question&a"><img src="/images/q&a.png" alt="Q&A"></a>
+                </li>
+                <li>
+                    <a data-url="stagiaire" href="/stagiaire"><img src="/images/question-sign.png" alt="github"></a>
+                </li>
+                <li>
+                    <a data-url="stagiaire" href="/pdf"><img src="/images/pdf-file.png" alt="github"></a>
                 </li>
                 {{ if .prof }}
                 <li>
@@ -79,15 +90,15 @@
             if (evtobj.ctrlKey && evtobj.altKey) {
                 if (evtobj.keyCode == 49 || evtobj.keyCode == 97) {
                     $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
-                        $('.container').removeClass().addClass("container done")
+                        $('.container-fluid').removeClass().addClass("container-fluid done")
                     })
                 } else if (evtobj.keyCode == 50 || evtobj.keyCode == 98) {
                     $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
-                        $('.container').removeClass().addClass("container in_progress")
+                        $('.container-fluid').removeClass().addClass("container-fluid in_progress")
                     })
                 } else if (evtobj.keyCode == 51 || evtobj.keyCode == 99) {
                     $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
-                        $('.container').removeClass().addClass("container help")
+                        $('.container-fluid').removeClass().addClass("container-fluid help")
                     })
 
                 }
@@ -99,15 +110,15 @@
         $('.follow_li').on('click', function() {
             if ($(this).attr('class') === "follow_li done") {
                 $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
-                    $('.container').removeClass().addClass("container done")
+                    $('.container-fluid').removeClass().addClass("container-fluid done")
                 })
             } else if ($(this).attr('class') === "follow_li in_progress") {
                 $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
-                    $('.container').removeClass().addClass("container in_progress")
+                    $('.container-fluid').removeClass().addClass("container-fluid in_progress")
                 })
             } else if ($(this).attr('class') === "follow_li help") {
                 $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
-                    $('.container').removeClass().addClass("container help")
+                    $('.container-fluid').removeClass().addClass("container-fluid help")
                 })
             }
         })
@@ -180,10 +191,10 @@
 
         let oldCheck;
         let resetCheckpointUser = setInterval(function() {
-            let user_email = $(".container").data("email")
+            let user_email = $(".container-fluid").data("email")
             $.post("/checkpoint/" + user_email, function(e) {
                 if (e == 0 && oldCheck > e) {
-                    $(".container").attr('class', 'container');
+                    $(".container-fluid").attr('class', 'container-fluid');
                     notifyCheckpoint("Checkpoint remis à zéro",
                         "Mets à jour le checkpoint STP :-P. Sinon ... :-D",
                         "/images/danger.png",

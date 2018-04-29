@@ -99,6 +99,10 @@ func main() {
 	router.HandleFunc("/q&anotif", lib.CheckNewQuestionAndAnswer)
 	router.HandleFunc("/q&alike/{postID}/{like}", controller.QAndALike)
 
+	router.HandleFunc("/stagiaire", controller.Stagiaire).Methods("GET")
+	router.HandleFunc("/stagiaire", controller.StagiairePost).Methods("POST")
+	router.HandleFunc("/pdf", controller.Pdf).Methods("GET")
+
 	config := new(model.Config)
 	router.PathPrefix("/files").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir(config.SendDirectory()))))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("static"))))

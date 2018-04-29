@@ -113,7 +113,7 @@ body {
     .errors+.container {
         animation: errorsContainerSlide 7s;
     }
-    .container {
+    .container-fluid {
         margin: 0;
         width: 100%; // min-height: 100vh;
         &.done>.follow ul .done {
