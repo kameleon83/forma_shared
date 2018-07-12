@@ -74,21 +74,23 @@ func ChangeLevelByEmail(w http.ResponseWriter, r *http.Request) {
 	u := model.User{}
 	u.Mail = vars["email"]
 	u.SearchUser()
-	u.Checkpoint = niveau
-	u.UpdateUser()
-	switch niveau {
-	case 0:
-		lib.SetSessionsValues(w, r, "niveau", "")
-	case 1:
-		lib.SetSessionsValues(w, r, "niveau", " done")
-	case 2:
-		lib.SetSessionsValues(w, r, "niveau", " in_progress")
-	case 3:
-		lib.SetSessionsValues(w, r, "niveau", " help")
-	case 666:
-		lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
-	case 999:
-		lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
+	if u.Mail != "" && u.Prof == false && u.Mail != "undefined" {
+		u.Checkpoint = niveau
+		u.UpdateUser()
+		switch niveau {
+		case 0:
+			lib.SetSessionsValues(w, r, "niveau", "")
+		case 1:
+			lib.SetSessionsValues(w, r, "niveau", " done")
+		case 2:
+			lib.SetSessionsValues(w, r, "niveau", " in_progress")
+		case 3:
+			lib.SetSessionsValues(w, r, "niveau", " help")
+		case 666:
+			lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
+		case 999:
+			lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
+		}
 	}
 }
 
@@ -99,21 +101,23 @@ func CheckpointChange(w http.ResponseWriter, r *http.Request, niveau int) {
 		u.Mail = lib.GetSessionsValues(w, r, "email").(string)
 	}
 	u.SearchUser()
-	u.Checkpoint = niveau
-	u.UpdateUser()
-	switch niveau {
-	case 0:
-		lib.SetSessionsValues(w, r, "niveau", "")
-	case 1:
-		lib.SetSessionsValues(w, r, "niveau", " done")
-	case 2:
-		lib.SetSessionsValues(w, r, "niveau", " in_progress")
-	case 3:
-		lib.SetSessionsValues(w, r, "niveau", " help")
-	case 666:
-		lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
-	case 999:
-		lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
+	if u.Mail != "" && u.Prof == false && u.Mail != "undefined"{
+		u.Checkpoint = niveau
+		u.UpdateUser()
+		switch niveau {
+		case 0:
+			lib.SetSessionsValues(w, r, "niveau", "")
+		case 1:
+			lib.SetSessionsValues(w, r, "niveau", " done")
+		case 2:
+			lib.SetSessionsValues(w, r, "niveau", " in_progress")
+		case 3:
+			lib.SetSessionsValues(w, r, "niveau", " help")
+		case 666:
+			lib.SetSessionsValues(w, r, "niveau", " Dommage tu as perdu")
+		case 999:
+			lib.SetSessionsValues(w, r, "niveau", " Tu es déjà passé ;-)")
+		}
 	}
 }
 

@@ -4,12 +4,12 @@
 
 <head>
     <title>{{ .title }}</title>
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/index.css" media="screen" title="no title">
 
-    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
@@ -17,244 +17,260 @@
 
 <body>
 
-    {{ if .errors }}
-    <div class="errors">{{ .errors }}</div>
-    {{ end }}
+{{ if .errors }}
+<div class="errors">{{ .errors }}</div>
+{{ end }}
 
-    <div class="container-fluid{{ .niveau }}" data-email="{{ .email }}">
+<div class="container-fluid{{ .niveau }}" data-email="{{ .email }}">
 
-        {{ if .active }} {{ if not .prof }}
-        <div class="follow">
-            <ul>
-                <li class="follow_li done"></li>
-                <li class="follow_li in_progress"></li>
-                <li class="follow_li help"></li>
-            </ul>
-        </div>
-        {{ end }} {{ end }}
-        <header>
-
-            <h3 data-name="{{ .firstname }}" data-email="{{ .email }}">{{ .firstname }}</h3>
-            {{ if .active }}
-            <audio src="/sound/Tornado_Siren_II.mp3" id="audioPlayer666" style="display:none;"></audio>
-            <audio src="/sound/Jab.mp3" id="audioPlayer0" style="display:none;"></audio>
-            <ul>
-                <li>
-                    <a data-url="" href="/"><img src="/images/home.png" alt="Home"></a>
-                </li>
-                <li>
-                    <a data-url="upload" href="/upload"><img src="/images/upload.png" alt="Upload"></a>
-                </li>
-                <li>
-                    <a data-url="annuaire" href="/annuaire/lastname/asc"><img src="/images/directory.png" alt="Annuaire"></a>
-                </li>
-                <li>
-                    <a data-url="question&a" href="/question&a"><img src="/images/q&a.png" alt="Q&A"></a>
-                </li>
-                <li>
-                    <a data-url="stagiaire" href="/stagiaire"><img src="/images/question-sign.png" alt="github"></a>
-                </li>
-                <li>
-                    <a data-url="stagiaire" href="/pdf"><img src="/images/pdf-file.png" alt="github"></a>
-                </li>
-                {{ if .prof }}
-                <li>
-                    <a data-url="checkpoint" href="/checkpoint"><img src="/images/traffic-light.png" alt="Checkpoint"></a>
-                </li>
-                <li>
-                    <a data-url="refresh-folder" href="/refresh"><img src="/images/refresh-button.png" alt="Refresh folders and files"></a>
-                </li>
-                {{ end }}
-                <li>
-                    <a data-url="github" href="https://github.com/kameleon83/forma_shared/issues"><img src="/images/github-logo.png" alt="github"></a>
-                </li>
-
-                {{ if .active }} {{ if .email}}
-                <li>
-                    <a data-url="logout" href="/logout"><img src="/images/logout.png" alt="Logout"></a>
-                </li>
-                {{ end }} {{ end }}
-            </ul>
-            {{ end }}
-        </header>
-        {{ template "content" . }}
+{{ if .active }} {{ if not .prof }}
+    <div class="follow">
+        <ul>
+            <li class="follow_li done"></li>
+            <li class="follow_li in_progress"></li>
+            <li class="follow_li help"></li>
+        </ul>
     </div>
-    {{ template "footer" . }}
-    <!-- <script src="/js/server.js" charset="utf-8"></script>
-    <script src="/js/service-worker.js" charset="utf-8"></script>
-    <script src="/js/test.js" charset="utf-8"></script> -->
+{{ end }} {{ end }}
+    <header>
+
+
     {{ if .active }}
-    <script>
-        function KeyPress(e) {
-            let evtobj = window.event ? event : e
-            if (evtobj.ctrlKey && evtobj.altKey) {
-                if (evtobj.keyCode == 49 || evtobj.keyCode == 97) {
-                    $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
-                        $('.container-fluid').removeClass().addClass("container-fluid done")
-                    })
-                } else if (evtobj.keyCode == 50 || evtobj.keyCode == 98) {
-                    $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
-                        $('.container-fluid').removeClass().addClass("container-fluid in_progress")
-                    })
-                } else if (evtobj.keyCode == 51 || evtobj.keyCode == 99) {
-                    $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
-                        $('.container-fluid').removeClass().addClass("container-fluid help")
-                    })
+        <audio src="/sound/Tornado_Siren_II.mp3" id="audioPlayer666" style="display:none;"></audio>
+        <audio src="/sound/Jab.mp3" id="audioPlayer0" style="display:none;"></audio>
+        <ul>
+            <li>
+                <a data-url="" href="/"><img src="/images/home.png" alt="Home"></a>
+            </li>
+            <li>
+                <a data-url="upload" href="/upload"><img src="/images/upload.png" alt="Upload"></a>
+            </li>
+            <li>
+                <a data-url="annuaire" href="/annuaire/lastname/asc"><img src="/images/directory.png"
+                                                                          alt="Annuaire"></a>
+            </li>
+            <li>
+                <a data-url="question&a" href="/question&a"><img src="/images/q&a.png" alt="Q&A"></a>
+            </li>
+            <li>
+                <a data-url="stagiaire" href="/stagiaire"><img src="/images/question-sign.png" alt="github"></a>
+            </li>
+            <li>
+                <a data-url="stagiaire" href="/pdf"><img src="/images/pdf-file.png" alt="github"></a>
+            </li>
+            <li>
+                <a id="open-chat"
+                   data-toggle="collapse" href="#collapse" aria-expanded="true" aria-controls="collapse">
+                    <img src="/images/chat.png" alt="Chat">
+                </a>
 
-                }
-            };
-        }
+            </li>
+        {{ if .prof }}
+            <li>
+                <a data-url="checkpoint" href="/checkpoint"><img src="/images/traffic-light.png" alt="Checkpoint"></a>
+            </li>
+            <li>
+                <a data-url="refresh-folder" href="/refresh"><img src="/images/refresh-button.png"
+                                                                  alt="Refresh folders and files"></a>
+            </li>
+        {{ end }}
+            <li>
+                <a data-url="github" href="https://github.com/kameleon83/forma_shared/issues"><img
+                        src="/images/github-logo.png" alt="github"></a>
+            </li>
 
-        document.onkeydown = KeyPress;
+        {{ if .active }} {{ if .email}}
+            <li>
+                <a data-url="logout" href="/logout"><img src="/images/logout.png" alt="Logout"></a>
+            </li>
+        {{ end }} {{ end }}
+        </ul>
+    {{ end }}
+    </header>
+    {{ if .active }}
+    <h3 class="text-right" data-name="{{ .firstname }}" data-email="{{ .email }}" id="firstname">
+        Bonjour {{ .firstname }}</h3>
+            {{ end }}
+{{ template "content" . }}
+</div>
+{{ template "footer" . }}
+<!-- <script src="/js/server.js" charset="utf-8"></script>
+<script src="/js/service-worker.js" charset="utf-8"></script>
+<script src="/js/test.js" charset="utf-8"></script> -->
+{{ if .active }}
 
-        $('.follow_li').on('click', function() {
-            if ($(this).attr('class') === "follow_li done") {
-                $.post('/follow/' + $('header > h3').data('email') + '/1', function(data) {
+<script>
+    function KeyPress(e) {
+        let evtobj = window.event ? event : e
+        if (evtobj.ctrlKey && evtobj.altKey) {
+            if (evtobj.keyCode == 49 || evtobj.keyCode == 97) {
+                $.post('/follow/' + $('#firstname').data('email') + '/1', function (data) {
                     $('.container-fluid').removeClass().addClass("container-fluid done")
                 })
-            } else if ($(this).attr('class') === "follow_li in_progress") {
-                $.post('/follow/' + $('header > h3').data('email') + '/2', function(data) {
+            } else if (evtobj.keyCode == 50 || evtobj.keyCode == 98) {
+                $.post('/follow/' + $('#firstname').data('email') + '/2', function (data) {
                     $('.container-fluid').removeClass().addClass("container-fluid in_progress")
                 })
-            } else if ($(this).attr('class') === "follow_li help") {
-                $.post('/follow/' + $('header > h3').data('email') + '/3', function(data) {
+            } else if (evtobj.keyCode == 51 || evtobj.keyCode == 99) {
+                $.post('/follow/' + $('#firstname').data('email') + '/3', function (data) {
                     $('.container-fluid').removeClass().addClass("container-fluid help")
                 })
-            }
-        })
 
-        let oldCountFiles = 0;
-        let newCountFiles = 0;
-
-        $.ajax({
-            url: "/",
-            context: document.body
-        }).done(function(data) {
-            oldCountFiles = parseInt($(data).find(".count").last().val()) + 1
-        });
-
-
-        var checkNewFile = setInterval(function() {
-            $.ajax({
-                url: "/countfiles",
-                context: document.body
-            }).done(function(data) {
-                newCountFiles = $(data).find(".countfiles").text()
-                if (newCountFiles > oldCountFiles) {
-                    notify("Nouveau Fichier :-)")
-                }
-            })
-        }, 5000)
-
-        checkNewFile
-
-        function notify(name) {
-
-            clearInterval(checkNewFile)
-
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                var options = {
-                    body: "Un nouveau fichier est arrivé :-P",
-                    icon: "/images/new_file.png",
-                    dir: "ltr",
-                    requireInteraction: true
-                };
-                var notification = new Notification(name, options);
-                notification.onclick = function() {
-                    notification.close();
-                    location.href = "/";
-                };
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function(permission) {
-                    if (!('permission' in Notification)) {
-                        Notification.permission = permission;
-                    }
-
-                    if (permission === "granted") {
-                        var options = {
-                            body: "Un nouveau fichier est arrivé :-P",
-                            icon: "/images/new_file.png",
-                            dir: "ltr",
-                            requireInteraction: true
-                        };
-                        var notification = new Notification(name, options);
-                        notification.onclick = function() {
-                            notification.close();
-                            location.href = "/";
-                        };
-                    }
-                });
             }
         }
+        ;
+    }
 
-        let oldCheck;
-        let resetCheckpointUser = setInterval(function() {
-            let user_email = $(".container-fluid").data("email")
-            $.post("/checkpoint/" + user_email, function(e) {
-                if (e == 0 && oldCheck > e) {
-                    $(".container-fluid").attr('class', 'container-fluid');
-                    notifyCheckpoint("Checkpoint remis à zéro",
+    document.onkeydown = KeyPress;
+
+    $('.follow_li').on('click', function () {
+        if ($(this).attr('class') === "follow_li done") {
+            $.post('/follow/' + $('#firstname').data('email') + '/1', function (data) {
+                $('.container-fluid').removeClass().addClass("container-fluid done")
+            })
+        } else if ($(this).attr('class') === "follow_li in_progress") {
+            $.post('/follow/' + $('#firstname').data('email') + '/2', function (data) {
+                $('.container-fluid').removeClass().addClass("container-fluid in_progress")
+            })
+        } else if ($(this).attr('class') === "follow_li help") {
+            $.post('/follow/' + $('#firstname').data('email') + '/3', function (data) {
+                $('.container-fluid').removeClass().addClass("container-fluid help")
+            })
+        }
+    })
+
+    let oldCountFiles = 0;
+    let newCountFiles = 0;
+
+    $.ajax({
+        url: "/",
+        context: document.body
+    }).done(function (data) {
+        oldCountFiles = parseInt($(data).find(".count").last().val()) + 1
+    });
+
+
+    var checkNewFile = setInterval(function () {
+        $.ajax({
+            url: "/countfiles",
+            context: document.body
+        }).done(function (data) {
+            newCountFiles = $(data).find(".countfiles").text()
+            if (newCountFiles > oldCountFiles) {
+                notify("Nouveau Fichier :-)")
+            }
+        })
+    }, 5000)
+
+    checkNewFile
+
+    function notify(name) {
+
+        clearInterval(checkNewFile)
+
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            var options = {
+                body: "Un nouveau fichier est arrivé :-P",
+                icon: "/images/new_file.png",
+                dir: "ltr",
+                requireInteraction: true
+            };
+            var notification = new Notification(name, options);
+            notification.onclick = function () {
+                notification.close();
+                location.href = "/";
+            };
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (!('permission' in Notification)) {
+                    Notification.permission = permission;
+                }
+
+                if (permission === "granted") {
+                    var options = {
+                        body: "Un nouveau fichier est arrivé :-P",
+                        icon: "/images/new_file.png",
+                        dir: "ltr",
+                        requireInteraction: true
+                    };
+                    var notification = new Notification(name, options);
+                    notification.onclick = function () {
+                        notification.close();
+                        location.href = "/";
+                    };
+                }
+            });
+        }
+    }
+
+    let oldCheck;
+    let resetCheckpointUser = setInterval(function () {
+        let user_email = $(".container-fluid").data("email")
+        $.post("/checkpoint/" + user_email, function (e) {
+            if (e == 0 && oldCheck > e) {
+                $(".container-fluid").attr('class', 'container-fluid');
+                notifyCheckpoint("Checkpoint remis à zéro",
                         "Mets à jour le checkpoint STP :-P. Sinon ... :-D",
                         "/images/danger.png",
-                    );
+                );
 
-                } else if (e == 666 && oldCheck != e) {
-                    let player = document.querySelector('#audioPlayer666');
-                    player.play()
-                    notifyCheckpoint("Perdu !! Hihihi",
+            } else if (e == 666 && oldCheck != e) {
+                let player = document.querySelector('#audioPlayer666');
+                player.play()
+                notifyCheckpoint("Perdu !! Hihihi",
                         "Dommage tu as perdu!! As toi de répondre ou faire l'exercice ;-)",
                         "/images/loser.png",
                         player
-                    );
-                }
-                oldCheck = e;
-            })
-
-        }, 5000)
-
-        resetCheckpointUser
-
-
-        function notifyCheckpoint(name, body, img, audioPlayer) {
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                var options = {
-                    body: body,
-                    icon: img,
-                    dir: "ltr",
-                    requireInteraction: true
-                };
-                var notification = new Notification(name, options);
-                notification.onclick = function() {
-                    notification.close();
-                    audioPlayer.pause();
-                    audioPlayer.currentTime = 0;
-                };
-            } else if (Notification.permission !== 'denied') {
-                Notification.requestPermission(function(permission) {
-                    if (!('permission' in Notification)) {
-                        Notification.permission = permission;
-                    }
-
-                    if (permission === "granted") {
-                        var options = {
-                            body: body,
-                            icon: img,
-                            dir: "ltr",
-                            requireInteraction: true
-                        };
-                        var notification = new Notification(name, options);
-                        notification.onclick = function() {
-                            notification.close();
-                            audioPlayer.pause();
-                            audioPlayer.currentTime = 0;
-                        };
-                    }
-                });
+                );
             }
+            oldCheck = e;
+        })
+
+    }, 5000)
+
+    resetCheckpointUser
+
+
+    function notifyCheckpoint(name, body, img, audioPlayer) {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            var options = {
+                body: body,
+                icon: img,
+                dir: "ltr",
+                requireInteraction: true
+            };
+            var notification = new Notification(name, options);
+            notification.onclick = function () {
+                notification.close();
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            };
+        } else if (Notification.permission !== 'denied') {
+            Notification.requestPermission(function (permission) {
+                if (!('permission' in Notification)) {
+                    Notification.permission = permission;
+                }
+
+                if (permission === "granted") {
+                    var options = {
+                        body: body,
+                        icon: img,
+                        dir: "ltr",
+                        requireInteraction: true
+                    };
+                    var notification = new Notification(name, options);
+                    notification.onclick = function () {
+                        notification.close();
+                        audioPlayer.pause();
+                        audioPlayer.currentTime = 0;
+                    };
+                }
+            });
         }
-    </script>
-    {{ end }} {{ end }}
+    }
+</script>
+{{ end }} {{ end }}

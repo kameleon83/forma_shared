@@ -27,9 +27,22 @@ func Annuaire(w http.ResponseWriter, r *http.Request) {
 	nameCol := vars["nameCol"]
 
 	u := &model.User{}
+	allEmail := u.SearchAllUsers(nameCol, sort)
+
+	var mailto string
+	var count int
+	for _, user := range *allEmail {
+		count += 1
+		mailto += user.Mail
+		if len(*allEmail) >= count {
+			mailto += ","
+		}
+	}
+
 	m := make(map[string]interface{})
 	m["title"] = "Annuaire"
-	m["users"] = u.SearchAllUsers(nameCol, sort)
+	m["users"] = allEmail
+	m["mailto"] = mailto
 	m["email"] = lib.GetSessionsValues(w, r, "email")
 	m["active"] = lib.GetSessionsValues(w, r, "active")
 	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")

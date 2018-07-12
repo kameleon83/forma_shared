@@ -5,6 +5,7 @@ import (
 	"forma_shared/model"
 	"html/template"
 	"net/http"
+	"strings"
 )
 
 // Login controller view inde.gohtml
@@ -33,8 +34,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		if u.Mail != "" {
 			if u.Password == password {
 				lib.SetSessionsValues(w, r, "email", u.Mail)
-				lib.SetSessionsValues(w, r, "firstname", u.Firstname)
-				lib.SetSessionsValues(w, r, "lastname", u.Lastname)
+				lib.SetSessionsValues(w, r, "firstname", strings.Title(strings.ToLower(u.Firstname)))
+				lib.SetSessionsValues(w, r, "lastname", strings.Title(strings.ToLower(u.Lastname)))
 				lib.SetSessionsValues(w, r, "ip", u.IP)
 				lib.SetSessionsValues(w, r, "admin", u.Admin)
 				lib.SetSessionsValues(w, r, "id", u.ID)

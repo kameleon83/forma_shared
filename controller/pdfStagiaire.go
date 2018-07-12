@@ -17,7 +17,15 @@ func Pdf(w http.ResponseWriter, r *http.Request) {
 
 	//config := new(model.Config)
 	pwd, _ := os.Getwd()
-	file :=  pwd + string(os.PathSeparator)+ "pdf" + string(os.PathSeparator) + strings.ToLower(lib.GetSessionsValues(w, r, "firstname").(string))+"_"+strings.ToLower(lib.GetSessionsValues(w, r, "lastname").(string))+".pdf"
+	file := pwd + string(os.PathSeparator) +
+		"pdf" +
+		string(os.PathSeparator) +
+		strings.ToLower(lib.GetSessionsValues(w, r, "firstname").(string)) +
+		"_" +
+		strings.ToLower(lib.GetSessionsValues(w, r, "lastname").(string)) +
+		"_" +
+		time.Now().Format("02-01-2006") +
+		".pdf"
 
 	Openfile, err := os.Open(file)
 	defer Openfile.Close() //Close after function return
@@ -42,7 +50,13 @@ func Pdf(w http.ResponseWriter, r *http.Request) {
 	FileSize := strconv.FormatInt(FileStat.Size(), 10) //Get file size as a string
 
 	//Send the headers
-	w.Header().Set("Content-Disposition", "attachment; filename="+lib.GetSessionsValues(w, r, "firstname").(string)+"_"+lib.GetSessionsValues(w, r, "lastname").(string)+".pdf")
+	w.Header().Set("Content-Disposition", "attachment; filename="+
+		lib.GetSessionsValues(w, r, "firstname").(string)+
+		"_"+
+		lib.GetSessionsValues(w, r, "lastname").(string)+
+		"_" +
+		time.Now().Format("02-01-2006") +
+		".pdf")
 	w.Header().Set("Content-Type", FileContentType)
 	w.Header().Set("Content-Length", FileSize)
 
@@ -62,8 +76,8 @@ func Stagiaire(w http.ResponseWriter, r *http.Request) {
 	m["title"] = "Annuaire"
 	m["email"] = lib.GetSessionsValues(w, r, "email")
 	m["active"] = lib.GetSessionsValues(w, r, "active")
-	m["firstname"] = lib.GetSessionsValues(w, r, "firstname")
-	m["lastname"] = lib.GetSessionsValues(w, r, "lastname")
+	m["firstname"] = strings.Title(strings.ToLower(lib.GetSessionsValues(w, r, "firstname").(string)))
+	m["lastname"] = strings.Title(strings.ToLower(lib.GetSessionsValues(w, r, "lastname").(string)))
 	m["prof"] = lib.GetSessionsValues(w, r, "prof")
 	m["niveau"] = lib.GetSessionsValues(w, r, "niveau")
 	user := &model.User{}
@@ -77,18 +91,18 @@ func StagiairePost(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	lib.GetSessionLogin(w, r)
 
-	sta := &lib.StagiairePdf{}
+	sta := new(lib.StagiairePdf)
 
-	header := lib.HeaderStruct{}
+	header := new(lib.HeaderStruct)
 	header.Stage = r.FormValue("stage")
 	header.Module = r.FormValue("module")
 	header.Date = datesToString(r.FormValue("date1"), r.FormValue("date2"))
 	header.Formateur = r.FormValue("prof")
 	header.Participant = strings.Title(r.FormValue("name"))
 
-	sta.HeaderStruct = header
+	sta.HeaderStruct = *header
 
-	tab := lib.StagiairePdf{}.ColTable
+	tab := new(lib.StagiairePdf).ColTable
 	tab = append(tab,
 		lib.FirstRow,
 		tabResponse("Disponibilité du formateur", r.FormValue("tab1")),
@@ -117,9 +131,10 @@ func StagiairePost(w http.ResponseWriter, r *http.Request) {
 	sta.NewForma = lib.NewForma{NewForma: r.FormValue("new-forma")}
 	sta.Avis = lib.Avis{Avis: r.FormValue("avis")}
 	sta.Indice = lib.Indice{Indice: r.FormValue("indice")}
+	sta.Password = r.FormValue("password")
 
 	sta.GeneratePdf()
-	http.Redirect(w, r, "/",  http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func dateFormat(date string) (time.Time, error) {

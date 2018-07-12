@@ -8,9 +8,9 @@
 
         <div class="div_checkpoint">
             <ul class="checkpoint_user">
-                {{ range $k, $v := .user }} {{ if not $v.Prof }}
+                {{ range $k, $v := .user }} {{ if not $v.Prof }} {{ if ne $v.Mail ""}}
                 <li data-level="{{ $v.Checkpoint }}" class="level{{ $v.Checkpoint }} user" onclick="window.open('http://{{ $v.IP }}:7070', '_blank')" data-email="{{ $v.Mail }}">{{ $v.Firstname | title }}</li>
-                {{ end }} {{ end }}
+                {{ end }} {{ end }} {{ end }}
             </ul>
         </div>
     </div>
@@ -27,7 +27,7 @@
         function readListNameAndLevel() {
             $(".checkpoint_user li").each(function() {
                 let level = $(this).data("level");
-                let name = $(this).text()
+                let name = $(this).text();
                 oldListUserAndLevel.set(name, level)
             })
         }
@@ -36,12 +36,12 @@
         function readHtmlChange() {
             $(".checkpoint_user li").each(function() {
                 let level = $(this).data("level");
-                let name = $(this).text()
-                if (level == 3 && oldListUserAndLevel.get(name) != level) {
-                    oldListUserAndLevel.set(name, level)
+                let name = $(this).text();
+                if (level === 3 && oldListUserAndLevel.get(name) !== level) {
+                    oldListUserAndLevel.set(name, level);
                     notifyMe(name, level);
                 }
-                if (oldListUserAndLevel.get(name) != level) {
+                if (oldListUserAndLevel.get(name) !== level) {
                     oldListUserAndLevel.set(name, level)
                 }
             })
@@ -50,14 +50,14 @@
         let one = setInterval(function() {
             $.post('/checkpoint', function(data) {
                 let newdata = $(data).find(".checkpoint_user").html();
-                if (old != newdata) {
+                if (old !== newdata) {
                     // console.log(newdata);
-                    $('.checkpoint_user').html(newdata)
+                    $('.checkpoint_user').html(newdata);
                     readHtmlChange();
                     old = newdata
                 }
             })
-        }, 4000)
+        }, 4000);
 
         one;
 
@@ -71,25 +71,25 @@
             e.preventDefault();
             let url = $(this).data("url")
             $(".checkpoint_user li").each(function() {
-                if ($(this).data("level") == 666) {
+                if ($(this).data("level") === 666) {
                     $.post('/follow/' + $(this).data("email") + '/999')
                 }
             })
             $.post(url)
-        })
+        });
 
 
         function notifyMe(name, level) {
             if (!("Notification" in window)) {
                 alert("This browser does not support desktop notification");
             } else if (Notification.permission === "granted") {
-                var options = {
+                let options = {
                     body: "Help Me, Please!!!! :-(",
                     icon: "/images/smiley_help.png",
                     dir: "ltr",
                     requireInteraction: true
                 };
-                if (level == 3) {
+                if (level === 3) {
                     var notification = new Notification(name, options);
                     notification.onclick = function() {
                         notification.close();
@@ -104,14 +104,14 @@
                     }
 
                     if (permission === "granted") {
-                        var options = {
+                        let options = {
                             body: "Help Me, Please!!!! :-(",
                             icon: "/images/smiley_help.png",
                             dir: "ltr",
                             requireInteraction: true
                         };
-                        if (level == 3) {
-                            var notification = new Notification(name, options);
+                        if (level === 3) {
+                            let notification = new Notification(name, options);
                             notification.onclick = function() {
                                 notification.close();
                                 window.open().close();

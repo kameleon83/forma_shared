@@ -1,6 +1,25 @@
 {{ define "footer" }}
-
 <!-- <footer><a href="https://github.com/kameleon83/forma_shared/issues" target="_blank">Github Issues</a></footer> -->
+{{ if ne .firstname "" }}
+<script src="/js/webchat.js"></script>
+{{ if .active }} {{ if .email}}
+<div class="webchat collapse" id="collapse">
+    <div class="card" style="width: 100%; height: 92%;">
+        <div class="card-body" id="webchat-log"></div>
+    </div>
+    <form id="webchat">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button type="submit" class="btn btn-primary" id="send" value="Send">Send</button>
+            </div>
+            <input type="text" class="form-control" aria-label="" aria-describedby="basic-addon1" id="webchat-msg"
+                   placeholder="text">
+        </div>
+
+    </form>
+</div>
+{{ end }}
+{{ end }} {{ end }}
 </body>
 </html>
 {{ end }}

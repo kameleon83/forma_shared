@@ -5,6 +5,7 @@ import (
 	"forma_shared/model"
 	"math/rand"
 	"net/http"
+	"time"
 )
 
 type users struct {
@@ -16,9 +17,11 @@ var usersIsChecked *users
 func RandomUser(w http.ResponseWriter, r *http.Request) {
 
 	formatUser := searchUsers()
-	rand := rand.Intn(len(formatUser.user))
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
+	random := r1.Intn(len(formatUser.user))
 
-	randUser := formatUser.user[rand]
+	randUser := formatUser.user[random]
 	randUser.Checkpoint = 666
 	randUser.UpdateUser()
 

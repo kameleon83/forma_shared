@@ -1,6 +1,6 @@
 {{ define "content" }}
 {{/*<section >*/}}
-<form action="/stagiaire" method="post" class="col align-self-center" style="padding-left: 50px;padding-bottom: 100px;">
+<form action="/stagiaire" method="post" class="col align-self-center form-striped" style="padding-left: 50px;padding-bottom: 100px;">
     <h1 class="col-12">Evaluation de {{ .nameProf }}</h1>
     <br>
     <div class="form-group text-center">
@@ -10,11 +10,15 @@
     <div class="form-group text-center">
         <label for="module">Module</label>
         <input type="text" class="form-control" id="module" name="module" placeholder="Spring - JEE - HTML - CSS ...."
-               required>
+               >
     </div>
     <div class="row">
         <div class="form-group text-center col-6">
-            <label for="date">Du</label>
+            <label for="date">Du</label>7777
+
+
+
+
             <input type="date" class="form-control" id="date1" name="date1" required>
         </div>
         <div class="form-group text-center col-6">
@@ -22,7 +26,7 @@
             <input type="date" class="form-control" id="date2" name="date2" required>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label text-left">Disponibilté du formateur</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -39,7 +43,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Structure du cours</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -56,7 +60,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Pertinence des exercices</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -73,7 +77,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Qualité des réponses apportés</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -90,7 +94,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Compétences techniques</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -107,7 +111,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Progression et rythme du stage</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -124,7 +128,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Adéquation à vos attentes professionnelles</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -141,7 +145,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Réponses à vos attentes personnelles</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -158,7 +162,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Matériels pédagogiques - Salle</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -175,7 +179,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Qualité de l'accueil</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -194,10 +198,10 @@
     </div>
     <div class="form-group">
         <label for="commentaires">Commentaires sur le stage</label>
-        <textarea class="form-control" id="commentaires" rows="3" name="comment"></textarea>
+        <textarea class="form-control" id="commentaires" rows="3" name="comment" maxlength="200"></textarea>
     </div>
 
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Les informations concernant l'organisation et le contenu de ce stage ont-elles été
             suffisantes ?</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
@@ -209,7 +213,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Estimez-vous nécessaire une formation appronfondie sur les thèmes abordés
             ?</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
@@ -221,7 +225,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Conseilleriez-vous ce stage à d'autres personnes ?</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -232,7 +236,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group striped">
         <label class="col-form-label">Envisagez-vous de nouvelles formations sur d'autres sujets ?</label>
         <div class="btn-group btn-group-toggle float-sm-right" data-toggle="buttons">
             <label class="btn btn-secondary">
@@ -246,11 +250,11 @@
 
     <div class="form-group">
         <label for="new-forma">Si oui, lesquelles ?</label>
-        <textarea class="form-control" id="new-forma" rows="3" name="new-forma"></textarea>
+        <textarea class="form-control" id="new-forma" rows="3" name="new-forma" maxlength="200"></textarea>
     </div>
     <div class="form-group">
         <label for="avis">A votre avis, comment pourrait-on améliorer cette formation ?</label>
-        <textarea class="form-control" id="avis" rows="3" name="avis"></textarea>
+        <textarea class="form-control" id="avis" rows="3" name="avis" maxlength="200"></textarea>
     </div>
 
     <div class="input-group mb-3">
@@ -261,10 +265,15 @@
         <select class="custom-select" id="indice" name="indice">
             <option value="1">1</option>
             <option value="2">2</option>
-            <option value="3">3</option>
+            <option value="3" selected>3</option>
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+    </div>
+    <div class="form-group text-center">
+        <label for="paswword">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe de sécurité"
+               required>
     </div>
     <input type="hidden" name="prof" value="{{ .nameProf }}">
     <input type="hidden" name="name" value="{{ .firstname }} {{ .lastname }}">

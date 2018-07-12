@@ -36,11 +36,7 @@
         <br>
         <div>
         {{ if .prof}}
-           {{ range $k, $v := .users }} 
-                {{ if (and ($v.Active) (not $v.Admin)) }}
-                   {{ $v.Mail }},
-                {{ end }} 
-            {{ end }}
+            <a href="mailto:{{ .mailto }}?body=Your message within Main Body">Email de tous les utilisateurs</a>
         {{ end }}
         </div>
     </div>

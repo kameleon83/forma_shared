@@ -14,7 +14,11 @@ import (
 	"forma_shared/controller"
 	"forma_shared/lib"
 	"forma_shared/model"
+	"net"
+	"forma_shared/webchat"
 )
+
+var addr = flag.String("addr", ":9001", "http service address")
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
@@ -55,13 +59,23 @@ func main() {
 
 	model.ConnDB()
 
-	// addrs, err := net.InterfaceAddrs()
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// for i, addr := range addrs {
-	// 	fmt.Printf("%d %v\n", i, addr)
-	// }
+	// WebChat start
+
+	go func() {
+		flag.Parse()
+		hub := webchat.NewHub()
+		go hub.Run()
+		http.HandleFunc("/", serveHome)
+		http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+			webchat.ServeWs(hub, w, r)
+		})
+		err = http.ListenAndServe(*addr, nil)
+		if err != nil {
+			log.Fatal("ListenAndServe: ", err)
+		}
+	}()
+
+	// End WebChat
 
 	http.Get("/refresh")
 
@@ -116,13 +130,62 @@ func main() {
 	// 	go lib.AutoStartBrowser("http://localhost" + port + "/config")
 	// }
 
-	// go http.ListenAndServeTLS(":9001", "cert.pem", "key.pem", router)
+	http.ListenAndServe(":9000", router)
 	// http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
-	http.ListenAndServe(port, router)
+
+	//SSL
+	//go http.ListenAndServe(port, http.HandlerFunc(redirect))
+	//http.ListenAndServeTLS(":9443", "server.crt", "server.key", router)
 
 }
 
-func redirectToHttps(w http.ResponseWriter, r *http.Request) {
-	// Redirect the incoming HTTP request. Note that "127.0.0.1:8081" will only work if you are accessing the server from your local machine.
-	http.Redirect(w, r, "http://localhost:9001"+r.RequestURI, http.StatusMovedPermanently)
+//func redirectToHttps(w http.ResponseWriter, r *http.Request) {
+//	// Redirect the incoming HTTP request. Note that "127.0.0.1:8081" will only work if you are accessing the server from your local machine.
+//	http.Redirect(w, r, "http://localhost:9001"+r.RequestURI, http.StatusMovedPermanently)
+//}
+
+func serveHome(w http.ResponseWriter, r *http.Request) {
+	lib.GetSessionLogin(w, r)
+	//tpl := template.Must(template.New("Webchat").ParseFiles("view/webchat.html"))
+	log.Println(r.URL)
+	log.Println(CheckIP(w, r))
+	if r.URL.Path != "/" {
+		http.Error(w, "Not found", http.StatusNotFound)
+		return
+	}
+	if r.Method != "GET" {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+	http.ServeFile(w, r, "view/layout/footer.gohtml")
+	//tpl.ExecuteTemplate(w, "layout", nil)
+}
+
+func CheckIP(w http.ResponseWriter, r *http.Request) string {
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	return ip
+}
+
+func index(w http.ResponseWriter, req *http.Request) {
+	// all calls to unknown url paths should return 404
+	if req.URL.Path != "/" {
+		log.Printf("404: %s", req.URL.String())
+		http.NotFound(w, req)
+		return
+	}
+	http.ServeFile(w, req, "index.html")
+}
+
+func redirect(w http.ResponseWriter, req *http.Request) {
+	// remove/add not default ports from req.Host
+	host, _, _ := net.SplitHostPort(req.Host)
+	target := "https://" + host + ":9443" + req.URL.Path
+
+	if len(req.URL.RawQuery) > 0 {
+		target += "?" + req.URL.RawQuery
+	}
+	log.Printf("redirect to: %s", target)
+	http.Redirect(w, req, target,
+		// see @andreiavrammsd comment: often 307 > 301
+		http.StatusTemporaryRedirect)
 }
